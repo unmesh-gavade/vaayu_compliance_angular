@@ -10,7 +10,7 @@ export class DriverDocumentComponent implements OnInit {
   valueOfButton = "Edit";
   isEditModeOn = false;
   isDropup = true;
-  imageURL="../assets/img/Doc.jpg";
+  imageURL="./assets/img/Doc.jpg";
   editDriverDocumentForm: FormGroup;
   submitted = false;
   constructor(private formBuilder: FormBuilder) { }
