@@ -1,1 +1,166 @@
-<p>driver-document works!</p>
+<div class="container">
+  <div class="card-group">
+    <div class="card">
+      <form [formGroup]="editDriverDocumentForm" (ngSubmit)="onSubmit()">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-5">
+              3 OF 3 INFORMATION
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">
+              <button type="button" class="btn btn-outline-info" (change)="!isEditModeOn"
+                (click)="onEdit()">{{valueOfButton}}</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+              <button type="submit" class="btn btn-primary" *ngIf="isEditModeOn">Save</button>
+              <a routerLink="/driver-business" class="btn btn-primary" *ngIf="!isEditModeOn">Back</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <div class="alert alert-secondary" role="alert">
+              DOCUMENT VERIFICATION
+            </div>
+          </h5>
+          <div class="form-group row">
+            <label for="lblPoliceVerification" class="col-sm-5 col-form-label">Police Verification</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtPoliceVerification" id="txtPoliceVerification" placeholder="Police Verification" [attr.disabled]="isEditModeOn ? null : '' " />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblPoliceVerificationValidity" class="col-sm-5 col-form-label">Police Verification
+              Validity</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtPoliceVerificationValidity" id="txtPoliceVerificationValidity" placeholder="Police Verification Validity" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblDateOfPoliceVeri" class="col-sm-5 col-form-label">Date Of Police Verification</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtDateOfPoliceVeri" id="txtDateOfPoliceVeri" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblCriminalOffense" class="col-sm-5 col-form-label">Criminal Offense</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtCriminalOffense" id="txtCriminalOffense" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblBGCDate" class="col-sm-5 col-form-label">BGC Date</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtBGCDate" id="txtBGCDate" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblBGCAgency" class="col-sm-5 col-form-label">BGC Agency</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtBGCAgency" id="txtBGCAgency" placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblMedicalCertifiedDate" class="col-sm-5 col-form-label">Medical Certified Date</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtMedicalCertifiedDate" id="txtMedicalCertifiedDate" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' ">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblSexualHarr" class="col-sm-5 col-form-label">Sexual Harrassment Policy*</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="txtSexualHarr" id="txtSexualHarr" placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.txtSexualHarr.errors">
+                <div *ngIf="f.txtSexualHarr.errors.required">Licence Number is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-5">
+            <span> PREVIEW DOCUMENT</span>
+          </div>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-3">
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                    (click)="ShowImage('../assets/img/Doc.jpg')">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                    (click)="ShowImage('../assets/img/3.jpg')">2</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                    (click)="ShowImage('../assets/img/TestDoc.jpg')">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <img src="{{imageURL}}" width="500" height="400" alt="...">
+      </div>
+      <div class="card-footer">
+        <form>
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="lblDocumentName" class="sr-only">Driving Licence</label>
+              <input type="text" readonly class="form-control-plaintext" id="txtDocumentName" value="DRIVING LINCENCE">
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">
+              <button type="button" class="btn btn-outline-danger">REJECT</button>
+            </div>
+            <div class="col-sm-2"></div>
+            <div clss="col-sm-1">
+              <button type="submit" class="btn btn-success mb-2">APPROVE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="txtRejectedDoc"
+        placeholder="Sexual Harrassment Policy, Police Verication">
+    </div>
+    <div class="col-sm-3">
+      <div class="btn-group" dropdown [dropup]="isDropup">
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+          aria-controls="dropdown-basic">
+          Select Rejection Reason <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Blur Document</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Wrong Documnet</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Incorrect Data</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Separated link</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <a href="javascript:void(0)" class="btn btn-primary">SUBMIT</a>
+    </div>
+  </div>
+</div>

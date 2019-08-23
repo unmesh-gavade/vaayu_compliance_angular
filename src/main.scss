@@ -1,0 +1,6 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+.card-body {
+    display:block;
+    max-height:500px;
+    overflow-y:auto;
+  }

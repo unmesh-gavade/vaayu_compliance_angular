@@ -1,13 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { AppRoutingModule } from './app-routing.module';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { DriverBusinessComponent } from './views/driver-business/driver-business.component';
 import { DriverPersonalComponent } from './views/driver-personal/driver-personal.component';
 import { DriverDocumentComponent } from './views/driver-document/driver-document.component';
-import { VehicleBusinessComponent } from './views/vehicle-business/vehicle-business.component';
+import { VehiclePersonalComponent } from './views/vehicle-personal/vehicle-personal.component';
 import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-document.component';
 
 @NgModule({
@@ -17,12 +21,14 @@ import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-docum
     DriverBusinessComponent,
     DriverPersonalComponent,
     DriverDocumentComponent,
-    VehicleBusinessComponent,
+    VehiclePersonalComponent,
     VehicleDocumentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    FormsModule,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

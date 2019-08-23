@@ -1,1 +1,172 @@
-<p>vehicle-document works!</p>
+<div class="container">
+    <div class="card-group">
+      <div class="card">
+          <form [formGroup]="editVehicleDocumentForm" (ngSubmit)="onSubmit()">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-5">
+                  2 OF 2 INFORMATION
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                  <button type="button" class="btn btn-outline-info" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary" *ngIf="isEditModeOn">Save</button>
+                  <a routerLink="/vehicle-personal" class="btn btn-primary" *ngIf="!isEditModeOn">Back</a>
+                </div>
+              </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <div class="alert alert-secondary" role="alert">
+              DOCUMENT VERIFICATION
+            </div>
+          </h5>
+          
+            <div class="form-group row">
+              <label for="lblOwnership" class="col-sm-5 col-form-label">Ownership</label>
+              <div class="col-sm-6">
+                  <fieldset>
+                      <div class="switch-toggle switch-candy">
+                        <input id="week" name="view" type="radio" checked>
+                        <label for="week" onclick="">BA</label>
+                        <input id="month" name="view" type="radio">
+                        <label for="month" onclick="">DRIVER</label>
+                        <a></a>
+                      </div>
+                    </fieldset>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblBusinessAssociateName" class="col-sm-5 col-form-label">Business Associate Name</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtBusinessAssociateName" id="txtBusinessAssociateName"  placeholder="Business Associate Name" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblBusinessArea" class="col-sm-5 col-form-label">Business Area *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtBusinessArea" id="txtBusinessArea" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.txtBusinessArea.errors">
+                    <div *ngIf="f.txtBusinessArea.errors.required">Business Area is required</div>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblDriverNameDetail1" class="col-sm-5 col-form-label">Driver Name Detail 1</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtDriverNameDetail1" id="txtDriverNameDetail1" placeholder="Driver Name Detail 1" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblMobileDeviceNumber" class="col-sm-5 col-form-label">Mobile Device Number</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtMobileDeviceNumber" id="txtMobileDeviceNumber" placeholder="Mobile Device Number" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblMobileIMEI" class="col-sm-5 col-form-label">Mobile IMEI Number</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtMobileIMEI" id="txtMobileIMEI" placeholder="Mobile IMEI Number" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblMobileModelVersion" class="col-sm-5 col-form-label">Mobile Model & Version *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtMobileModelVersion" id="txtMobileModelVersion" placeholder="Mobile Model & Version *" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblLastServiceDate" class="col-sm-5 col-form-label">Last Service Date</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="txtLastServiceDate" id="txtLastServiceDate" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' ">
+              </div>
+            </div>
+          
+        </div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-5">
+              <span> PREVIEW DOCUMENT</span>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('../assets/img/Doc.jpg')">1</a></li>
+                      <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('../assets/img/3.jpg')">2</a></li>
+                      <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('../assets/img/TestDoc.jpg')">3</a></li>
+                   <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+  
+        </div>
+        <div class="card-body">
+            <img src="{{imageURL}}" width="500" height="400" alt="...">
+        </div>
+        <div class="card-footer">
+          <form>
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="lblDocumentName" class="sr-only">REGISTRATION CERTIFICATE</label>
+                <input type="text" readonly class="form-control-plaintext" id="txtDocumentName" value="REGIST CERTIFICATE">
+              </div>
+              <div class="col-sm-2"></div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-outline-danger">REJECT</button>
+              </div>
+              <div class="col-sm-2"></div>
+              <div clss="col-sm-1">
+                <button type="submit" class="btn btn-success mb-2">APPROVE</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7">
+        <input type="text" class="form-control" id="txtRejectedDoc" placeholder="RC Book, PUC">
+      </div>
+      <div class="col-sm-3">
+          <div class="btn-group" dropdown [dropup]="isDropup">
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+                      aria-controls="dropdown-basic">
+                Select Rejection Reason <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Blur Document</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Wrong Documnet</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Incorrect Data</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Separated link</a>
+                </li>
+              </ul>
+            </div>
+      </div>
+      <div class="col-sm-2">
+          <a href="#" class="btn btn-primary">SUBMIT</a>
+      </div>
+    </div>
+  </div>
