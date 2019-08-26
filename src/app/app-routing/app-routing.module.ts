@@ -21,7 +21,7 @@ const routes: Routes = [
       title: 'Dashbord'
     }
   },
-  { path:'**', component: DriverPersonalComponent}
+  { path:'**', component: DashboardComponent}
 ];
 
 

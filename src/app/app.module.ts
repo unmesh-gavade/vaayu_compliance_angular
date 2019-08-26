@@ -13,6 +13,10 @@ import { DriverPersonalComponent } from './views/driver-personal/driver-personal
 import { DriverDocumentComponent } from './views/driver-document/driver-document.component';
 import { VehiclePersonalComponent } from './views/vehicle-personal/vehicle-personal.component';
 import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-document.component';
+import { HeaderComponent } from './views/header/header.component';
+import { MenuComponent } from './views/menu/menu.component';
+import { SearchPipe } from './search.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -22,13 +26,17 @@ import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-docum
     DriverPersonalComponent,
     DriverDocumentComponent,
     VehiclePersonalComponent,
-    VehicleDocumentComponent
+    VehicleDocumentComponent,
+    HeaderComponent,
+    MenuComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
-    FormsModule,ReactiveFormsModule
+    FormsModule,ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
