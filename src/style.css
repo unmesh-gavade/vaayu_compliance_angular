@@ -13708,6 +13708,73 @@ select.form-control.fill_drop option {
   padding-bottom: 7px; }
 
 /*Compliance end*/
+/*verification*/
+.tit_ver {
+  color: #A6A6A6;
+  font-size: 1rem; }
+
+.nav_bt_move_click {
+  color: #4052B5;
+  border: 1px solid #4052B5;
+  font-size: 0.75rem;
+  margin-left: 7px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-transform: uppercase; }
+
+.nav_bt_move_click_activ, .nav_bt_move_click:hover {
+  color: #fff !important;
+  background-color: #4052B5 !important; }
+
+.click_reject {
+  color: #CB2424;
+  border: 1px solid #CB2424;
+  font-size: 0.75rem;
+  margin-left: 7px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-transform: uppercase; }
+
+.click_reject_activ, .click_reject:hover {
+  color: #fff !important;
+  background-color: #04AE00 !important;
+  border: 1px solid #04AE00; }
+
+.paginationedit .page-link {
+  font-size: 0.75rem;
+  color: #56819F;
+  line-height: initial; }
+
+.paginationedit .page-link:focus {
+  font-weight: bold !important;
+  box-shadow: none;
+  background-color: #4052b5;
+  color: #fff; }
+
+.light-scroll {
+  height: 400px;
+  padding-left: 15px; }
+
+.light-scroll label {
+  color: #A6A6A6;
+  font-size: 0.875rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center; }
+
+.light-scroll input {
+  border-radius: 4px; }
+
+.light-scroll .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: #999 !important; }
+
+.bg_white {
+  background-color: #fff; }
+
+.bds {
+  border-radius: 0px; }
+
+/*verification end*/
 /*e*/
 
 /*# sourceMappingURL=style.css.map */
