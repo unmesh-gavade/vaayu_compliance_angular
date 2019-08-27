@@ -1,0 +1,38 @@
+ <!-- Sidebar  -->
+ <nav malihu-scrollbar [scrollbarOptions]="scrollbarOptions" class="side-navbar" [ngClass]="{'shrink-non':commonService.isMenuOpen,'shrink':!commonService.isMenuOpen}">
+    <div class="side-navbar-wrapper">
+      <!-- Sidebar Header    -->
+      <div class="vaayu_logo d-flex align-items-center justify-content-center">
+       <img src="./assets/images/vaayulogo.png">
+       <div id="nav-icon1" class="cross" (click)="onToolbarMenuToggle()" [ngClass]="{'close':commonService.isMenuOpen,'open':!commonService.isMenuOpen}">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      </div>
+      <!-- Sidebar Navigation Menus-->
+      <div class="main-menu"  >
+       
+        <ul id="side-main-menu" class="side-menu list-unstyled">                  
+          <li><a href="index.html"> <i class="icon-home photo-DashBoard"></i>DashBoard</a></li>
+          <li><a href="index.html"> <i class="icon-home photo-Trip"></i>Trip</a></li>
+          <li><a href="index.html"> <i class="icon-home photo-Billing"></i>Billing</a></li>
+          <li><a href="index.html"> <i class="icon-home photo-Driver"></i>Driver</a></li>
+          <li><a href="index.html"> <i class="icon-home photo-Vehicle"></i>Vehicle</a></li>
+          <li class="active"><a href="index.html"> <i class="icon-home photo-Compliance"></i>Compliance</a></li>
+          <li><a href="index.html"> <i class="icon-home photo-DailyAudit"></i>Daily Audit</a></li>
+        </ul>
+      </div>
+      
+    </div>
+    <div class="container border-top border-light man_box">
+     <p>YOUR MANAGER</p>
+     <div class="d-flex justify-content-left ">
+       <div class="man_img_box position-relative mr-2"><img src="./assets/images/manager.png" class="rounded-circle"></div>
+       <div class="align-self-center manager_name">Atul Jadhav</div>
+     </div>
+     </div>
+  </nav>
+
+    <!-- Page Content  -->
+    

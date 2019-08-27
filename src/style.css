@@ -13709,9 +13709,5 @@ select.form-control.fill_drop option {
 
 /*Compliance end*/
 /*e*/
-.card-body {
-  display: block;
-  max-height: 500px;
-  overflow-y: auto; }
 
 /*# sourceMappingURL=style.css.map */
