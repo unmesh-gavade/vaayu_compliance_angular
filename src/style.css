@@ -13834,9 +13834,38 @@ select.form-control.fill_drop option {
 .date_icon > button {
   border: 0px; }
 
-.date_icon > button:hover, .date_icon > button:focus {
+.date_icon > button:hover, .date_icon > button:focus, .date_icon > button:active {
   background-color: transparent;
   border: none; }
+
+.date_icon .btn-outline-secondary:not(:disabled):not(.disabled):active, .btn-outline-secondary:not(:disabled):not(.disabled).active, .show > .btn-outline-secondary.dropdown-toggle {
+  background-color: transparent;
+  box-shadow: none; }
+
+.input-group-custom {
+  font-size: 12px; }
+
+.input-group-custom .btn-outline-secondary {
+  border-color: #ced4da;
+  background-image: url(./assets/images/datepic.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-color: transparent; }
+
+.input-group-custom .btn-outline-secondary:hover, .input-group-custom .btn-outline-secondary:focus, .input-group-custom .btn-outline-secondary:not([disabled]):not(.disabled):active, .btn-outline-secondary:not([disabled]):not(.disabled).active, .show > .btn-outline-secondary.dropdown-toggle {
+  background-color: transparent;
+  box-shadow: none; }
+
+.input-group-custom .input-group-append {
+  margin-left: -30px;
+  z-index: 99;
+  position: relative; }
+
+.date_form_control {
+  font-size: 0.75rem; }
+
+.form-group-custom, .input-group-custom {
+  width: 99% !important; }
 
 /*verification end*/
 /*e*/
