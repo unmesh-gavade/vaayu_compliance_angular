@@ -28,7 +28,7 @@
                   <div class="col-sm-6">
                     <input type="text" formControlName="txtDriverName" class="form-control" id="txtDriverName" placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
                     <div *ngIf="submitted && f.txtDriverName.errors">
-                        <div *ngIf="f.txtDriverName.errors.required">Driver name is required</div>
+                        <div *ngIf="f.txtDriverName.errors.required" class="error_class">Driver name is required</div>
                     </div>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
                   <div class="col-sm-6">
                     <input type="text" class="form-control" formControlName="txtFatherSpouseName" id="txtFatherSpouseName"  placeholder="Father Name/Spouse *" [attr.disabled]="isEditModeOn ? null : '' ">
                     <div *ngIf="submitted && f.txtFatherSpouseName.errors">
-                        <div *ngIf="f.txtFatherSpouseName.errors.required">Father/Spouse name is required</div>
+                        <div *ngIf="f.txtFatherSpouseName.errors.required" class="error_class">Father/Spouse name is required</div>
                     </div>
                   </div>
                 </div>
@@ -68,7 +68,7 @@
                         <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
                       </div> -->
                     <div *ngIf="submitted && f.txtDateOfBirth.errors">
-                        <div *ngIf="f.txtDateOfBirth.errors.required">Date Of Birth is required</div>
+                        <div *ngIf="f.txtDateOfBirth.errors.required" class="error_class">Date Of Birth is required</div>
                     </div>
                   </div>
                 </div>
@@ -77,7 +77,7 @@
                   <div class="col-sm-6">
                     <input type="text" class="form-control" formControlName="txtContactNumber" id="txtContactNumber" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
                     <div *ngIf="submitted && f.txtContactNumber.errors">
-                        <div *ngIf="f.txtContactNumber.errors.required">Date Of Birth is required</div>
+                        <div *ngIf="f.txtContactNumber.errors.required" class="error_class">Date Of Birth is required</div>
                     </div>
                   </div>
                 </div>

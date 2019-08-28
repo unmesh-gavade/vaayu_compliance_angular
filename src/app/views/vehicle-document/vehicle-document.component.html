@@ -60,7 +60,7 @@
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="txtBusinessArea" id="txtBusinessArea" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.txtBusinessArea.errors">
-                    <div *ngIf="f.txtBusinessArea.errors.required">Business Area is required</div>
+                    <div *ngIf="f.txtBusinessArea.errors.required" class="error_class">Business Area is required</div>
                   </div>
               </div>
             </div>

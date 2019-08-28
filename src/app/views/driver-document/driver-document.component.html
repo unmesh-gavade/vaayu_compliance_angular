@@ -53,7 +53,16 @@
           <div class="form-group row">
             <label for="lblBGCDate" class="col-sm-5 col-form-label">BGC Date</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtBGCDate" id="txtBGCDate" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div class="form-group form-group-custom">
+                    <div class="input-group input-group-custom">
+                      <input type="text" class="form-control date_form_control" id="BGC Date" placeholder="BGC Date *"
+                             name="dp"  ngbDatepicker #d="ngbDatepicker" >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                      </div>
+                    </div>
+                  </div>
+              <!-- <input type="text" class="form-control" formControlName="txtBGCDate" id="txtBGCDate" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
             </div>
           </div>
           <div class="form-group row">
@@ -65,7 +74,16 @@
           <div class="form-group row">
             <label for="lblMedicalCertifiedDate" class="col-sm-5 col-form-label">Medical Certified Date</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtMedicalCertifiedDate" id="txtMedicalCertifiedDate" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div class="form-group form-group-custom">
+                    <div class="input-group input-group-custom">
+                      <input type="text" class="form-control date_form_control" placeholder="Medical Certified Date"
+                             name="dp" id="Medical Certified Date" ngbDatepicker #d="ngbDatepicker" >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                      </div>
+                    </div>
+                  </div>
+              <!-- <input type="text" class="form-control" formControlName="txtMedicalCertifiedDate" id="txtMedicalCertifiedDate" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
             </div>
           </div>
           <div class="form-group row">
@@ -73,7 +91,7 @@
             <div class="col-sm-6">
               <input type="text" class="form-control" formControlName="txtSexualHarr" id="txtSexualHarr" placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
               <div *ngIf="submitted && f.txtSexualHarr.errors">
-                <div *ngIf="f.txtSexualHarr.errors.required">Licence Number is required</div>
+                <div *ngIf="f.txtSexualHarr.errors.required" class="error_class">Licence Number is required</div>
               </div>
             </div>
           </div>
