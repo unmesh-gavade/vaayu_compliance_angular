@@ -18,6 +18,7 @@ import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-docum
 import { SearchPipe } from './search.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 //Http-Intersepter -- To add header to each http request
@@ -44,6 +45,7 @@ import { AuthInterceptor } from './http-interceptors/auth-interceptor';
     BrowserModule,
     AppRoutingModule,
     NgxPaginationModule,
+    NgbModule,
     MalihuScrollbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,

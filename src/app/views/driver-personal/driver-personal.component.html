@@ -1,29 +1,28 @@
-<div class="container">
+<div class="container-fluid pt-4">
         <div class="card-group">
           <div class="card">
               <form [formGroup]="editDriverPersonalForm" (ngSubmit)="onSubmit()">
             <div class="card-header">
+              <div class="col-md-12">
               <div class="row">
-                <div class="col-sm-5">
-                  1 OF 3 INFORMATION
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-1">
-                  <button type="button" class="btn btn-outline-info" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button>
-                </div>
-                <div class="col-sm-1"></div>
-                <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary" *ngIf="isEditModeOn">Save</button>
-                  <a routerLink="/driver-business" class="btn btn-primary" *ngIf="!isEditModeOn">Next</a>
-                </div>
+                <div class="col-md-12 d-flex ">
+                    <div class="tit_ver mr-auto align-self-center">1 OF 3 INFORMATION</div>
+                    <div class="nav_bt_move ">
+                      <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button></div>
+                    <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
+                    <a routerLink="/driver-business" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Next</a>
+                  </div>
+               
               </div>
             </div>
+            </div>
             <div class="card-body">
-              <h5 class="card-title">
-                <div class="alert alert-secondary" role="alert">
-                  Personal Info
-                </div>
-              </h5>
+                <h5 class="card-title">
+                    <div class="alert alert-secondary tit_ver bds" role="alert">
+                        Personal Info
+                    </div>
+                  </h5>
+                  <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
                 <div class="form-group row">
                   <label for="lblDriverName" class="col-sm-5 col-form-label">Driver Name *</label>
                   <div class="col-sm-6">
@@ -49,9 +48,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                    
                   <label for="lblDateOfBirth" class="col-sm-5 col-form-label">Date Of Birth *</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtDateOfBirth" id="txtDateOfBirth" placeholder="Date Of Birth *" [attr.disabled]="isEditModeOn ? null : '' ">
+                    
+                    <input type="text" class="form-control" formControlName="txtDateOfBirth" id="txtDateOfBirth" placeholder="Date Of Birth *" [attr.disabled]="isEditModeOn ? null : '' " ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append date_icon">
+                        <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
+                      </div>
                     <div *ngIf="submitted && f.txtDateOfBirth.errors">
                         <div *ngIf="f.txtDateOfBirth.errors.required">Date Of Birth is required</div>
                     </div>
@@ -84,61 +88,72 @@
                     <input type="text" class="form-control" formControlName="txtQualification" id="txtQualification" placeholder="Qualification" [attr.disabled]="isEditModeOn ? null : '' ">
                   </div>
                 </div>
+                </div>
             </div>
           </form>
           </div>
           <div class="card">
-            <div class="card-header">
-              <div class="row">
-                <div class="col-sm-5">
-                  <span> PREVIEW DOCUMENT</span>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-3">
-                  <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('./assets/img/Doc.jpg')">1</a></li>
-                      <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('./assets/img/3.jpg')">2</a></li>
-                      <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="ShowImage('./assets/img/TestDoc.jpg')">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+              <div class="card-header">
+                  <div class="col-md-12 d-flex justify-content-between align-items-center">
+                      <div class="tit_ver">PREVIEW DOCUMENT</div>
+                      <div class="paginationedit">
+        
+                          <nav aria-label="Page navigation">
+                              <ul class="pagination  m-0">
+                                <li class="page-item">
+                                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                    (click)="ShowImage('./assets/img/Doc.jpg')">1</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                    (click)="ShowImage('./assets/img/3.jpg')">2</a></li>
+                                <li class="page-item"><a class="page-link" href="javascript:void(0)"
+                                    (click)="ShowImage('./assets/img/TestDoc.jpg')">3</a></li>
+                                <li class="page-item">
+                                  <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </nav>
+                      </div>
+                  </div>
+                
               </div>
-      
-            </div>
-            <div class="card-body">
+              <div class="card-body">
                 <img src="{{imageURL}}" width="500" height="400" alt="...">
+              </div>
+              <div class="card-footer bg_white">
+                  <form>
+                      <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between align-items-center">
+                        <div class="tit_ver">
+                            <label for="lblDocumentName" class="sr-only tit_ver">Driving Licence</label>
+                            <input type="text" readonly class="form-control-plaintext tit_ver" id="txtDocumentName" value="Driving Licence">
+                        
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-danger click_reject">REJECT</button>
+                            <button type="submit" class="btn btn-success click_reject click_reject_activ">APPROVE</button>
+                        </div>
+                      </div>
+                        <div class="col-sm-4">
+                            </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-1">
+                         
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div clss="col-sm-1">
+                          
+                        </div>
+                      </div>
+                    </form>
+              </div>
             </div>
-            <div class="card-footer">
-              <form>
-                <div class="row">
-                  <div class="col-sm-4">
-                    <label for="lblDocumentName" class="sr-only">Document Name</label>
-                    <input type="text" readonly class="form-control-plaintext" id="txtDocumentName" value="DRIVING LICENCE">
-                  </div>
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-1">
-                    <button type="button" class="btn btn-outline-danger">REJECT</button>
-                  </div>
-                  <div class="col-sm-2"></div>
-                  <div clss="col-sm-1">
-                    <button type="submit" class="btn btn-success mb-2">APPROVE</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
         </div>
       </div>
