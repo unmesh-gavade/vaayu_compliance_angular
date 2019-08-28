@@ -18,6 +18,7 @@ import { VehicleDocumentComponent } from './views/vehicle-document/vehicle-docum
 import { SearchPipe } from './search.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     AppRoutingModule,
     NgxPaginationModule,
+    NgbModule,
     MalihuScrollbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,ReactiveFormsModule

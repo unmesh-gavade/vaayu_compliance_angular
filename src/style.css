@@ -13818,6 +13818,26 @@ select.form-control.fill_drop option {
   top: 4px;
   left: 5px; }
 
+.date_icon {
+  position: absolute;
+  right: 21px;
+  top: 12px;
+  background-color: transparent;
+  box-shadow: none;
+  width: 19px;
+  height: 19px;
+  background-repeat: no-repeat;
+  border: 0;
+  border: 0;
+  background-image: url(./assets/images/datepic.png); }
+
+.date_icon > button {
+  border: 0px; }
+
+.date_icon > button:hover, .date_icon > button:focus {
+  background-color: transparent;
+  border: none; }
+
 /*verification end*/
 /*e*/
 
