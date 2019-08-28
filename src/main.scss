@@ -4922,6 +4922,16 @@ span{padding-right: 5px;}
 		border-radius: 4px;
 	}
 	}
+	.Ownership	{border:1px solid #E3E3E3;padding:2px;border-radius: 4px;
+		.btn-secondary{background-color: transparent;color:#050505;text-transform: uppercase;font-size:$font-size-base;border:none;padding: 8px 18px 8px 18px;}
+		.btn-secondary:not([disabled]):not(.disabled):active, .btn-secondary:not([disabled]):not(.disabled).active, .show > .btn-secondary.dropdown-toggle
+		{
+			box-shadow: none;
+			border:none;
+			background-color: #A6A6A6;
+			border-radius: 4px;
+		}
+		}
 	.ta_search{background-image: url(./assets/images/searchicon.png);
 		background-repeat: no-repeat;
 		background-position: 10px 12px;
@@ -4969,5 +4979,16 @@ span{padding-right: 5px;}
 .light-scroll .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{background-color: #999 !important;}
 .bg_white{background-color: #fff;}
 .bds{border-radius: 0px;}
+.fill_drop_vrfy{width: 100%;}
+.very_bt{display:flex;align-items:center;text-align: center;justify-content:center;font-weight: 600;    height: 40px;}
+.very_bt:hover, .very_bt:focus{    background-color: #4052B5;text-decoration: none;color:#fff}
+.very_input{padding-left: 10px;}
+.error_class
+{color: red;
+    font-size: 0.69rem;
+    text-transform: uppercase;
+    position: relative;
+    top: 4px;
+    left: 5px;}
 /*verification end*/
 /*e*/

@@ -145,31 +145,44 @@
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid mt-4">
-  <div class="row">
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="txtRejectedDoc"
-        placeholder="Sexual Harrassment Policy, Police Verication">
-    </div>
-    <div class="col-sm-3">
-      <div class="btn-group" dropdown [dropup]="isDropup">
-        <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
-          aria-controls="dropdown-basic">
-          Select Rejection Reason <span class="caret"></span>
-        </button>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Blur Document</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Wrong Documnet</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Incorrect Data</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Separated link</a>
-          </li>
-        </ul>
+  <div class="container-fluid mt-4 p-3 bg-white">
+    <div class="row ">
+      <div class="col-md-12 d-flex align-items-center">
+      <div class="col-sm-6">
+        <input type="text" class="form-control txtRejectedDocinput very_input tg_select" id="txtRejectedDoc"
+          placeholder="Sexual Harrassment Policy, Police Verication">
       </div>
-    </div>
-    <div class="col-sm-2">
-      <a href="javascript:void(0)" class="btn btn-primary">SUBMIT</a>
+      <div class="col-sm-4">
+        
+      
+          <select name="account"  id="PerPage"   class="form-control dropdown fill_drop fill_drop_vrfy">
+          
+              <option  > Select Rejection Reason </option>
+              <option >Blur Document</option>
+              <option>Wrong Documnet</option>
+              <option>Incorrect Data</option>
+              <option>Separated link</option>
+            </select>
+        <!-- <div class="btn-group " dropdown [dropup]="isDropup">
+          <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle  "
+            aria-controls="dropdown-basic">
+            Select Rejection Reason <span class="caret"></span>      
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Blur Document</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Wrong Documnet</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Incorrect Data</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="javascript:void(0)">Separated link</a>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+      <div class="col-sm-2">
+        <a href="javascript:void(0)" class="btn btn-primary bt_blue very_bt">SUBMIT</a>
+       
+      </div>
+      </div>
     </div>
   </div>
 </div>
