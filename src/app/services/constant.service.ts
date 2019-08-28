@@ -10,7 +10,7 @@ export class ConstantService {
 
   constructor() { 
     this.serverUrl = 'http://13.235.45.209:8000/api/';
-    this.loginUrl = 'http://13.235.45.209:8000';
+    //this.loginUrl = 'http://13.235.45.209:8000';
   }
   getUrl(){
     return this.serverUrl;

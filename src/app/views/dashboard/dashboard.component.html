@@ -14,6 +14,7 @@
                             <option>option 2</option>
                             <option>option 3</option>
                             <option>option 4</option>
+                            <!-- <option *ngFor="let ba of baList">{{ba.legal_name}}</option> -->
                           </select>
                         </div>
     </div>
@@ -235,15 +236,15 @@
                                 <tbody >
     
     <!-- <tr *ngFor="let lock of locked | LockFilter: search_res"> -->
-        <tr *ngFor="let lock of locked | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
-        <td>{{lock.Name}}</td>
-        <td>{{lock.User}}</td>
-        <td>{{lock.DLNO}}</td>
-        <td>{{lock.Gender}}</td>
-        <td>{{lock.registeredby}}</td>
-        <td><span>{{lock.Status}}</span></td>
-        <td >{{lock.Dateofre}}</td>
-        <td><button type="button" class="btn bt_blue text-white pl-4 pr-4">{{lock.Action}}</button></td>
+        <tr *ngFor="let item of locked | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
+        <td>{{item.ba_legal_name}}</td>
+        <td>{{item.resource_id}}</td>
+        <td>{{item.licence_number}}</td>
+        <td>{{item.gender}}</td>
+        <td>{{item.registeredby}}</td>
+        <td><span>{{item.induction_status}}</span></td>
+        <td>{{item.date_of_registration}}</td>
+        <td><button type="button" routerLink="/driver-personal" class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
     </tr>
                                 </tbody>
                                 <!-- <tbody>

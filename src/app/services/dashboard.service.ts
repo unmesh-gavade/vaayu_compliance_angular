@@ -12,7 +12,14 @@ export class DashboardService {
   constructor(private http: HttpClient, public constService : ConstantService) {
     this.baseUrl= constService.serverUrl;
    }
-   getDashboardList(){
-     return this.http.get(this.baseUrl + '/')
-   }
+   
+   getDashboardList(data) {
+    return this.http.post(this.baseUrl + 'v1/dashboardFilterer/', data);
+  }
+  getBaList() {
+    return this.http.get(this.baseUrl + 'v1/getBAList/')
+  }
+  getDashboardTats() {
+    return this.http.get(this.baseUrl + 'v1/getDashboardTats/')
+  }
 }

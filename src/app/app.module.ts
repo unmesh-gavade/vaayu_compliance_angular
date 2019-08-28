@@ -19,6 +19,14 @@ import { SearchPipe } from './search.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 
+
+//Http-Intersepter -- To add header to each http request
+
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
+
+import { AuthInterceptor } from './http-interceptors/auth-interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,9 +46,17 @@ import { HeaderComponent } from './header/header.component';
     NgxPaginationModule,
     MalihuScrollbarModule.forRoot(),
     BsDropdownModule.forRoot(),
-    FormsModule,ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { 
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor, 
+      multi: true 
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
