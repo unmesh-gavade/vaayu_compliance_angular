@@ -7,6 +7,7 @@ import { DriverPersonalComponent } from '../views/driver-personal/driver-persona
 import { DriverDocumentComponent } from '../views/driver-document/driver-document.component';
 import { VehiclePersonalComponent } from '../views/vehicle-personal/vehicle-personal.component';
 import { VehicleDocumentComponent } from '../views/vehicle-document/vehicle-document.component';
+import { LoginComponent } from '../views/login/login.component';
 
 const routes: Routes = [
   { path: 'driver-personal', component: DriverPersonalComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'driver-document', component: DriverDocumentComponent },
   { path: 'vehicle-personal', component: VehiclePersonalComponent },
   { path: 'vehicle-document', component: VehicleDocumentComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'Dashbord',
     component: DashboardComponent,

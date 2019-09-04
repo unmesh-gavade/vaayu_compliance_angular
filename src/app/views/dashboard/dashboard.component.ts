@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   status: boolean = false;
   dashboardList: Object;
   baList:{};
+  tatList:{};
 
   clickEvent(){
       this.status = !this.status;       
@@ -23,19 +24,23 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
       this.locked = [
-        {Name: 'Rajesh Singh', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Rahul Rao', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Praveen Kumar ', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Rupali Ram ', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Female', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Purab Kadam', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Yagya Das', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-        {Name: 'Pramod Achari', User: 'Satish Tour & Travel', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '08 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Rajesh Singh', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Rahul Rao', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Praveen Kumar ', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Rupali Ram ', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Female', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Purab Kadam', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Yagya Das', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+        {ba_legal_name: 'Pramod Achari', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '08 July 2019 | 08:45 PM ',Action : 'VERIFY'},
     ];
-    this.Dashboard.getBaList().subscribe(data=>{
-      this.baList = data;
-      console.log(data);
-    })
-
+    this.Dashboard.getBaList().subscribe(res=>{
+      this.baList =res['data']['list'] ;
+      console.log(this.baList);
+    });
+    this.Dashboard.getDashboardTats().subscribe(tats=>{
+    this.tatList= tats['data']['tat_list'];
+    console.log(this.tatList);
+    
+    });
    this.onsubmit();
   }
 
@@ -47,11 +52,11 @@ export class DashboardComponent implements OnInit {
       "start_page_index":0,
       "record_per_page":10
    }
+   this.Dashboard.getDashboardList(data).subscribe(res=>{
+    this.dashboardList = res['data']['filterData'];
+    console.log(this.dashboardList);
+  })
     
-    this.Dashboard.getDashboardList(data).subscribe(data=>{
-      this.dashboardList = data;
-      console.log(data);
-    })
   }
 
     onToolbarMenuToggle(){
