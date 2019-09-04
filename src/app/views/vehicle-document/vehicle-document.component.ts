@@ -20,9 +20,16 @@ export class VehicleDocumentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    
     $(window).ready(function(){
-     
+      $('.pdf_reject').click(function(){
+        $('.activepdf > .togglepdf.nonstatus').addClass(' rejected approved');
+      
+      });
+      $('.pdf_nav ul li').click(function() {
+        var index = $(this).index();
+        $(this).addClass('activepdf').siblings().removeClass('activepdf');
+        $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
+      });
       $('.nextpdf').click( function(){
         $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
       });
@@ -32,8 +39,9 @@ export class VehicleDocumentComponent implements OnInit {
   });
 
     this.pdfs = [
-      {Name: 'Rajesh Singh', User: './assets/images/myfile.pdf', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {Name: 'Rajesh Singh', User: './assets/images/sample-file.pdf', DLNO: 'AP265HDG236434', Gender: 'Male', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {Name: 'Rajesh Singh', User: './assets/images/myfile.pdf', id: '1', statuspdf: 'nonstatus', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {Name: 'Rajesh Singh', User: './assets/images/pdf.pdf', id: '2', statuspdf: 'approved', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {Name: 'Rajesh Singh', User: './assets/images/PDFTRON_about.pdf', id: '3', statuspdf: 'rejected', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
     this.editVehicleDocumentForm = this.formBuilder.group({
       txtBusinessAssociateName: [''],

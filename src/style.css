@@ -13882,15 +13882,121 @@ select.form-control.fill_drop option {
   background-color: #F58220;
   color: #fff; }
 
+.pdf_nav {
+  display: flex;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  align-items: center; }
+  .pdf_nav button {
+    background: no-repeat;
+    border: none;
+    color: #ccc;
+    font-size: 19px; }
+  .pdf_nav button:active, .pdf_nav button:focus {
+    border: none;
+    outline: none; }
+  .pdf_nav ul {
+    list-style: none;
+    display: inherit;
+    text-align: center;
+    margin: 0px;
+    padding: 0px; }
+    .pdf_nav ul li {
+      font-size: 0.75rem;
+      color: #ccc;
+      cursor: pointer;
+      padding: 0px 7px 0px 7px;
+      margin: 1px; }
+    .pdf_nav ul li.activepdf {
+      background-color: #ccc;
+      color: white; }
+
 .pdf_box {
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+  list-style: none; }
+  .pdf_box .pdf_li {
+    visibility: hidden;
+    overflow: hidden;
+    height: 0px;
+    cursor: pointer; }
+    .pdf_box .pdf_li .pdf_view {
+      display: block; }
+  .pdf_box .pdf_li.activepdf {
+    visibility: visible;
+    width: 100%;
+    height: inherit;
+    overflow: inherit; }
 
-.pdf_box li {
-  display: none; }
-
-.pdf_box li.activepdf {
-  display: block; }
+.activepdf span {
+  position: absolute;
+  z-index: 99; }
+.activepdf .nonstatus {
+  right: 0px; }
+.activepdf .approved {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); }
+.activepdf .approved:after {
+  content: "APPROVED";
+  position: absolute;
+  top: 170px;
+  left: 100px;
+  z-index: 1;
+  font-family: Arial,sans-serif;
+  -webkit-transform: rotate(-45deg);
+  /* Safari */
+  -moz-transform: rotate(-45deg);
+  /* Firefox */
+  -ms-transform: rotate(-45deg);
+  /* IE */
+  -o-transform: rotate(-45deg);
+  /* Opera */
+  transform: rotate(-45deg);
+  font-size: 40px;
+  color: #c00;
+  background: #fff;
+  border: solid 4px #c00;
+  padding: 5px;
+  border-radius: 5px;
+  zoom: 1;
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+  -webkit-text-shadow: 0 0 2px #c00;
+  text-shadow: 0 0 2px #c00;
+  box-shadow: 0 0 2px #c00; }
+.activepdf .rejected {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); }
+.activepdf .rejected:after {
+  content: "REJECTED";
+  position: absolute;
+  top: 170px;
+  left: 100px;
+  z-index: 1;
+  font-family: Arial,sans-serif;
+  -webkit-transform: rotate(-45deg);
+  /* Safari */
+  -moz-transform: rotate(-45deg);
+  /* Firefox */
+  -ms-transform: rotate(-45deg);
+  /* IE */
+  -o-transform: rotate(-45deg);
+  /* Opera */
+  transform: rotate(-45deg);
+  font-size: 40px;
+  color: #c00;
+  background: #fff;
+  border: solid 4px #c00;
+  padding: 5px;
+  border-radius: 5px;
+  zoom: 1;
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+  -webkit-text-shadow: 0 0 2px #c00;
+  text-shadow: 0 0 2px #c00;
+  box-shadow: 0 0 2px #c00; }
 
 /*verification end*/
 /*e*/
