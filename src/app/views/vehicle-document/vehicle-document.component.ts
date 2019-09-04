@@ -22,8 +22,7 @@ export class VehicleDocumentComponent implements OnInit {
   ngOnInit() {
     
     $(window).ready(function(){
-      $(".pdf_box li").removeClass("activepdf");
-      $(".pdf_box li").removeClass("activepdf");
+     
       $('.nextpdf').click( function(){
         $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
       });
