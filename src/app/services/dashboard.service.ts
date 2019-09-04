@@ -13,13 +13,13 @@ export class DashboardService {
     this.baseUrl= constService.serverUrl;
    }
    
-   getDashboardList(data) {
-    return this.http.post(this.baseUrl + 'v1/dashboardFilterer/', data);
+  getDashboardList(data) {
+    return this.http.post(this.baseUrl + 'dashboardFilter', data);
   }
   getBaList() {
-    return this.http.get(this.baseUrl + 'v1/getBAList/')
+    return this.http.post(this.baseUrl + 'getBAlist','')
   }
   getDashboardTats() {
-    return this.http.get(this.baseUrl + 'v1/getDashboardTats/')
+    return this.http.post(this.baseUrl + 'getDashboardTatList','')
   }
 }

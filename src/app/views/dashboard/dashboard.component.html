@@ -10,11 +10,8 @@
                        
                         <div class="col-sm-7 mb-4 position-relative dropout">
                           <select name="account" class="form-control dropdown dropdown_custom ">
-                            <option>Select BA </option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <!-- <option *ngFor="let ba of baList">{{ba.legal_name}}</option> -->
+
+                            <option *ngFor="let ba of baList">{{ba.legal_name}}</option>
                           </select>
                         </div>
     </div>
@@ -235,8 +232,7 @@
                                 </thead>
                                 <tbody >
     
-    <!-- <tr *ngFor="let lock of locked | LockFilter: search_res"> -->
-        <tr *ngFor="let item of locked | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
+        <tr *ngFor="let item of dashboardList | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
         <td>{{item.ba_legal_name}}</td>
         <td>{{item.resource_id}}</td>
         <td>{{item.licence_number}}</td>

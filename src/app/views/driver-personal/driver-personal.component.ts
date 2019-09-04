@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {DriverService} from '../../services/driver.service'
 
 @Component({
   selector: 'app-driver-personal',
@@ -13,7 +14,9 @@ export class DriverPersonalComponent implements OnInit {
   imageURL="./assets/img/Doc.jpg";
   editDriverPersonalForm: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) { }
+  driverDetails : object;
+  
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService) { }
 
   ngOnInit() {
     this.editDriverPersonalForm = this.formBuilder.group({
@@ -21,12 +24,25 @@ export class DriverPersonalComponent implements OnInit {
        txtFatherSpouseName: ['', Validators.required],
        txtDateOfBirth: ['', Validators.required],
        txtGender: [''],
-       txtContactNumber: [''],
+       txtContactNumber:  ['', Validators.required],
        txtMaritalStatus: [''],
        txtBloodGroup: [''],
        txtQualification: [''],
     });
+    
+
+    var data = {
+      "resource_id": 454,
+      "resource_type":'drivers',
+      "os_type":'web'
+   }
+  
+    this.Driver.getDriverDetails(data).subscribe(details=>{
+     this.driverDetails = details;
+     console.log(this.driverDetails);
+    })
   }
+
   onEdit() {
     this.isEditModeOn = ! this.isEditModeOn;
     if(this.isEditModeOn){this.valueOfButton = "Cancel"}

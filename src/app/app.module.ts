@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AuthInterceptor } from './http-interceptors/auth-interceptor';
     VehicleDocumentComponent,
     SearchPipe,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

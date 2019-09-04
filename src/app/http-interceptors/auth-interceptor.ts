@@ -18,19 +18,19 @@ export class AuthInterceptor implements HttpInterceptor {
         //const appToken = this.authService.getAppToken();
         //const authToken = this.authService.getAuthorizationToken();
           const currentUser ="";
-          const accessToken="";
+          const accessToken="dnfjkdhj";
           const authToken="";
-          const userId="";
-        if (currentUser && accessToken) {
+          const userId="1";
+        if (accessToken) {
             
+            // req = req.clone({
+            //     setHeaders:
+            //         { 'Authenticate': ` Token ${authToken}` }
+            //     },
+            // );
             req = req.clone({
                 setHeaders:
-                    { 'Authenticate': ` Token ${authToken}` }
-                },
-            );
-            req = req.clone({
-                setHeaders:
-                    {'content-Type': 'application/json'}
+                    {'Content-Type': 'application/json'}
                 },
             );
             req = req.clone({
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
             );
             req = req.clone({
                 setHeaders:
-                    {'client': '5'}
+                    {'client': 'web'}
                 },
             );
         }
