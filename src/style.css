@@ -13532,6 +13532,7 @@ a > code {
   font-size: 0.8125rem;
   font-weight: 700 !important;
   box-shadow: 0 5px 9px -7px #6f6d6d;
+  cursor: pointer;
   border-radius: 3px; }
 
 .dropdown_custom {
@@ -13554,6 +13555,9 @@ select.dropdown option {
   padding-bottom: .75rem;
   background-color: #fff;
   border: 1px solid #E5E7E9; }
+
+.dropdown:focus {
+  box-shadow: none !important; }
 
 .car_titles {
   font-size: 0.875rem;
@@ -13642,7 +13646,8 @@ select.dropdown option {
     text-transform: uppercase;
     font-size: 0.75rem;
     border: none;
-    padding: 8px 18px 8px 18px; }
+    padding: 8px 18px 8px 18px;
+    cursor: pointer; }
   .tg_select .btn-secondary:not([disabled]):not(.disabled):active, .tg_select .btn-secondary:not([disabled]):not(.disabled).active, .tg_select .show > .btn-secondary.dropdown-toggle {
     box-shadow: none;
     border: none;
@@ -13866,6 +13871,26 @@ select.form-control.fill_drop option {
 
 .form-group-custom, .input-group-custom {
   width: 99% !important; }
+
+.show_act {
+  cursor: pointer; }
+
+.current .act_p {
+  border: 1px  solid #F58220; }
+
+.current .act_p .action_inn_title {
+  background-color: #F58220;
+  color: #fff; }
+
+.pdf_box {
+  padding: 0px;
+  margin: 0px; }
+
+.pdf_box li {
+  display: none; }
+
+.pdf_box li.activepdf {
+  display: block; }
 
 /*verification end*/
 /*e*/

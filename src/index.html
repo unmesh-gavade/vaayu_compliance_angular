@@ -12,6 +12,7 @@
   <app-root></app-root>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
   <script>
+    
   $(document).ready(function () {
     $(function(){
       var btn = $('.show_act'),
@@ -24,6 +25,7 @@
         info.eq(index).show();
         $('.show_act').removeClass('current');
         $(this).addClass('current');
+      
     });  
     
     
@@ -38,9 +40,24 @@
                  $("#option1").attr("checked", true).click(); 
                  $(".show_act1").removeClass("act_p");
                 $(this).addClass("act_p");
-             });         
+             });   
+             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(1)").click(function () { 
+              $(".show_act1").removeClass("act_p");
+              $(".show_act1.Driver").addClass("act_p");
+              
+             }); 
+             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(2)").click(function () { 
+              $(".show_act1").removeClass("act_p");
+              $(".show_act1.Vehicle").addClass("act_p");
+                
+             }); 
+            
+
 });
+
+
 });
+
   </script>
 </body>
 </html>

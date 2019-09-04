@@ -4846,6 +4846,7 @@ p{
 	   font-size: 0.8125rem;
 	   font-weight: $font-weight-bold !important;
 	   box-shadow: $box_newshadow;
+	   cursor: pointer;
 	   @include border-radius(3px);  
 	  }
 	  .dropdown_custom
@@ -4873,6 +4874,7 @@ p{
 		background-color: #fff;
 		border: 1px solid #E5E7E9;
 	}
+	.dropdown:focus{box-shadow: none !important;}
 	$color_this: #253238;
 $color-numbers: #161616;
 $color-blacks: #000000;
@@ -4913,7 +4915,7 @@ span{padding-right: 5px;}
 	.in_row{margin-left: -5px;margin-right: -5px;}
 	.car_titles{@extend %car_titles;font-weight: $font-weight-bold;}
 	.tg_select{border:1px solid #E3E3E3;padding:2px;border-radius: 4px;
-	.btn-secondary{background-color: transparent;color:$color-blacks;text-transform: uppercase;font-size:$font-size-base;border:none;padding: 8px 18px 8px 18px;}
+	.btn-secondary{background-color: transparent;color:$color-blacks;text-transform: uppercase;font-size:$font-size-base;border:none;padding: 8px 18px 8px 18px;cursor:pointer;}
 	.btn-secondary:not([disabled]):not(.disabled):active, .btn-secondary:not([disabled]):not(.disabled).active, .show > .btn-secondary.dropdown-toggle
 	{
 		box-shadow: none;
@@ -5010,5 +5012,11 @@ span{padding-right: 5px;}
 		.input-group-custom .input-group-append{margin-left: -30px;z-index: 99;position: relative;}
 		.date_form_control{font-size: 0.75rem;}
 		.form-group-custom , .input-group-custom{width:99% !important;}
+		.show_act{cursor: pointer;}
+		.current  .act_p{border: 1px  solid #F58220;}
+		.current .act_p .action_inn_title {background-color: #F58220;color:#fff;}
+		.pdf_box{padding: 0px;margin: 0px;}
+		.pdf_box li{display: none;}
+		.pdf_box li.activepdf{display: block;}
 /*verification end*/
 /*e*/
