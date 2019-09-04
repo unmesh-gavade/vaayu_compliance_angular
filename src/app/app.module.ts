@@ -19,6 +19,7 @@ import { SearchPipe } from './search.pipe';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 //Http-Intersepter -- To add header to each http request
@@ -46,6 +47,7 @@ import { AuthInterceptor } from './http-interceptors/auth-interceptor';
     AppRoutingModule,
     NgxPaginationModule,
     NgbModule,
+    PdfViewerModule,
     MalihuScrollbarModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,
