@@ -27,9 +27,14 @@ export class VehicleDocumentComponent implements OnInit {
   ngOnInit() {
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
-        $('.activepdf > .togglepdf.nonstatus').addClass(' rejected approved');
-      
+        $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
       });
+      $('.pdf_approve').click(function(){
+         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
+       });
+       $('.pdf_preview').click(function(){
+         $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
+       });
       $('.pdf_nav ul li').click(function() {
         var index = $(this).index();
         $(this).addClass('activepdf').siblings().removeClass('activepdf');

@@ -1,43 +1,58 @@
-<div class="container login-container">
-        <div class="row">
-            <div class="col-md-6 login-form-1">
-                <h3>Sign In</h3>
-                <span>Sign in on the internal platform</span>
+<section class="login_box">
+<div class="container login-container login_box_inn p-0">
+        <div class="row no-gutters">
+            <div class="col-md-6 login-form-1 p-4 d-flex">
+                <div class="log_icon">
+                    <img src="./assets/images/logicon.png">
+                </div>
+                <div class="d-flex align-items-center col-md-12 p-0">
+                    <div class="col-md-12 p-0">
+                            <h3 class="log_in_titl">Sign In</h3>
+                            <span class="log_in_titl_sub">Sign in on the internal platform</span>
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                                    <div class="form-group">
+                                        <!-- <input type="email" formControlName="username" class="form-control" placeholder="Email Id*"  required/> -->
+                                        <input type="email" class="form-control mr-sm-2 tg_select ta_search lgoin_input" placeholder="Email Id*" required   id="Emailid">
+                                        <div *ngIf="username.invalid && (username.dirty || username.touched) && submitted" class="invalid-feedback">
+                                                <div *ngIf="username.errors.required">
+                                                    Username is required.
+                                                </div>
+                                                <div *ngIf="username.errors.pattern">
+                                                    In valid email address.
+                                                </div> 
+                                            </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <input type="password" formControlName="password"  class="form-control mr-sm-2 tg_select ta_search lgoin_input" placeholder="Password *"  required/>
+                                        <div *ngIf="password.invalid && (password.dirty || password.touched) && submitted" class="invalid-feedback">
+                                                <div *ngIf="password.errors">
+                                                  Password is required.
+                                                </div>
+                                              </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn bt_blue text-white pt-2 pb-2 pl-4 pr-4 mt-2 login_bt" value="SIGN IN" />
+                                        <!-- <button _ngcontent-pnc-c3="" class="btn bt_blue text-white pt-2 pb-2 pl-4 pr-4 "  type="submit">SEARCH</button> -->
+                                    </div>
+                                    <div class="underline"></div>
+                                    <div class="form-group">
+                                        <a href="#" class="SingUp login_new_user">Don't have an account?</a>
+                                    </div>
+                                </form>
+                    </div>
+               
                 
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
-                    <div class="form-group">
-                        <input type="email" formControlName="username" class="form-control" placeholder="Email Id*"  required/>
-                        <div *ngIf="username.invalid && (username.dirty || username.touched) && submitted" class="invalid-feedback">
-                                <div *ngIf="username.errors.required">
-                                    Username is required.
-                                </div>
-                                <div *ngIf="username.errors.pattern">
-                                    In valid email address.
-                                </div> 
-                            </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" formControlName="password"  class="form-control" placeholder="Password *"  required/>
-                        <div *ngIf="password.invalid && (password.dirty || password.touched) && submitted" class="invalid-feedback">
-                                <div *ngIf="password.errors">
-                                  Password is required.
-                                </div>
-                              </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btnSubmit" value="SIGN IN" />
-                    </div>
-                    <div class="form-group">
-                        <a href="#" class="SingUp">Don't have an account?</a>
-                    </div>
-                </form>
+                
+                
+            </div>
             </div>
             <div class="col-md-6 login-form-2">
                 <form>
-                    <div class="form-group">
-                            <img src="assets/images/TaxiImage.png" width="500" height="200" alt="...">
+                    <div class="form-group m-0">
+                            <img src="assets/images/TaxiImage.png" style="width: 100%"  alt="...">
                     </div>
                 </form>
             </div>
         </div>
     </div>
+</section>
