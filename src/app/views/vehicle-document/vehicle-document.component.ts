@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
+import {VehicleService} from '../../services/vehicle.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-vehicle-document',
@@ -17,7 +19,10 @@ export class VehicleDocumentComponent implements OnInit {
   imageURL="./assets/img/Doc.jpg";
   editVehicleDocumentForm: FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) { }
+  vehicleDetails : object;
+  vehiclePostData : {};
+  pdfDocs:{};
+  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService) { }
 
   ngOnInit() {
     $(window).ready(function(){
@@ -39,9 +44,9 @@ export class VehicleDocumentComponent implements OnInit {
   });
 
     this.pdfs = [
-      {Name: 'Rajesh Singh', User: './assets/images/myfile.pdf', id: '1', statuspdf: 'nonstatus', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {Name: 'Rajesh Singh', User: './assets/images/pdf.pdf', id: '2', statuspdf: 'approved', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {Name: 'Rajesh Singh', User: './assets/images/PDFTRON_about.pdf', id: '3', statuspdf: 'rejected', registeredby: 'Rushi Indulekar', Status: 'registered',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {doc_display_name: 'Insurance', doc_url: './assets/images/myfile.pdf', id: '1', status: 'none', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {doc_display_name: 'RC Book', doc_url: './assets/images/pdf.pdf', id: '2', status: 'approved', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
+      {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
     this.editVehicleDocumentForm = this.formBuilder.group({
       txtBusinessAssociateName: [''],
@@ -52,6 +57,28 @@ export class VehicleDocumentComponent implements OnInit {
       txtMobileModelVersion:[''],
       txtLastServiceDate:[''],
    });
+   var user = {
+    "resource_id": 373,
+    "resource_type":'vehicles',
+    "os_type":'web'
+ }
+  this.vehiclePostData = {user};
+
+  this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details=>{
+   this.vehicleDetails = details['data']['user_detail'];
+   this.pdfDocs= details['data']['doc_list'];
+   console.log(this.pdfDocs);
+   this.editVehicleDocumentForm.patchValue({
+    txtBusinessAssociateName: this.vehicleDetails[0]['business_associate_id'],
+    txtBusinessArea: this.vehicleDetails[0]['business_area_id'],
+    txtDriverNameDetail1: this.vehicleDetails[0]['driver_name'],
+    txtMobileDeviceNumber: this.vehicleDetails[0]['aadhaar_number'],
+    txtMobileIMEI: this.vehicleDetails[0]['aadhaar_number'],
+    txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
+    txtLastServiceDate: this.vehicleDetails[0]['last_service_date'],
+  });
+  });
+
   }
   onEdit() {
     this.isEditModeOn = ! this.isEditModeOn;
