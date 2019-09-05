@@ -26,7 +26,7 @@
                 <div class="form-group row">
                   <label for="lblDriverName" class="col-sm-5 col-form-label">Driver Name *</label>
                   <div class="col-sm-6">
-                    <input type="text" formControlName="txtDriverName" class="form-control" id="txtDriverName" placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <input type="text" formControlName="txtDriverName" class="form-control" id="txtDriverName"  placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
                     <div *ngIf="submitted && f.txtDriverName.errors">
                         <div *ngIf="f.txtDriverName.errors.required" class="error_class">Driver name is required</div>
                     </div>

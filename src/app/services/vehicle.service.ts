@@ -12,9 +12,9 @@ export class VehicleService {
     this.baseUrl= constService.serverUrl;
    }
    getVehicleDetails(data){
-    return this.http.post(this.baseUrl + 'v1/getDetails',data);
+    return this.http.post(this.baseUrl + 'getDetails',data);
   }
   updateVehicleDetails(data){
-   return this.http.put(this.baseUrl +'v1/saveDetails/',data)
+   return this.http.put(this.baseUrl +'saveDetails',data)
  }
 }

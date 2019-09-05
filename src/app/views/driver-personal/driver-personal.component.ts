@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {DriverService} from '../../services/driver.service'
+import {DriverService} from '../../services/driver.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-driver-personal',
@@ -15,6 +16,7 @@ export class DriverPersonalComponent implements OnInit {
   editDriverPersonalForm: FormGroup;
   submitted = false;
   driverDetails : object;
+  driverPostData : {};
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService) { }
 
@@ -29,18 +31,28 @@ export class DriverPersonalComponent implements OnInit {
        txtBloodGroup: [''],
        txtQualification: [''],
     });
-    
-
-    var data = {
+    var user = {
       "resource_id": 454,
       "resource_type":'drivers',
       "os_type":'web'
    }
-  
-    this.Driver.getDriverDetails(data).subscribe(details=>{
-     this.driverDetails = details;
+    this.driverPostData = {user};
+
+    this.Driver.getDriverDetails(this.driverPostData).subscribe(details=>{
+     this.driverDetails = details['data']['user_detail'];
      console.log(this.driverDetails);
-    })
+     console.log(this.driverDetails[0]['aadhaar_number']);
+     this.editDriverPersonalForm.patchValue({
+      txtDriverName: this.driverDetails[0]['aadhaar_number'],
+      txtFatherSpouseName: this.driverDetails[0]['father_spouse_name'],
+      txtDateOfBirth:  moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
+      txtGender: this.driverDetails[0]['gender'],
+      txtContactNumber: this.driverDetails[0]['aadhaar_mobile_number'],
+      txtMaritalStatus: this.driverDetails[0]['marital_status'],
+      txtBloodGroup: this.driverDetails[0]['blood_group'],
+      txtQualification:  this.driverDetails[0]['qualification'],
+    });
+    });
   }
 
   onEdit() {
