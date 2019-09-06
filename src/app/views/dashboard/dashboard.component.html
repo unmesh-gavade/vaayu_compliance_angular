@@ -9,7 +9,7 @@
         <div class="mt-3">
                 <div class="form-group row">
                        
-                        <div class="col-sm-7 mb-4 position-relative dropout">
+                        <div class="col-sm-10 mb-4 position-relative dropout">
                           <select name="account" class="form-control dropdown dropdown_custom ">
 
                             <option *ngFor="let ba of baList">{{ba.legal_name}}</option>
@@ -69,7 +69,10 @@
               <div class="container-fluid p-0 mt-4">
                   <div class="row in_row">
                     
-                      <div class="col-md-3 p-2 show_act" *ngFor="let tat of tatList; index as i;" >
+                      <div class="col-md-3 p-2 show_act" *ngFor="let tat of tatList; index as i;"  
+                      [ngClass]="{'d-none1':tat.name === 'non_complient','d-none':tat.name === 'draft'
+                        }"
+                        >
                         <div class="card">  
                           <div class="action_title ">{{tat.name}}</div>
                           <div class="card-body p-1">
