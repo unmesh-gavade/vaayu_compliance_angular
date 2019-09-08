@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   dashboardList: Object;
   baList:{};
   tatList:{};
-  
 
   clickEvent(){
       this.status = !this.status;       
@@ -40,7 +39,7 @@ export class DashboardComponent implements OnInit {
     this.Dashboard.getDashboardTats().subscribe(tats=>{
     this.tatList= tats['data']['tat_list'];
     console.log(this.tatList);
-
+    
     });
    this.onsubmit();
   }
