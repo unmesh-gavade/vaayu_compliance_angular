@@ -101,7 +101,10 @@
       <div class="card">
           <div class="card-header">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
-               <div class="tit_ver"> Preview Document</div>  
+               <div class="tit_ver"> Preview Document
+
+                  
+               </div>  
                
                 <div class="pdf_nav" style="display: inherit">
                   <button  class="prevpdf"> < </button> 
@@ -116,6 +119,12 @@
             
           </div>
           <div class="card-body">
+              <button ion-button (click)="incrementZoom(-0.1)">
+                  sdf
+                 </button>
+                 <button ion-button (click)="incrementZoom(0.1)">
+                   sdaf
+                 </button>
             <ul  class="p-0 light light-scroll pdf_box"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions2">
               
               <li class="pdf_li"  *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
@@ -125,7 +134,7 @@
                   'rejected':item.status === 'rejected'
                   }" ></span>
                   <pdf-viewer src="{{item.doc_url}}"  
-                  [original-size]="false" class="pdf_view" >
+                  [original-size]="true" class="pdf_view" [autoresize]="autoresize" [zoom]="zoom"  >
                 
                 </pdf-viewer>
                 <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
@@ -138,7 +147,7 @@
               <form>
                   <div class="row">
                     <div class="col-md-12 d-flex justify-content-between align-items-center">
-                      <ul class="pdf_box">
+                      <ul class="pdf_box pdf_box1">
                     <li class="tit_ver pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
                         <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
                         <!-- <input type="text" readonly class="form-control-plaintext tit_ver" id="txtDocumentName" value="Registration Certificate"> -->

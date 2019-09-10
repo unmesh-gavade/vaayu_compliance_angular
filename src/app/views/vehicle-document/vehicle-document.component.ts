@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import {VehicleService} from '../../services/vehicle.service';
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'app-vehicle-document',
   templateUrl: './vehicle-document.component.html',
@@ -11,6 +12,8 @@ import * as moment from 'moment';
 })
 export class VehicleDocumentComponent implements OnInit {
 
+  zoom: number = 1.0;
+originalSize: boolean = true;
   pdfSrc: string = './assets/images/myfile.pdf';
   pdfs: any[] = [];
   valueOfButton = "Edit";
@@ -24,6 +27,8 @@ export class VehicleDocumentComponent implements OnInit {
   pdfDocs:{};
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService) { }
 
+
+  
   ngOnInit() {
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
@@ -39,6 +44,7 @@ export class VehicleDocumentComponent implements OnInit {
         var index = $(this).index();
         $(this).addClass('activepdf').siblings().removeClass('activepdf');
         $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
+        $('.pdf_box1 li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
       });
       $('.nextpdf').click( function(){
         $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
@@ -85,6 +91,8 @@ export class VehicleDocumentComponent implements OnInit {
   });
 
   }
+  incrementZoom(amount: number) {
+    this.zoom += amount;   }
   onEdit() {
     this.isEditModeOn = ! this.isEditModeOn;
     if(this.isEditModeOn){this.valueOfButton = "Cancel"}
