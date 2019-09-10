@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
       console.log('invalid');
         return;
     }
-    this.toastr.success('Success', 'Login success');
     this.authService.login(this.username.value, this.password.value).subscribe((data) => {
       console.log(this.authService.isLoggedIn);
        if (this.authService.isLoggedIn) {

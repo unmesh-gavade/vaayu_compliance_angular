@@ -13,10 +13,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class AuthService {
 
-<<<<<<< HEAD
-  constructor() { }
-}
-=======
+
   public serverUrl = "";
 
   errorData: {};
@@ -132,4 +129,4 @@ export class AuthService {
   }
 
 }
->>>>>>> 711aa9e78e8e5febc8ed39c1d9ef79e5a02008a3
+
