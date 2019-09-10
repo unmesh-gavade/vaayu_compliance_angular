@@ -21,6 +21,7 @@ export class VehiclePersonalComponent implements OnInit {
   submitted = false;
   vehicleDetails : object;
   vehiclePostData : {};
+  vehicleUpdateData:{};
 
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
 
@@ -54,14 +55,14 @@ export class VehiclePersonalComponent implements OnInit {
       {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
     this.editVehiclePersonalForm = this.formBuilder.group({
-      txtRegistrationNo: ['',Validators.required],
-      txtVehicleCategory: ['',Validators.required],
-      txtVehicleModel: ['',Validators.required],
+      plate_number: ['',Validators.required],
+      category: ['',Validators.required],
+      model: ['',Validators.required],
       txtSeatingCapacity: ['',Validators.required],
-      txtColor: [''],
-      txtTypeOfFuel:[''],
-      txtACNon:[''],
-      txtGPSDevice:['']
+      colour: [''],
+      fuel_type:[''],
+      ac:[''],
+      gps_provider_id:['']
    });
    var user = {
     "resource_id": 373,
@@ -75,14 +76,14 @@ export class VehiclePersonalComponent implements OnInit {
    this.vehicleDetails = details['data']['user_detail'];
    console.log(this.vehicleDetails);
    this.editVehiclePersonalForm.patchValue({
-    txtRegistrationNo: this.vehicleDetails[0]['aadhaar_number'],
-    txtVehicleCategory: this.vehicleDetails[0]['category'],
-    txtVehicleModel:  this.vehicleDetails[0]['model'],
+    plate_number: this.vehicleDetails[0]['plate_number'],
+    category: this.vehicleDetails[0]['category'],
+    model:  this.vehicleDetails[0]['model'],
     txtSeatingCapacity: this.vehicleDetails[0]['gender'],
-    txtColor: this.vehicleDetails[0]['colour'],
-    txtTypeOfFuel: this.vehicleDetails[0]['fuel_type'],
-    txtACNon: this.vehicleDetails[0]['ac'],
-    txtGPSDevice:  this.vehicleDetails[0]['gps_provider_id'],
+    colour: this.vehicleDetails[0]['colour'],
+    fuel_type: this.vehicleDetails[0]['fuel_type'],
+    ac: this.vehicleDetails[0]['ac'],
+    gps_provider_id:  this.vehicleDetails[0]['gps_provider_id'],
   });
   });
   }
@@ -111,16 +112,29 @@ export class VehiclePersonalComponent implements OnInit {
     }
 
     this.editVehiclePersonalForm.patchValue({
-      txtRegistrationNo: values.txtRegistrationNo,
-      txtVehicleCategory: values.txtVehicleCategory,
-      txtVehicleModel:  values.txtVehicleModel,
+      plate_number: values.plate_number,
+      category: values.category,
+      model:  values.model,
       txtSeatingCapacity: values.txtSeatingCapacity,
-      txtColor: values.txtColor,
-      txtTypeOfFuel: values.txtTypeOfFuel,
-      txtACNon: values.txtACNon,
-      txtGPSDevice:  values.txtGPSDevice,
+      colour: values.colour,
+      fuel_type: values.fuel_type,
+      ac: values.ac,
+      gps_provider_id:  values.gps_provider_id,
     });
-
+    var user = {
+      "session_id":3403,
+      "resource_id": 373,
+      "resource_type": 'vehicles',
+      "os_type": 'web'
+    };
+    var document={
+      "approved_doc":'',
+      "rejected_doc":'',
+      "comment":'test'
+    };
+    var formData={};
+    var data={formData:this.editVehiclePersonalForm.value};
+    this.vehicleUpdateData ={user,data,document};
     // update vehicle personal details
     this.Vehicle.updateVehicleDetails(this.editVehiclePersonalForm).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);

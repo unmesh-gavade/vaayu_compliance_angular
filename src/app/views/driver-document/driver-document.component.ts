@@ -21,6 +21,7 @@ export class DriverDocumentComponent implements OnInit {
   submitted = false;
   driverDetails : object;
   driverPostData : {};
+  driverUpdateData:{};
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
 
   ngOnInit() {
@@ -54,13 +55,13 @@ export class DriverDocumentComponent implements OnInit {
   ];
     this.editDriverDocumentForm = this.formBuilder.group({
       txtPoliceVerification: [''],
-      txtPoliceVerificationValidity: [''],
-      txtDateOfPoliceVeri: [''],
-      txtCriminalOffense: [''],
-      txtBGCDate:[''],
-      txtBGCAgency:[''],
-      txtMedicalCertifiedDate:[''],
-      txtSexualHarr: ['', Validators.required],
+      police_verification_vailidty: [''],
+      date_of_police_verification: [''],
+      criminal_offence: [''],
+      bgc_date:[''],
+      bgc_agency_id:[''],
+      medically_certified_date:[''],
+      sexual_policy: ['', Validators.required],
    });
    var user = {
     "resource_id": 454,
@@ -74,13 +75,13 @@ export class DriverDocumentComponent implements OnInit {
     console.log(this.driverDetails[0]['aadhaar_number']);
     this.editDriverDocumentForm.patchValue({
       txtPoliceVerification: this.driverDetails[0]['aadhaar_number'],
-      txtPoliceVerificationValidity: this.driverDetails[0]['police_verification_vailidty'],
-      txtDateOfPoliceVeri:  this.driverDetails[0]['date_of_police_verification'],
-      txtCriminalOffense: this.driverDetails[0]['criminal_offence'],
-      txtBGCDate:  moment(this.driverDetails[0]['bgc_date']).format("YYYY-MM-DD"),
-      txtBGCAgency: this.driverDetails[0]['bgc_agency_id'],
-      txtMedicalCertifiedDate:  moment(this.driverDetails[0]['medically_certified_date']).format("YYYY-MM-DD"),
-      txtSexualHarr:  this.driverDetails[0]['sexual_policy'],
+      police_verification_vailidty: this.driverDetails[0]['police_verification_vailidty'],
+      date_of_police_verification:  this.driverDetails[0]['date_of_police_verification'],
+      criminal_offence: this.driverDetails[0]['criminal_offence'],
+      bgc_date:  moment(this.driverDetails[0]['bgc_date']).format("YYYY-MM-DD"),
+      bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
+      medically_certified_date:  moment(this.driverDetails[0]['medically_certified_date']).format("YYYY-MM-DD"),
+      sexual_policy:  this.driverDetails[0]['sexual_policy'],
    });
    });
   }
@@ -108,13 +109,13 @@ export class DriverDocumentComponent implements OnInit {
     }
     this.editDriverDocumentForm.patchValue({
       txtPoliceVerification: values.txtPoliceVerification,
-      txtPoliceVerificationValidity: values.txtPoliceVerificationValidity,
-      txtDateOfPoliceVeri:  values.txtDateOfPoliceVeri,
-      txtCriminalOffense: values.txtCriminalOffense,
-      txtBGCDate:   moment(values.txtBGCDate).format("YYYY-MM-DD"),
-      txtBGCAgency:values.txtBGCAgency,
-      txtMedicalCertifiedDate:   moment(values.txtMedicalCertifiedDate).format("YYYY-MM-DD"),
-      txtSexualHarr:  values.txtSexualHarr,
+      police_verification_vailidty: values.police_verification_vailidty,
+      date_of_police_verification:  values.date_of_police_verification,
+      criminal_offence: values.criminal_offence,
+      bgc_date:   moment(values.bgc_date).format("YYYY-MM-DD"),
+      bgc_agency_id:values.bgc_agency_id,
+      medically_certified_date:   moment(values.medically_certified_date).format("YYYY-MM-DD"),
+      sexual_policy:  values.sexual_policy,
     });
 
     // update driver Documents details

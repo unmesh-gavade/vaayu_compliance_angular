@@ -26,8 +26,10 @@ export class AuthService {
   checkLogin() {
     const currentUser = this.getAuthUser();
     const appToken = this.getAppToken();
-
+   console.log(currentUser);
+   console.log(appToken);
     if (currentUser && appToken) {
+      console.log('its true');
       return true;
     }
 
@@ -64,7 +66,6 @@ export class AuthService {
       .pipe(map(user => {
         console.log([user.status]);
         if (user['data'] && user.status == true) {
-          console.log(user['data']);
           localStorage.setItem('currentUser', JSON.stringify(user['data']));
           this.isLoggedIn = true;
         } else {
@@ -85,7 +86,7 @@ export class AuthService {
   }
 
   getAppToken() {
-    const appToken = localStorage.getItem('appToken');
+    const appToken = localStorage.getItem('access_token');
     if (appToken) {
       let tokenData = JSON.parse(appToken)
       return tokenData.data;

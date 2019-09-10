@@ -55,13 +55,13 @@ export class DriverBusinessComponent implements OnInit {
       { doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar', Dateofre: '07 July 2019 | 08:45 PM ', Action: 'VERIFY' },
     ];
     this.editDriverBusinessForm = this.formBuilder.group({
-      txtTermsOfService: [''],
+      //txtTermsOfService: [''],
       business_state: [''],
       business_city: [''],
-      txtBankName: [''],
-      txtBankAccNo: [''],
-      txtIFSCCode: [''],
-      txtDriverAcc: [''],
+      bank_name: [''],
+      bank_no: [''],
+      ifsc_code: [''],
+     // txtDriverAcc: [''],
       licence_number: ['', Validators.required],
     });
     var user = {
@@ -75,14 +75,14 @@ export class DriverBusinessComponent implements OnInit {
       console.log(this.driverDetails);
       console.log(this.driverDetails[0]['aadhaar_number']);
       this.editDriverBusinessForm.patchValue({
-        txtTermsOfService: this.driverDetails[0]['aadhaar_number'],
+        //txtTermsOfService: this.driverDetails[0]['aadhaar_number'],
         business_state: this.driverDetails[0]['business_state'],
         business_city: this.driverDetails[0]['business_city'],
-        txtBankName: this.driverDetails[0]['bank_name'],
-        txtBankAccNo: this.driverDetails[0]['bank_no'],
-        txtIFSCCode: this.driverDetails[0]['ifsc_code'],
-        txtDriverAcc: this.driverDetails[0]['aadhaar_number'],
-        licence_number: this.driverDetails[0]['aadhaar_number'],
+        bank_name: this.driverDetails[0]['bank_name'],
+        bank_no: this.driverDetails[0]['bank_no'],
+        ifsc_code: this.driverDetails[0]['ifsc_code'],
+        //txtDriverAcc: this.driverDetails[0]['aadhaar_number'],
+        licence_number: this.driverDetails[0]['licence_number'],
       });
     });
   }
@@ -109,14 +109,14 @@ export class DriverBusinessComponent implements OnInit {
       return;
     }
     this.editDriverBusinessForm.patchValue({
-      txtTermsOfService: values.txtTermsOfService,
+      //txtTermsOfService: values.txtTermsOfService,
       business_state: values.business_state,
       business_city: values.business_city,
-      txtBankName: values.txtBankName,
-      txtBankAccNo: values.txtBankAccNo,
-      txtIFSCCode: values.txtIFSCCode,
-      txtDriverAcc: values.txtDriverAcc,
-      licence_number: values.licence_number
+      bank_name: values.bank_name,
+      bank_no: values.bank_no,
+      ifsc_code: values.ifsc_code,
+      // txtDriverAcc: values.txtDriverAcc,
+       licence_number: values.licence_number
     });
     var user = {
       "session_id":3403,
@@ -125,8 +125,8 @@ export class DriverBusinessComponent implements OnInit {
       "os_type": 'web'
     };
     var document={
-      "approved_doc":'',
-      "rejected_doc":'',
+      "approved_doc":'1,2',
+      "rejected_doc":'3,4',
       "comment":'test'
     };
     var formData={};
@@ -134,12 +134,12 @@ export class DriverBusinessComponent implements OnInit {
     this.driverUpdateData ={user,data,document};
     console.log(this.driverUpdateData);
     // update driver business details
-    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
+    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);
       this.toastr.success('Success', 'Driver Business Details updated successfully');
     }, errorResponse => {
-      console.log(data['errors']);
-      this.toastr.error('Error', 'somthing weent wrong');
+      console.log(errorResponse);
+      this.toastr.error('Error', 'somthing went wrong');
     });
 
   }

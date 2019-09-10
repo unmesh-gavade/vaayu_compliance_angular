@@ -29,30 +29,30 @@
           <div class="form-group row">
             <label for="lblRegistrationNo" class="col-sm-5 col-form-label">Registration No*</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtRegistrationNo" id="txtRegistrationNo"
+              <input type="text" class="form-control" formControlName="plate_number" id="plate_number"
                 placeholder="Registration No*" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.txtRegistrationNo.errors">
-                <div *ngIf="f.txtRegistrationNo.errors.required" class="error_class">Registration Number is required</div>
+              <div *ngIf="submitted && f.plate_number.errors">
+                <div *ngIf="f.plate_number.errors.required" class="error_class">Registration Number is required</div>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="lblVehicleCategory" class="col-sm-5 col-form-label">Vehicle Category *</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtVehicleCategory" id="txtVehicleCategory"
+              <input type="text" class="form-control" formControlName="category" id="category"
                 placeholder="Vehicle Category *" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.txtVehicleCategory.errors">
-                <div *ngIf="f.txtVehicleCategory.errors.required" class="error_class">Vehicle Category is required</div>
+              <div *ngIf="submitted && f.category.errors">
+                <div *ngIf="f.category.errors.required" class="error_class">Vehicle Category is required</div>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="lblVehicleModel" class="col-sm-5 col-form-label">Vehicle Model *</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtVehicleModel" id="txtVehicleModel"
+              <input type="text" class="form-control" formControlName="model" id="model"
                 placeholder="Vehicle Model *" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.txtVehicleModel.errors">
-                <div *ngIf="f.txtVehicleModel.errors.required" class="error_class">Vehicle Model is required</div>
+              <div *ngIf="submitted && f.model.errors">
+                <div *ngIf="f.model.errors.required" class="error_class">Vehicle Model is required</div>
               </div>
             </div>
           </div>
@@ -69,28 +69,28 @@
           <div class="form-group row">
             <label for="lblColor" class="col-sm-5 col-form-label">Color</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtColor" id="txtColor" placeholder="Color"
+              <input type="text" class="form-control" formControlName="colour" id="colour" placeholder="Color"
                 [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
             <label for="lblTypeOfFuel" class="col-sm-5 col-form-label">Type Of Fuel</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtTypeOfFuel" id="txtTypeOfFuel"
+              <input type="text" class="form-control" formControlName="fuel_type" id="fuel_type"
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
             <label for="lblACNon" class="col-sm-5 col-form-label">AC/Non</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtACNon" id="txtACNon" placeholder="AC/Non"
+              <input type="text" class="form-control" formControlName="ac" id="ac" placeholder="AC/Non"
                 [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
             <label for="lblGPSDevice" class="col-sm-5 col-form-label">GPS Device ID</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtGPSDevice" id="txtGPSDevice"
+              <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
                 placeholder="GPS Device ID" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>

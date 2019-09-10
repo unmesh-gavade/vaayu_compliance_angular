@@ -21,6 +21,7 @@ export class DriverPersonalComponent implements OnInit {
   submitted = false;
   driverDetails : object;
   driverPostData : {};
+  driverUpdateData:{};
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
 
@@ -54,14 +55,14 @@ export class DriverPersonalComponent implements OnInit {
       {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
     this.editDriverPersonalForm = this.formBuilder.group({
-       txtDriverName: ['', Validators.required],
-       txtFatherSpouseName: ['', Validators.required],
-       txtDateOfBirth: ['', Validators.required],
-       txtGender: [''],
-       txtContactNumber:  ['', Validators.required],
-       txtMaritalStatus: [''],
-       txtBloodGroup: [''],
-       txtQualification: [''],
+       driver_name: ['', Validators.required],
+       father_spouse_name: ['', Validators.required],
+       date_of_birth: ['', Validators.required],
+       gender: [''],
+       aadhaar_mobile_number:  ['', Validators.required],
+       marital_status: [''],
+       blood_group: [''],
+       qualification: [''],
     });
     var user = {
       "resource_id": 454,
@@ -75,14 +76,14 @@ export class DriverPersonalComponent implements OnInit {
      console.log(this.driverDetails);
      console.log(this.driverDetails[0]['aadhaar_number']);
      this.editDriverPersonalForm.patchValue({
-      txtDriverName: this.driverDetails[0]['aadhaar_number'],
-      txtFatherSpouseName: this.driverDetails[0]['father_spouse_name'],
-      txtDateOfBirth:  moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
-      txtGender: this.driverDetails[0]['gender'],
-      txtContactNumber: this.driverDetails[0]['aadhaar_mobile_number'],
-      txtMaritalStatus: this.driverDetails[0]['marital_status'],
-      txtBloodGroup: this.driverDetails[0]['blood_group'],
-      txtQualification:  this.driverDetails[0]['qualification'],
+      driver_name: this.driverDetails[0]['aadhaar_number'],
+      father_spouse_name: this.driverDetails[0]['father_spouse_name'],
+      date_of_birth:  moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
+      gender: this.driverDetails[0]['gender'],
+      aadhaar_mobile_number: this.driverDetails[0]['aadhaar_mobile_number'],
+      marital_status: this.driverDetails[0]['marital_status'],
+      blood_group: this.driverDetails[0]['blood_group'],
+      qualification:  this.driverDetails[0]['qualification'],
     });
     });
   }
@@ -110,16 +111,30 @@ export class DriverPersonalComponent implements OnInit {
           return;
       }
       this.editDriverPersonalForm.patchValue({
-        txtDriverName: values.txtDriverName,
-        txtFatherSpouseName: values.txtFatherSpouseName,
-        txtDateOfBirth:  moment(values.txtDateOfBirth).format("YYYY-MM-DD"),
-        txtGender: values.txtGender,
-        txtContactNumber: values.txtContactNumber,
-        txtMaritalStatus: values.txtMaritalStatus,
-        txtBloodGroup: values.txtBloodGroup,
-        txtQualification: values.txtQualification 
+        driver_name: values.driver_name,
+        father_spouse_name: values.father_spouse_name,
+        date_of_birth:  moment(values.date_of_birth).format("YYYY-MM-DD"),
+        gender: values.gender,
+        aadhaar_mobile_number: values.aadhaar_mobile_number,
+        marital_status: values.marital_status,
+        blood_group: values.blood_group,
+        qualification: values.qualification 
       });
-
+      var user = {
+        "session_id":3403,
+        "resource_id": 454,
+        "resource_type": 'drivers',
+        "os_type": 'web'
+      };
+      var document={
+        "approved_doc":'',
+        "rejected_doc":'',
+        "comment":'test'
+      };
+      var formData={};
+      var data={formData:this.editDriverPersonalForm.value};
+      this.driverUpdateData ={user,data,document};
+      
        // update driver personal details
      this.Driver.updateDriverDetails(this.editDriverPersonalForm).subscribe(data => {
       console.log(this.editDriverPersonalForm);

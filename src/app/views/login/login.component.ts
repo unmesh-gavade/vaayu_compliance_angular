@@ -43,19 +43,18 @@ export class LoginComponent implements OnInit {
       console.log('invalid');
         return;
     }
-    this.toastr.error('Error','Username or password is incorrect.');
+    this.toastr.success('Success', 'Login success');
     this.authService.login(this.username.value, this.password.value).subscribe((data) => {
       console.log(this.authService.isLoggedIn);
        if (this.authService.isLoggedIn) {
-         console.log('loggedIn');
          //this.authService.ValidateToken().subscribe((authData) => {
             //const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
             //this.router.navigate([redirect]);
-            // this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard']);
             this.toastr.success('Success', 'Login success');
          //});
         } else {
-          
+          this.toastr.error('Error','Username or password is incorrect.');
           this.loginError = 'Username or password is incorrect.';
         }
       },
