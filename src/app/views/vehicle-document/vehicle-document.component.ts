@@ -26,6 +26,7 @@ originalSize: boolean = true;
   vehicleDetails : object;
   vehiclePostData : {};
   pdfDocs:{};
+  vehicleUpdateData:{};
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
 
 
@@ -63,13 +64,13 @@ originalSize: boolean = true;
       {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
     this.editVehicleDocumentForm = this.formBuilder.group({
-      txtBusinessAssociateName: [''],
-      txtBusinessArea: ['',Validators.required],
-      txtDriverNameDetail1: [''],
+      business_associate_id: [''],
+      business_area_id: ['',Validators.required],
+      driver_name: [''],
       txtMobileDeviceNumber: [''],
       txtMobileIMEI: [''],
       txtMobileModelVersion:[''],
-      txtLastServiceDate:[''],
+      last_service_date:[''],
    });
    var user = {
     "resource_id": 373,
@@ -83,13 +84,13 @@ originalSize: boolean = true;
    this.pdfDocs= details['data']['doc_list'];
    console.log(this.pdfDocs);
    this.editVehicleDocumentForm.patchValue({
-    txtBusinessAssociateName: this.vehicleDetails[0]['business_associate_id'],
-    txtBusinessArea: this.vehicleDetails[0]['business_area_id'],
-    txtDriverNameDetail1: this.vehicleDetails[0]['driver_name'],
+    business_associate_id: this.vehicleDetails[0]['business_associate_id'],
+    business_area_id: this.vehicleDetails[0]['business_area_id'],
+    driver_name: this.vehicleDetails[0]['driver_name'],
     txtMobileDeviceNumber: this.vehicleDetails[0]['aadhaar_number'],
     txtMobileIMEI: this.vehicleDetails[0]['aadhaar_number'],
     txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
-    txtLastServiceDate: this.vehicleDetails[0]['last_service_date'],
+    last_service_date: this.vehicleDetails[0]['last_service_date'],
   });
   });
 
@@ -120,15 +121,28 @@ originalSize: boolean = true;
         return;
     }
     this.editVehicleDocumentForm.patchValue({
-      txtBusinessAssociateName: values.txtBusinessAssociateName,
-      txtBusinessArea: values.txtBusinessArea,
-      txtDriverNameDetail1:  values.txtDriverNameDetail1,
+      business_associate_id: values.business_associate_id,
+      business_area_id: values.business_area_id,
+      driver_name:  values.driver_name,
       txtMobileDeviceNumber: values.txtMobileDeviceNumber,
       txtMobileIMEI: values.txtMobileIMEI,
       txtMobileModelVersion: values.txtMobileModelVersion,
-      txtLastServiceDate: values.txtLastServiceDate,
+      last_service_date: values.last_service_date,
     });
-
+    var user = {
+      "session_id":3403,
+      "resource_id": 373,
+      "resource_type": 'vehicles',
+      "os_type": 'web'
+    };
+    var document={
+      "approved_doc":'',
+      "rejected_doc":'',
+      "comment":'test'
+    };
+    var formData={};
+    var data={formData:this.editVehicleDocumentForm.value};
+    this.vehicleUpdateData ={user,data,document};
     // update vehicle documents details
     this.Vehicle.updateVehicleDetails(this.editVehicleDocumentForm).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);

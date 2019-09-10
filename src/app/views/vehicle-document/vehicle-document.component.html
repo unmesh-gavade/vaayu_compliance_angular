@@ -52,22 +52,22 @@
             <div class="form-group row">
               <label for="lblBusinessAssociateName" class="col-sm-5 col-form-label">Business Associate Name</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtBusinessAssociateName" id="txtBusinessAssociateName"  placeholder="Business Associate Name" [attr.disabled]="isEditModeOn ? null : '' ">
+                <input type="text" class="form-control" formControlName="business_associate_id" id="business_associate_id"  placeholder="Business Associate Name" [attr.disabled]="isEditModeOn ? null : '' ">
               </div>
             </div>
             <div class="form-group row">
               <label for="lblBusinessArea" class="col-sm-5 col-form-label">Business Area *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtBusinessArea" id="txtBusinessArea" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
-                <div *ngIf="submitted && f.txtBusinessArea.errors">
-                    <div *ngIf="f.txtBusinessArea.errors.required" class="error_class">Business Area is required</div>
+                <input type="text" class="form-control" formControlName="business_area_id" id="business_area_id" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.business_area_id.errors">
+                    <div *ngIf="f.business_area_id.errors.required" class="error_class">Business Area is required</div>
                   </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="lblDriverNameDetail1" class="col-sm-5 col-form-label">Driver Name Detail 1</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtDriverNameDetail1" id="txtDriverNameDetail1" placeholder="Driver Name Detail 1" [attr.disabled]="isEditModeOn ? null : '' ">
+                <input type="text" class="form-control" formControlName="driver_name" id="driver_name" placeholder="Driver Name Detail 1" [attr.disabled]="isEditModeOn ? null : '' ">
               </div>
             </div>
             <div class="form-group row">
@@ -91,7 +91,7 @@
             <div class="form-group row">
               <label for="lblLastServiceDate" class="col-sm-5 col-form-label">Last Service Date</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtLastServiceDate" id="txtLastServiceDate" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' ">
+                <input type="text" class="form-control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' ">
               </div>
             </div>
           </div>

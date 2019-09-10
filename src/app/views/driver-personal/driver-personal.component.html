@@ -26,25 +26,25 @@
                 <div class="form-group row">
                   <label for="lblDriverName" class="col-sm-5 col-form-label">Driver Name *</label>
                   <div class="col-sm-6">
-                    <input type="text" formControlName="txtDriverName" class="form-control" id="txtDriverName"  placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.txtDriverName.errors">
-                        <div *ngIf="f.txtDriverName.errors.required" class="error_class">Driver name is required</div>
+                    <input type="text" formControlName="driver_name" class="form-control" id="driver_name"  placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div *ngIf="submitted && f.driver_name.errors">
+                        <div *ngIf="f.driver_name.errors.required" class="error_class">Driver name is required</div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblFatherSpouseName" class="col-sm-5 col-form-label">Father Name/Spouse *</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtFatherSpouseName" id="txtFatherSpouseName"  placeholder="Father Name/Spouse *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.txtFatherSpouseName.errors">
-                        <div *ngIf="f.txtFatherSpouseName.errors.required" class="error_class">Father/Spouse name is required</div>
+                    <input type="text" class="form-control" formControlName="father_spouse_name" id="father_spouse_name"  placeholder="Father Name/Spouse *" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div *ngIf="submitted && f.father_spouse_name.errors">
+                        <div *ngIf="f.father_spouse_name.errors.required" class="error_class">Father/Spouse name is required</div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblGender" class="col-sm-5 col-form-label">Gender</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtGender" id="txtGender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' ">
                   </div>
                 </div>
                 
@@ -63,40 +63,40 @@
                             </div>
                           </div>
                         </form>
-                    <!-- <input type="text" class="form-control input-datepicker" formControlName="txtDateOfBirth" id="txtDateOfBirth" placeholder="Date Of Birth *" [attr.disabled]="isEditModeOn ? null : '' " ngbDatepicker #d="ngbDatepicker">
+                    <!-- <input type="text" class="form-control input-datepicker" formControlName="date_of_birth" id="date_of_birth" placeholder="Date Of Birth *" [attr.disabled]="isEditModeOn ? null : '' " ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append date_icon">
                         <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
                       </div> -->
-                    <div *ngIf="submitted && f.txtDateOfBirth.errors">
-                        <div *ngIf="f.txtDateOfBirth.errors.required" class="error_class">Date Of Birth is required</div>
+                    <div *ngIf="submitted && f.date_of_birth.errors">
+                        <div *ngIf="f.date_of_birth.errors.required" class="error_class">Date Of Birth is required</div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblContactNumber" class="col-sm-5 col-form-label">Contact Number *</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtContactNumber" id="txtContactNumber" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.txtContactNumber.errors">
-                        <div *ngIf="f.txtContactNumber.errors.required" class="error_class">Contact Number is required</div>
+                    <input type="text" class="form-control" formControlName="aadhaar_mobile_number" id="aadhaar_mobile_number" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div *ngIf="submitted && f.aadhaar_mobile_number.errors">
+                        <div *ngIf="f.aadhaar_mobile_number.errors.required" class="error_class">Contact Number is required</div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblMaritalStatus" class="col-sm-5 col-form-label">Marital Status</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtMaritalStatus" id="txtMaritalStatus" placeholder="Single" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <input type="text" class="form-control" formControlName="marital_status" id="marital_status" placeholder="Single" [attr.disabled]="isEditModeOn ? null : '' ">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblBloodGroup" class="col-sm-5 col-form-label">Blood Group</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtBloodGroup" id="txtBloodGroup" placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <input type="text" class="form-control" formControlName="blood_group" id="blood_group" placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="lblQualification" class="col-sm-5 col-form-label">Qualification</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="txtQualification" id="txtQualification" placeholder="Qualification" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <input type="text" class="form-control" formControlName="qualification" id="qualification" placeholder="Qualification" [attr.disabled]="isEditModeOn ? null : '' ">
                   </div>
                 </div>
                 </div>

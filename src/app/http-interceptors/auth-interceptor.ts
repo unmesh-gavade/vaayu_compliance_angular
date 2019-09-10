@@ -5,16 +5,17 @@ import { HttpErrorResponse,HttpEvent, HttpInterceptor, HttpHandler, HttpRequest 
 import { Observable,throwError } from 'rxjs';
 import {catchError, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 
 export class AuthInterceptor implements HttpInterceptor {
   
-    constructor(private router: Router) {}
+    constructor(private authService: AuthService,private router: Router) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        //const currentUser = this.authService.getAuthUser();
+       // const currentUser = this.authService.getAuthUser();
         //const appToken = this.authService.getAppToken();
         //const authToken = this.authService.getAuthorizationToken();
           const currentUser ="";

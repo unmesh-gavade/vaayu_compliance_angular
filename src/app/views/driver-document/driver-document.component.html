@@ -35,19 +35,19 @@
             <label for="lblPoliceVerificationValidity" class="col-sm-5 col-form-label">Police Verification
               Validity</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtPoliceVerificationValidity" id="txtPoliceVerificationValidity" placeholder="Police Verification Validity" [attr.disabled]="isEditModeOn ? null : '' ">
+              <input type="text" class="form-control" formControlName="police_verification_vailidty" id="police_verification_vailidty" placeholder="Police Verification Validity" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
             <label for="lblDateOfPoliceVeri" class="col-sm-5 col-form-label">Date Of Police Verification</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtDateOfPoliceVeri" id="txtDateOfPoliceVeri" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+              <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
             <label for="lblCriminalOffense" class="col-sm-5 col-form-label">Criminal Offense</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtCriminalOffense" id="txtCriminalOffense" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' ">
+              <input type="text" class="form-control" formControlName="criminal_offence" id="criminal_offence" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
@@ -55,20 +55,20 @@
             <div class="col-sm-6">
                 <div class="form-group form-group-custom">
                     <div class="input-group input-group-custom">
-                      <input type="text" class="form-control date_form_control" id="BGC Date" placeholder="BGC Date *"
+                      <input type="text" class="form-control date_form_control" fromControlName="bgc_date" id="bgc_date" placeholder="BGC Date *"
                              name="dp"  ngbDatepicker #d="ngbDatepicker" >
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                       </div>
                     </div>
                   </div>
-              <!-- <input type="text" class="form-control" formControlName="txtBGCDate" id="txtBGCDate" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <!-- <input type="text" class="form-control" formControlName="bgc_date" id="bgc_date" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
             </div>
           </div>
           <div class="form-group row">
             <label for="lblBGCAgency" class="col-sm-5 col-form-label">BGC Agency</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtBGCAgency" id="txtBGCAgency" placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
+              <input type="text" class="form-control" formControlName="bgc_agency_id" id="bgc_agency_id" placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div>
           <div class="form-group row">
@@ -76,22 +76,22 @@
             <div class="col-sm-6">
                 <div class="form-group form-group-custom">
                     <div class="input-group input-group-custom">
-                      <input type="text" class="form-control date_form_control" placeholder="Medical Certified Date"
-                             name="dp" id="Medical Certified Date" ngbDatepicker #d="ngbDatepicker" >
+                      <input type="text" class="form-control date_form_control" fromControlName="medically_certified_date" placeholder="Medical Certified Date"
+                             name="dp" id="medically_certified_date" ngbDatepicker #d="ngbDatepicker" >
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                       </div>
                     </div>
                   </div>
-              <!-- <input type="text" class="form-control" formControlName="txtMedicalCertifiedDate" id="txtMedicalCertifiedDate" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <!-- <input type="text" class="form-control" formControlName="medically_certified_date" id="medically_certified_date" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
             </div>
           </div>
           <div class="form-group row">
             <label for="lblSexualHarr" class="col-sm-5 col-form-label">Sexual Harrassment Policy*</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtSexualHarr" id="txtSexualHarr" placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.txtSexualHarr.errors">
-                <div *ngIf="f.txtSexualHarr.errors.required" class="error_class">Licence Number is required</div>
+              <input type="text" class="form-control" formControlName="sexual_policy" id="sexual_policy" placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.sexual_policy.errors">
+                <div *ngIf="f.sexual_policy.errors.required" class="error_class">Licence Number is required</div>
               </div>
             </div>
           </div>

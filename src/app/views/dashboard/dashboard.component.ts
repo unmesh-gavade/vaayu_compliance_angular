@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import {DashboardService} from '../../services/dashboard.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,9 +21,10 @@ export class DashboardComponent implements OnInit {
     search_res : any = '';
     public search:any = '';
     locked: any[] = [];
-    constructor(public commonService:CommonService, public Dashboard:DashboardService) { }
+    constructor(public commonService:CommonService, public Dashboard:DashboardService, private authService:AuthService) { }
 
   ngOnInit() {
+    //this.authService.checkLogin();
       this.locked = [
         {ba_legal_name: 'Rajesh Singh', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
         {ba_legal_name: 'Rahul Rao', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},

@@ -17,7 +17,7 @@ export class DriverService {
      return this.http.post(this.baseUrl + 'getDetails',data);
    }
    updateDriverDetails(data){
-    return this.http.put(this.baseUrl +'saveDetails',data)
+    return this.http.post(this.baseUrl +'saveDetails',data)
   }
 
 }
