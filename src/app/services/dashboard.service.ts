@@ -17,7 +17,7 @@ export class DashboardService {
     return this.http.post(this.baseUrl + 'dashboardFilter', data);
   }
   getBaList() {
-    return this.http.post(this.baseUrl + 'getBAlist','')
+    return this.http.post(this.baseUrl + 'getAllBaList','')
   }
   getDashboardTats() {
     return this.http.post(this.baseUrl + 'getDashboardTatList','')

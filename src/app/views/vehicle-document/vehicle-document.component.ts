@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import {VehicleService} from '../../services/vehicle.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vehicle-document',
@@ -22,7 +23,7 @@ export class VehicleDocumentComponent implements OnInit {
   vehicleDetails : object;
   vehiclePostData : {};
   pdfDocs:{};
-  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService) { }
+  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
 
   ngOnInit() {
     $(window).ready(function(){
@@ -108,5 +109,24 @@ export class VehicleDocumentComponent implements OnInit {
     
         return;
     }
+    this.editVehicleDocumentForm.patchValue({
+      txtBusinessAssociateName: values.txtBusinessAssociateName,
+      txtBusinessArea: values.txtBusinessArea,
+      txtDriverNameDetail1:  values.txtDriverNameDetail1,
+      txtMobileDeviceNumber: values.txtMobileDeviceNumber,
+      txtMobileIMEI: values.txtMobileIMEI,
+      txtMobileModelVersion: values.txtMobileModelVersion,
+      txtLastServiceDate: values.txtLastServiceDate,
+    });
+
+    // update vehicle documents details
+    this.Vehicle.updateVehicleDetails(this.editVehicleDocumentForm).subscribe(data => {
+      // this.router.navigate(['/contract/details/' +  data['contractid']]);
+      this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
+    }, errorResponse => {
+      this.toastr.error('Error', errorResponse.error[0])
+    });
+
+
   }
 }

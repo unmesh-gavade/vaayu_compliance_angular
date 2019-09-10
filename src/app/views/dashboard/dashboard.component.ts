@@ -46,9 +46,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onsubmit(){
+    
     var data = {
       "resource_type": 'drivers',
-      "search_by_tat":'Registered',
+      "search_by_tat":'non_complient',
       "search_by_name":'',
       "start_page_index":0,
       "record_per_page":10
