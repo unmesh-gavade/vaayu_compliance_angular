@@ -48,11 +48,13 @@ originalSize: boolean = true;
         $('.pdf_box1 li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
       });
       $('.nextpdf').click( function(){
-        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
+        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf');
       });
       $('.prevpdf').click( function(){
         $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
       });
+
+      
   });
 
     this.pdfs = [
