@@ -118,28 +118,30 @@
               </div>
             
           </div>
-          <div class="card-body">
+          
+          <div class="card-body position-relative">
+            <div class="pdf_zoom">
               <button ion-button (click)="incrementZoom(-0.1)">
-                  sdf
+                  -
                  </button>
                  <button ion-button (click)="incrementZoom(0.1)">
-                   sdaf
+                   +
                  </button>
-            <ul  class="p-0 light light-scroll pdf_box"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions2">
+                </div>
+            <!-- <ul  class="p-0 light light-scroll pdf_box"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions2"> -->
+                <ul  class="p-0 pdf_box"  >
               <li class="pdf_li"  *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
                  <span class="togglepdf" [ngClass]="{
                   'nonstatus':item.status === 'none',
                   'approved':item.status === 'approved',
                   'rejected':item.status === 'rejected'
                   }" ></span>
-                  <pdf-viewer src="{{item.doc_url}}"  
-<<<<<<< HEAD
-                  [original-size]="true" class="pdf_view" [autoresize]="autoresize" [zoom]="zoom"  >
+           
+                   <pdf-viewer  src="{{item.doc_url}}"  
+                   [original-size]="false" class="pdf_view"  [zoom]="zoom"  >
+                 </pdf-viewer>
                 
-=======
-                  [original-size]="false" class="pdf_view" >
->>>>>>> 711aa9e78e8e5febc8ed39c1d9ef79e5a02008a3
-                </pdf-viewer>
+                 
                 <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
               </li>
             </ul>
