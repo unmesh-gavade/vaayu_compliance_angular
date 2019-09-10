@@ -101,65 +101,62 @@
   <div class="card">
       <div class="card-header">
           <div class="col-md-12 d-flex justify-content-between align-items-center">
-              <div class="tit_ver">PREVIEW DOCUMENT</div>
-              <div class="paginationedit">
-
-                  <nav aria-label="Page navigation">
-                      <ul class="pagination  m-0">
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0)" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                            (click)="ShowImage('http://www.pdf995.com/samples/pdf.pdf')">1</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                            (click)="ShowImage('http://www.pdf995.com/samples/pdf.pdf')">2</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                            (click)="ShowImage('http://www.pdf995.com/samples/pdf.pdf')">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-              </div>
+           <div class="tit_ver"> Preview Document</div>  
+           
+            <div class="pdf_nav" style="display: inherit">
+              <button  class="prevpdf"> < </button> 
+              <ul>
+                <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == 0" >
+                  {{item.id}}
+                </li>
+                
+              </ul><button class="nextpdf"> > </button>
+            </div>
           </div>
-        
       </div>
       <div class="card-body">
-          <iframe src="http://www.pdf995.com/samples/pdf.pdf" width="100%" height="470px">
-          </iframe>
-        <!-- <img src="{{imageURL}}" width="500" height="400" alt="..."> -->
+          <ul  class="p-0 light light-scroll pdf_box"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions2">
+              <li class="pdf_li"  *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
+                 <span class="togglepdf" [ngClass]="{
+                  'nonstatus':item.status === 'none',
+                  'approved':item.status === 'approved',
+                  'rejected':item.status === 'rejected'
+                  }" ></span>
+                  <pdf-viewer src="{{item.doc_url}}"  
+                  [original-size]="false" class="pdf_view" >
+                </pdf-viewer>
+                <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
+              </li>
+            </ul>
       </div>
       <div class="card-footer bg_white">
           <form>
               <div class="row">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <div class="tit_ver">
-                    <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                    <input type="text" readonly class="form-control-plaintext tit_ver" id="txtDocumentName" value="Registration Certificate">
-                
+                  <div class="col-md-12 d-flex justify-content-between align-items-center">
+                    <ul class="pdf_box">
+                  <li class="tit_ver pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
+                      <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
+                      <!-- <input type="text" readonly class="form-control-plaintext tit_ver" id="txtDocumentName" value="Registration Certificate"> -->
+                  {{item.doc_display_name}}
+                  </li>
+                </ul>
+                  <div>
+                    <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button>  
+                    <button type="button" class="btn btn-outline-danger click_reject pdf_reject">REJECT</button>
+                      <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve">APPROVE</button>
+                  </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-outline-danger click_reject">REJECT</button>
-                    <button type="submit" class="btn btn-success click_reject click_reject_activ">APPROVE</button>
+                  <div class="col-sm-4">
+                      </div>
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-1">
+                   
+                  </div>
+                  <div class="col-sm-2"></div>
+                  <div clss="col-sm-1">
+                    
+                  </div>
                 </div>
-              </div>
-                <div class="col-sm-4">
-                    </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-1">
-                 
-                </div>
-                <div class="col-sm-2"></div>
-                <div clss="col-sm-1">
-                  
-                </div>
-              </div>
             </form>
       </div>
     </div>

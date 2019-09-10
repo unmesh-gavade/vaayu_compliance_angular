@@ -20,6 +20,10 @@ import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DefaultLayoutComponent } from './containers/default-layout';
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 //Http-Intersepter -- To add header to each http request
@@ -29,6 +33,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { LoginComponent } from './views/login/login.component';
+const APP_CONTAINERS = [
+  DefaultLayoutComponent
+];
 
 @NgModule({
   declarations: [
@@ -42,10 +49,12 @@ import { LoginComponent } from './views/login/login.component';
     SearchPipe,
     MenuComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    DefaultLayoutComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgxPaginationModule,
     NgbModule,
@@ -54,7 +63,12 @@ import { LoginComponent } from './views/login/login.component';
     BsDropdownModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 100000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    }),
   ],
   providers: [
     { 

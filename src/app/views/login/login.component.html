@@ -12,19 +12,19 @@
                             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
                                     <div class="form-group">
                                         <!-- <input type="email" formControlName="username" class="form-control" placeholder="Email Id*"  required/> -->
-                                        <input type="email" class="form-control mr-sm-2 tg_select ta_search lgoin_input" placeholder="Email Id*" required   id="Emailid">
-                                        <div *ngIf="username.invalid && (username.dirty || username.touched) && submitted" class="invalid-feedback">
+                                        <input type="text" formControlName="username" class="form-control" placeholder="Username *" required   id="username">
+                                        <div *ngIf="username.invalid && submitted" class="error_class">
                                                 <div *ngIf="username.errors.required">
                                                     Username is required.
                                                 </div>
-                                                <div *ngIf="username.errors.pattern">
+                                                <!-- <div *ngIf="username.errors.pattern">
                                                     In valid email address.
-                                                </div> 
+                                                </div>  -->
                                             </div>
                                     </div>
                                     <div class="form-group ">
-                                        <input type="password" formControlName="password"  class="form-control mr-sm-2 tg_select ta_search lgoin_input" placeholder="Password *"  required/>
-                                        <div *ngIf="password.invalid && (password.dirty || password.touched) && submitted" class="invalid-feedback">
+                                        <input type="password" formControlName="password"  class="form-control" placeholder="Password *"  required/>
+                                        <div *ngIf="password.invalid && submitted" class="error_class">
                                                 <div *ngIf="password.errors">
                                                   Password is required.
                                                 </div>
