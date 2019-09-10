@@ -4889,7 +4889,7 @@ $color-title-bluer:#F2F2F2;
   }
 
 .countbx{padding:2px 0 2px 0px;}
-.count-text{color:$color_this;font-weight: $font-weight-bold;font-size: 0.75rem;}
+.count-text{color:$color_this;font-weight: $font-weight-bold;font-size: 0.75rem;cursor: pointer;}
 .count-number{font-size:1.125rem;color:$color-numbers;
 span{    font-size: 0.70rem;
     padding-right: 7px;
@@ -5132,6 +5132,6 @@ span{padding-right: 5px;}
 				margin-top: 16px;
 				margin-bottom: 7px;}
 			.login_new_user:hover{color: #4052B5;}
-		
+			.d-none1{display: none;}
 /*verification end*/
 /*e*/

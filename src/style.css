@@ -13572,7 +13572,8 @@ select.dropdown option {
 .count-text {
   color: #253238;
   font-weight: 700;
-  font-size: 0.75rem; }
+  font-size: 0.75rem;
+  cursor: pointer; }
 
 .count-number {
   font-size: 1.125rem;
@@ -14048,6 +14049,9 @@ select.form-control.fill_drop option {
 
 .login_new_user:hover {
   color: #4052B5; }
+
+.d-none1 {
+  display: none; }
 
 /*verification end*/
 /*e*/
