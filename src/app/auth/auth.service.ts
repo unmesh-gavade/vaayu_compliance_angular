@@ -69,6 +69,8 @@ export class AuthService {
         if (user['data'] && user.status == true) {
           localStorage.setItem('currentUser', JSON.stringify(user['data']));
           this.isLoggedIn = true;
+          //const token = user.headers.get('client');
+          // console.log(user.headers.get('access-token'));
         } else {
           this.toastr.error('Error', 'Invalid login credentials. Please try again.');
         }

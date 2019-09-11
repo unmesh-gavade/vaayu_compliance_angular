@@ -26,6 +26,7 @@ export class VehiclePersonalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    //this.authService.checkLogin();
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -136,8 +137,12 @@ export class VehiclePersonalComponent implements OnInit {
     var data={formData:this.editVehiclePersonalForm.value};
     this.vehicleUpdateData ={user,data,document};
     // update vehicle personal details
-    this.Vehicle.updateVehicleDetails(this.editVehiclePersonalForm).subscribe(data => {
+    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);
+      console.log(this.isEditModeOn);
+      if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+      else{this.valueOfButton= "Edit"}
+    
       this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
     }, errorResponse => {
       this.toastr.error('Error', errorResponse.error[0])

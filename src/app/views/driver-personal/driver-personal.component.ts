@@ -26,6 +26,7 @@ export class DriverPersonalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
 
   ngOnInit() {
+    //this.authService.checkLogin();
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -127,8 +128,8 @@ export class DriverPersonalComponent implements OnInit {
         "os_type": 'web'
       };
       var document={
-        "approved_doc":'',
-        "rejected_doc":'',
+        "approved_doc":'1,2',
+        "rejected_doc":'3,4',
         "comment":'test'
       };
       var formData={};
@@ -136,9 +137,12 @@ export class DriverPersonalComponent implements OnInit {
       this.driverUpdateData ={user,data,document};
       
        // update driver personal details
-     this.Driver.updateDriverDetails(this.editDriverPersonalForm).subscribe(data => {
-      console.log(this.editDriverPersonalForm);
+     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
      // this.router.navigate(['/contract/details/' +  data['contractid']]);
+     console.log('onUpdate');
+     console.log(this.isEditModeOn);
+      if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+      else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Personal Details updated successfully');
    },errorResponse => {
        this.toastr.error('Error', errorResponse.error[0])

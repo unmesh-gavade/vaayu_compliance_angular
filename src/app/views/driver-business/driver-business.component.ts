@@ -4,6 +4,8 @@ import * as $ from 'jquery';
 import { DriverService } from '../../services/driver.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { ConcatSource } from 'webpack-sources';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-business',
@@ -23,9 +25,10 @@ export class DriverBusinessComponent implements OnInit {
   driverPostData: {};
   driverUpdateData:{};
 
-  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService,private router: Router) { }
 
   ngOnInit() {
+    //this.authService.checkLogin();
     $(window).ready(function () {
       $('.pdf_reject').click(function () {
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');
@@ -135,7 +138,12 @@ export class DriverBusinessComponent implements OnInit {
     console.log(this.driverUpdateData);
     // update driver business details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-      // this.router.navigate(['/contract/details/' +  data['contractid']]);
+       this.router.navigate(['/dashboard']);
+      console.log(res);
+      console.log('onUpdate');
+      console.log(this.isEditModeOn);
+      if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+      else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Business Details updated successfully');
     }, errorResponse => {
       console.log(errorResponse);

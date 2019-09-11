@@ -25,6 +25,7 @@ export class DriverDocumentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
 
   ngOnInit() {
+    //this.authService.checkLogin();
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -117,9 +118,22 @@ export class DriverDocumentComponent implements OnInit {
       medically_certified_date:   moment(values.medically_certified_date).format("YYYY-MM-DD"),
       sexual_policy:  values.sexual_policy,
     });
-
+    var user = {
+      "session_id":3403,
+      "resource_id": 454,
+      "resource_type": 'drivers',
+      "os_type": 'web'
+    };
+    var document={
+      "approved_doc":'1,2',
+      "rejected_doc":'3,4',
+      "comment":'test'
+    };
+    var formData={};
+    var data={formData:this.editDriverDocumentForm.value};
+    this.driverUpdateData ={user,data,document};
     // update driver Documents details
-    this.Driver.updateDriverDetails(this.editDriverDocumentForm).subscribe(data => {
+    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);
       this.toastr.success('Success', 'Driver Documents Details updated successfully');
     }, errorResponse => {

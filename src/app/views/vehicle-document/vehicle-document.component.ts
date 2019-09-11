@@ -32,6 +32,7 @@ originalSize: boolean = true;
 
   
   ngOnInit() {
+    //this.authService.checkLogin();
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -142,7 +143,7 @@ originalSize: boolean = true;
     var data={formData:this.editVehicleDocumentForm.value};
     this.vehicleUpdateData ={user,data,document};
     // update vehicle documents details
-    this.Vehicle.updateVehicleDetails(this.editVehicleDocumentForm).subscribe(data => {
+    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);
       this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
     }, errorResponse => {

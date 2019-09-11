@@ -43,6 +43,17 @@ export class DashboardComponent implements OnInit {
     console.log(this.tatList);
     
     });
+    var data = {
+      "resource_type": 'drivers',
+      "search_by_tat":'new_request',
+      "search_by_name":'',
+      "start_page_index":0,
+      "record_per_page":10
+   }
+   this.Dashboard.getDashboardList(data).subscribe(res=>{
+    this.dashboardList = res['data']['filterData'];
+    console.log(this.dashboardList);
+  })
    this.onsubmit();
   }
 
@@ -50,7 +61,7 @@ export class DashboardComponent implements OnInit {
     
     var data = {
       "resource_type": 'drivers',
-      "search_by_tat":'non_complient',
+      "search_by_tat":'new_request',
       "search_by_name":'',
       "start_page_index":0,
       "record_per_page":10
