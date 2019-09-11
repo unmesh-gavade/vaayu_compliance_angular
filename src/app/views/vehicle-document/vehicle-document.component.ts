@@ -35,6 +35,7 @@ originalSize: boolean = true;
     
     $(window).ready(function(){
       
+      
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
       });
