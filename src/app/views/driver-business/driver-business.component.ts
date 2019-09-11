@@ -154,8 +154,8 @@ export class DriverBusinessComponent implements OnInit {
       this.toastr.success('Success', 'Driver Business Details updated successfully');
     }, errorResponse => {
       console.log(errorResponse);
-      alert("save");
-      this.toastr.error('Error', 'somthing went wrong');
+      alert(errorResponse);
+      this.toastr.error('Error', errorResponse);
     });
 
   }

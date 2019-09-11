@@ -63,14 +63,20 @@ export class AuthService {
       'Content-Type': 'application/json',
     });
     let options = { headers: headers };
-    return this.http.post<any>(`${this.serverUrl}/signin`, dataLogin, options)
+ 
+    // return this.http.post<any>('url', {observe: 'response'})
+    // .subscribe(resp => {
+    //     console.log(resp.headers.get('client'));
+    // });
+
+    return this.http.post<any>(`${this.serverUrl}/signin`, dataLogin,options)
       .pipe(map(user => {
-        console.log([user.status]);
+         //console.log(user.headers.get('client'));
         if (user['data'] && user.status == true) {
+          console.log([user.status]);
           localStorage.setItem('currentUser', JSON.stringify(user['data']));
           this.isLoggedIn = true;
-          //const token = user.headers.get('client');
-          // console.log(user.headers.get('access-token'));
+         // const token = user.headers.get('client');
         } else {
           this.toastr.error('Error', 'Invalid login credentials. Please try again.');
         }
