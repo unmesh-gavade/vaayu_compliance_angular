@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./driver-document.component.sass']
 })
 export class DriverDocumentComponent implements OnInit {
+  zoom: number = 1.0;
   pdfSrc: string = './assets/images/myfile.pdf';
   pdfs: any[] = [];
   valueOfButton = "Edit";
@@ -86,6 +87,9 @@ export class DriverDocumentComponent implements OnInit {
    });
    });
   }
+  
+incrementZoom(amount: number) {
+  this.zoom += amount;   }
   onEdit() {
     this.isEditModeOn = ! this.isEditModeOn;
     if(this.isEditModeOn){this.valueOfButton = "Cancel"}

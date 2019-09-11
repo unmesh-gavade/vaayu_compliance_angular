@@ -34,6 +34,8 @@ originalSize: boolean = true;
   ngOnInit() {
     //this.authService.checkLogin();
     $(window).ready(function(){
+      
+      
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
       });
@@ -44,13 +46,14 @@ originalSize: boolean = true;
          $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
        });
       $('.pdf_nav ul li').click(function() {
+       
         var index = $(this).index();
         $(this).addClass('activepdf').siblings().removeClass('activepdf');
         $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
         $('.pdf_box1 li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
       });
       $('.nextpdf').click( function(){
-        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
+        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf');
       });
       $('.prevpdf').click( function(){
         $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
