@@ -14075,6 +14075,9 @@ select.form-control.fill_drop option {
     width: 25px;
     font-size: 18px; }
 
+.toast-message {
+  display: none; }
+
 /*verification end*/
 /*e*/
 

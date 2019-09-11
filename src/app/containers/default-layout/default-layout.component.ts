@@ -12,10 +12,10 @@ export class DefaultLayoutComponent implements OnInit {
   model: NgbDateStruct;
   date: {year: number, month: number};
   title = 'blogger';
-  constructor(public commonService:CommonService, private mScrollbarService: MalihuScrollbarService, private calendar: NgbCalendar) {}
+  constructor(public commonService:CommonService,  private calendar: NgbCalendar) {}
 
   ngOnInit() {
-    this.mScrollbarService.initScrollbar(document.body, { axis: 'yx', theme: 'minimal-dark' });
+   // this.mScrollbarService.initScrollbar(document.body, { axis: 'yx', theme: 'minimal-dark' });
   }
   public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
   onToolbarMenuToggle(){

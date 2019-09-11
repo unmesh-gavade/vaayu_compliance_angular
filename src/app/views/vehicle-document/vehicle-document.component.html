@@ -24,7 +24,7 @@
               DOCUMENT VERIFICATION
             </div>
           </h5>
-          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
+          <div malihu-scrollbar  [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
             <div class="form-group row">
               <label for="lblOwnership" class="col-sm-5 col-form-label">Ownership</label>
               <div class="col-sm-6">
@@ -120,6 +120,10 @@
           </div>
           
           <div class="card-body position-relative">
+              <!-- <div class="nn" style="width:100px;height:100px;">
+                  <div style="width:900px;">sljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdflj<br><br><br><br><br><br><br><br><br><br><br><br><br>kfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkfsljkdfljkf</div>
+                </div> -->
+                
             <div class="pdf_zoom">
               <button ion-button (click)="incrementZoom(-0.1)">
                   -
@@ -130,15 +134,15 @@
                 </div>
             <!-- <ul  class="p-0 light light-scroll pdf_box"  malihu-scrollbar [scrollbarOptions]="scrollbarOptions2"> -->
                 <ul  class="p-0 pdf_box"  >
-              <li class="pdf_li"  *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
+              <li class="pdf_li nn"  *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" >
                  <span class="togglepdf" [ngClass]="{
                   'nonstatus':item.status === 'none',
                   'approved':item.status === 'approved',
                   'rejected':item.status === 'rejected'
                   }" ></span>
            
-                   <pdf-viewer  src="{{item.doc_url}}"  
-                   [original-size]="false" class="pdf_view"  [zoom]="zoom"  >
+                   <pdf-viewer  src="{{item.doc_url}}"   [show-all]="true"
+                   [original-size]="false" class="pdf_view "   [zoom]="zoom"  >
                  </pdf-viewer>
                 
                  

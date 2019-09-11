@@ -11,9 +11,12 @@
 <body>
   <app-root></app-root>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
+  
   <script>
     
-  $(document).ready(function () {
+    $(window).load(function() {
+    //$(".nn").niceScroll({styler:"fb",cursorcolor:"#000"});
+    $("html").niceScroll({styler:"fb",cursorcolor:"#000"});
     $(function(){
       var btn = $('.show_act'),
       info = $('.info');

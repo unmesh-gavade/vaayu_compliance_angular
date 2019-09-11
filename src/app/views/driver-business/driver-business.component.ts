@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import { DriverService } from '../../services/driver.service';
 import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-driver-business',
@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./driver-business.component.sass']
 })
 export class DriverBusinessComponent implements OnInit {
+  zoom: number = 1.0;
   pdfSrc: string = './assets/images/myfile.pdf';
   pdfs: any[] = [];
   valueOfButton = "Edit";
@@ -23,9 +24,12 @@ export class DriverBusinessComponent implements OnInit {
   driverPostData: {};
   driverUpdateData:{};
 
-  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService, private toastrService: ToastrService) { }
+
+
 
   ngOnInit() {
+    //this.toastrService.overlayContainer = this.toastContainer;
     $(window).ready(function () {
       $('.pdf_reject').click(function () {
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');
@@ -86,6 +90,12 @@ export class DriverBusinessComponent implements OnInit {
       });
     });
   }
+
+  onClick() {
+    this.toastrService.success('in div');
+  }
+  incrementZoom(amount: number) {
+    this.zoom += amount;   }
   onEdit() {
     this.isEditModeOn = !this.isEditModeOn;
     if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
@@ -139,6 +149,7 @@ export class DriverBusinessComponent implements OnInit {
       this.toastr.success('Success', 'Driver Business Details updated successfully');
     }, errorResponse => {
       console.log(errorResponse);
+      alert("save");
       this.toastr.error('Error', 'somthing went wrong');
     });
 
