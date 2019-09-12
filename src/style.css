@@ -14085,6 +14085,12 @@ select.form-control.fill_drop option {
   height: auto;
   font-size: 0.85rem; }
 
+.display-non-core, .display-non-core1 {
+  display: block !important; }
+
+.display-non-core img {
+  display: none; }
+
 /*verification end*/
 /*e*/
 

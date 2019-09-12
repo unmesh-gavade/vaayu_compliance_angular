@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
       "search_by_tat":'draft',
       "search_by_name":'',
       "start_page_index":0,
-      "record_per_page":10
+      "record_per_page":100
    }
    this.Dashboard.getDashboardList(data).subscribe(res=>{
     this.dashboardList = res['data']['filterData'];
@@ -72,7 +72,8 @@ export class DashboardComponent implements OnInit {
   })
     
   }
-
+ 
+  
     onToolbarMenuToggle(){
       console.log('toggle', this.commonService.isMenuOpen);
       this.commonService.toggleMenu();
