@@ -136,14 +136,15 @@ export class DriverPersonalComponent implements OnInit {
         "comment":'test'
       };
       var formData={};
-      var data={formData:this.editDriverPersonalForm.value};
-      this.driverUpdateData ={user,data,document};
+      var data={formData:this.editDriverPersonalForm.value,document};
+      this.driverUpdateData ={user,data};
       
        // update driver personal details
      this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
      // this.router.navigate(['/contract/details/' +  data['contractid']]);
-     console.log('onUpdate');
-     console.log(this.isEditModeOn);
+      console.log('onUpdate');
+      console.log(this.isEditModeOn);
+      this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Personal Details updated successfully');

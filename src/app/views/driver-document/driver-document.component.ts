@@ -134,14 +134,23 @@ incrementZoom(amount: number) {
       "comment":'test'
     };
     var formData={};
-    var data={formData:this.editDriverDocumentForm.value};
-    this.driverUpdateData ={user,data,document};
+    var data={formData:this.editDriverDocumentForm.value,document};
+    this.driverUpdateData ={user,data};
     // update driver Documents details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
       // this.router.navigate(['/contract/details/' +  data['contractid']]);
+      console.log('onUpdate');
+      console.log(this.isEditModeOn);
+      this.isEditModeOn=false;
+      if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+      else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Documents Details updated successfully');
     }, errorResponse => {
       this.toastr.error('Error', errorResponse.error[0])
     });
+  }
+  sumbitDriver()
+  {
+
   }
 }

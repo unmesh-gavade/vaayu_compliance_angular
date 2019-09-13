@@ -26,10 +26,10 @@ export class AuthService {
   }
   checkLogin() {
     const currentUser = this.getAuthUser();
-    const appToken = this.getAppToken();
+    //const appToken = this.getAppToken();
    console.log(currentUser);
-   console.log(appToken);
-    if (currentUser && appToken) {
+   //console.log(appToken);
+    if (currentUser) {
       console.log('its true');
       return true;
     }
@@ -105,7 +105,9 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('appToken');
+    localStorage.removeItem = null;
+
+    //localStorage.removeItem('appToken');
     this.isLoggedIn = false;
     this.isAuthorise = false;
     this.router.navigate(['/login']);
