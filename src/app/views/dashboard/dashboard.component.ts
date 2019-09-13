@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit {
     console.log(this.dashboardList);
   })
    this.onsubmit();
-   
   }
 
   onsubmit(){

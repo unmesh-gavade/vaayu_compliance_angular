@@ -182,14 +182,17 @@
           </div>
         </div>
     </div>
-    <div class="container-fluid mt-4 p-3 bg-wh6ite">
+    <div class="container-fluid mt-4 p-3 bg-white">
         <div class="row ">
           <div class="col-md-12 d-flex align-items-center">
           <div class="col-sm-6">
-            <!-- <div class="pdf_li"*ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" > -->
-              <input type="text" class="form-control" id="txtRejectedDoc" placeholder="">
-              <!-- {{item.doc_display_name}} -->
-          <!-- </div> -->
+              <ul class="p-0 pdf_box pdf_rejected_list">
+                <li class="pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0" [class.text-success]="item.status === 'rejected'"
+                [class.d-none]="item.status === 'approved'">
+                {{item.doc_display_name}} 
+              </li>
+                </ul>
+             
         </div>
           <div class="col-sm-4">
             
