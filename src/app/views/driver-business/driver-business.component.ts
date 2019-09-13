@@ -77,7 +77,7 @@ export class DriverBusinessComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
-      this.driverDetails = details['data']['user_detail'];
+      this.driverDetails = details['data'];
       console.log(this.driverDetails);
       console.log(this.driverDetails[0]['aadhaar_number']);
       this.editDriverBusinessForm.patchValue({
