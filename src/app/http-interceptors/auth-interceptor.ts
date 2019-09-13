@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
         //const appToken = this.authService.getAppToken();
         //const authToken = this.authService.getAuthorizationToken();
           const currentUser ="";
-          const accessToken='m2V0jcBxEB0Z4Umdf-3RKg';
+          const accessToken='s6XWBjuT_104sG6IwQ4KPg';
           const authToken="";
           const userId='deekshithmech@gmail.com';
         if (accessToken) {
@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
             );
             req = req.clone({
                 setHeaders:
-                    {'client': '-vTCC2c6dYGFhUzD-Bzwsw'}
+                    {'client': 'zf9ADoYFfW4R-sxvchlH7g'}
                 },
             );
         }

@@ -242,12 +242,12 @@
         <td>{{item.registeredby}}</td>
         <td><span>{{item.induction_status}}</span></td>
         <td>{{item.date_of_registration}}</td>
-        <td><button type="button" routerLink="/driver-personal" class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
+        <td><button type="button"  onclick="Verify(item.resource_id)"  class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
     </tr>
                                 </tbody>
                                 <!-- <tbody>
                                   <tr>
-                                    
+                                    routerLink="/driver-personal"
                                     <td>Rajesh Singh</td>
                                     <td>Satish Tour & Travel</td>
                                     <td>AP265HDG236434</td>

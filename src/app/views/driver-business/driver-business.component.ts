@@ -140,15 +140,17 @@ export class DriverBusinessComponent implements OnInit {
       "comment":'test'
     };
     var formData={};
-    var data={formData:this.editDriverBusinessForm.value};
-    this.driverUpdateData ={user,data,document};
+    var data={formData:this.editDriverBusinessForm.value,document};
+    this.driverUpdateData ={user,data};
     console.log(this.driverUpdateData);
     // update driver business details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
        //this.router.navigate(['/dashboard']);
       console.log(res);
       console.log('onUpdate');
+      this.toastr.success('Success', 'Driver Business Details updated successfully');
       console.log(this.isEditModeOn);
+      this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Business Details updated successfully');
