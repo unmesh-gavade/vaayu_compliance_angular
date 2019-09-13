@@ -17,46 +17,7 @@
     $(window).load(function() {
     //$(".nn").niceScroll({styler:"fb",cursorcolor:"#000"});
     $("html").niceScroll({styler:"fb",cursorcolor:"#000"});
-    $(function(){
-      var btn = $('.show_act'),
-      info = $('.info');
-   
-    btn.click(function(e) {
-        e.preventDefault();
-        var index = $(this).index();
-        info.hide();
-        info.eq(index).show();
-        $('.show_act').removeClass('current');
-        $(this).addClass('current');
-      
-    });  
     
-    
-    $(".Vehicle").click(function () { 
-                 
-                $("#option2").attr("checked", true).click(); 
-                $(".show_act1").removeClass("act_p");
-                $(this).addClass("act_p");
-            }); 
-            $(".Driver").click(function () { 
-                 
-                 $("#option1").attr("checked", true).click(); 
-                 $(".show_act1").removeClass("act_p");
-                $(this).addClass("act_p");
-             });   
-             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(1)").click(function () { 
-              $(".show_act1").removeClass("act_p");
-              $(".show_act1.Driver").addClass("act_p");
-              
-             }); 
-             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(2)").click(function () { 
-              $(".show_act1").removeClass("act_p");
-              $(".show_act1.Vehicle").addClass("act_p");
-                
-             }); 
-            
-
-});
 
 
 });

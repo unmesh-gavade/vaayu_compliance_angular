@@ -3,6 +3,7 @@ import { CommonService } from '../../services/common.service';
 import {DashboardService} from '../../services/dashboard.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AuthService } from '../../auth/auth.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,47 @@ export class DashboardComponent implements OnInit {
     constructor(public commonService:CommonService, public Dashboard:DashboardService, private authService:AuthService) { }
 
   ngOnInit() {
+    $(window).ready(function(){
+    $(function(){
+      var btn = $('.show_act'),
+      info = $('.info');
+   
+    btn.click(function(e) {
+        e.preventDefault();
+        var index = $(this).index();
+        info.hide();
+        info.eq(index).show();
+        $('.show_act').removeClass('current');
+        $(this).addClass('current');
+      
+    });  
+    
+    
+    $(".Vehicle").click(function () { 
+                 
+                $("#option2").attr("checked", true).click(); 
+                $(".show_act1").removeClass("act_p");
+                $(this).addClass("act_p");
+            }); 
+            $(".Driver").click(function () { 
+                 
+                 $("#option1").attr("checked", true).click(); 
+                 $(".show_act1").removeClass("act_p");
+                $(this).addClass("act_p");
+             });   
+             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(1)").click(function () { 
+              $(".show_act1").removeClass("act_p");
+              $(".show_act1.Driver").addClass("act_p");
+              
+             }); 
+             $(".tg_select .btn-group-toggle .btn-secondary:nth-child(2)").click(function () { 
+              $(".show_act1").removeClass("act_p");
+              $(".show_act1.Vehicle").addClass("act_p");
+                
+             }); 
+            });  
+
+});
     //this.authService.checkLogin();
       this.locked = [
         {ba_legal_name: 'Rajesh Singh', resource_id: 'Satish Tour & Travel', licence_number: 'AP265HDG236434', gender: 'Male', registeredby: 'Rushi Indulekar', induction_status: 'registered',date_of_registration : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
@@ -66,11 +108,27 @@ export class DashboardComponent implements OnInit {
       "start_page_index":0,
       "record_per_page":100
    }
+
+   
    this.Dashboard.getDashboardList(data).subscribe(res=>{
     this.dashboardList = res['data']['filterData'];
     console.log(this.dashboardList);
   })
     
+  }
+  myClickFunction(){
+    alert("asdf");
+    var data1 = {
+      "resource_type": 'drivers',
+      "search_by_tat":'draft',
+      "search_by_name":'',
+      "start_page_index":0,
+      "record_per_page":100
+   }
+   this.Dashboard.getDashboardList(data1).subscribe(res=>{
+    this.dashboardList = res['data1']['filterData'];
+    console.log(this.dashboardList);
+  })
   }
  
   
