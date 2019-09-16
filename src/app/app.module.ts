@@ -33,6 +33,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { LoginComponent } from './views/login/login.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -50,7 +51,8 @@ const APP_CONTAINERS = [
     MenuComponent,
     HeaderComponent,
     LoginComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,
