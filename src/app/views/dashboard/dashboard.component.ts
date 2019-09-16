@@ -75,7 +75,8 @@ export class DashboardComponent implements OnInit {
       "start_page_index":0,
       "record_per_page":10
    }
-   console.log(data);
+
+   
    this.Dashboard.getDashboardList(data).subscribe(res=>{
      console.log('in dash');
      console.log(res);
