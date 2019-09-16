@@ -72,7 +72,7 @@
               <div class="container-fluid p-0 mt-4">
                   <div class="row in_row">
                     
-                      <div class="col-md-3 p-2 show_act" (click)="myClickFunction()" *ngFor="let tat of tatList; index as i;"  
+                      <div class="col-md-3 p-2 show_act"  *ngFor="let tat of tatList; index as i;"  
                       [ngClass]="{'d-none1':tat.name === 'non_complient','d-none':tat.name === 'draft'
                         }"
                         >
