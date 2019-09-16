@@ -11,7 +11,7 @@
                           <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"
                           (click)="onEdit()">{{valueOfButton}}</button>
                           <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
-              <a routerLink="/vehicle-document" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Next</a>
+              <a (click)="saveDocsStatus(this.resource_id)" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Next</a>
            
                         </div>
                         </div>

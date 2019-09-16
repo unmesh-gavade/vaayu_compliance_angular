@@ -4,6 +4,8 @@ import * as $ from 'jquery';
 import {VehicleService} from '../../services/vehicle.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth/auth.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-vehicle-business',
@@ -23,11 +25,15 @@ export class VehiclePersonalComponent implements OnInit {
   vehicleDetails : object;
   vehiclePostData : {};
   vehicleUpdateData:{};
+  resource_id:String;
+  resource_type:String;
 
-  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
-    //this.authService.checkLogin();
+    this.authService.checkLogin();
+    this.resource_id = this.route.snapshot.paramMap.get("resource_id");
+    this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -67,14 +73,15 @@ export class VehiclePersonalComponent implements OnInit {
       gps_provider_id:['']
    });
    var user = {
-    "resource_id": 373,
-    "resource_type":'vehicles',
+    "resource_id": + this.resource_id,
+    "resource_type":this.resource_type,
     "os_type":'web'
  }
   this.vehiclePostData = {user};
 
   this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details=>{
     console.log(details);
+    if (details['success'] == true) {
    this.vehicleDetails = details['data']['user_detail'];
    console.log(this.vehicleDetails);
    this.editVehiclePersonalForm.patchValue({
@@ -87,6 +94,10 @@ export class VehiclePersonalComponent implements OnInit {
     ac: this.vehicleDetails[0]['ac'],
     gps_provider_id:  this.vehicleDetails[0]['gps_provider_id'],
   });
+}
+else{
+  this.toastr.error('Error', 'Something Went Wrong.');
+}
   });
   }
   incrementZoom(amount: number) {
@@ -105,7 +116,7 @@ export class VehiclePersonalComponent implements OnInit {
   get f() { return this.editVehiclePersonalForm.controls; }
 
   onSubmit() {
-
+alert('in submit');
     this.submitted = true;
 
     var values = this.editVehiclePersonalForm.value;
@@ -127,29 +138,40 @@ export class VehiclePersonalComponent implements OnInit {
     });
     var user = {
       "session_id":3403,
-      "resource_id": 373,
-      "resource_type": 'vehicles',
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
       "os_type": 'web'
     };
     var document={
-      "approved_doc":'',
-      "rejected_doc":'',
+      "approved_doc":'1,2',
+      "rejected_doc":'3,4',
       "comment":'test'
     };
     var formData={};
     var data={formData:this.editVehiclePersonalForm.value};
     this.vehicleUpdateData ={user,data,document};
+    console.log(this.vehicleUpdateData);
     // update vehicle personal details
-    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(data => {
-      // this.router.navigate(['/contract/details/' +  data['contractid']]);
-      console.log(this.isEditModeOn);
+    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      console.log(res);
+      if (res['success'] == true) {
+      this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
-    
       this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+    }
+    else{
+      this.toastr.error('Error', 'Something went wrong');
+    }
     }, errorResponse => {
-      this.toastr.error('Error', errorResponse.error[0])
+      this.toastr.error('Error', errorResponse.error[0]);
     });
 
   }
+  saveDocsStatus(resource_id)
+    {
+      console.log(resource_id);
+      this.router.navigate(['/vehicle-document' ,{'resource_id':resource_id,'resource_type':'vehicles' }]);      
+    }
+
 }

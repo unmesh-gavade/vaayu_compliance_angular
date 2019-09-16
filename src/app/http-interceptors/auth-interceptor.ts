@@ -16,8 +16,8 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
        // const currentUser = this.authService.getAuthUser();
-        //const appToken = this.authService.getAppToken();
-        //const authToken = this.authService.getAuthorizationToken();
+        //const accessToken = this.authService.getAppToken();
+        //const client = this.authService.getAuthorizationToken();
           const currentUser ="";
           const accessToken='s6XWBjuT_104sG6IwQ4KPg';
           const authToken="";

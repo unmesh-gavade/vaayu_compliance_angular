@@ -61,28 +61,48 @@ export class AuthService {
     };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      observe: 'response'
     });
     let options = { headers: headers };
  
-    // return this.http.post<any>('url', {observe: 'response'})
-    // .subscribe(resp => {
-    //     console.log(resp.headers.get('client'));
-    // });
-
-    return this.http.post<any>(`${this.serverUrl}/signin`, dataLogin,options)
-      .pipe(map(user => {
-         //console.log(user.headers.get('client'));
-        if (user['data'] && user.status == true) {
-          console.log([user.status]);
-          localStorage.setItem('currentUser', JSON.stringify(user['data']));
-          this.isLoggedIn = true;
-         // const token = user.headers.get('client');
-        } else {
-          this.toastr.error('Error', 'Invalid login credentials. Please try again.');
-        }
-      }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(`${this.serverUrl}/signin`, {
+      'username': username,
+      'password': password,
+      'app':'driver'
+  }, {
+      headers: new HttpHeaders()
+          .set('Content-Type', 'application/json'),
+      observe: 'response'
+  })
+  .pipe(map(user => {
+    console.log(user);
+    console.log(user.headers);
+    alert(user.headers.get('content-type'));
+      let myHeader = user.headers.get('client');
+      console.log(myHeader);
+      if (user['body']['data'] && user['body']['status'] == true) {
+        localStorage.setItem('currentUser', JSON.stringify(user['body']['data']));
+        //localStorage.setItem('client',JSON.stringify(user['body']['data']));
+        //localStorage.setItem('access_token',JSON.stringify(user['body']['data']));
+        this.isLoggedIn = true;
+      } else {
+        this.toastr.error('Error', 'Invalid login credentials. Please try again.');
+      }
+  }),
+  catchError(this.handleError)
+  );
+    // return this.http.post<any>(`${this.serverUrl}/signin`, dataLogin,options)
+    //   .pipe(map(user => {
+    //     if (user['data'] && user.status == true) {
+    //       localStorage.setItem('currentUser', JSON.stringify(user['data']));
+    //       this.isLoggedIn = true;
+    //      //const token = user.headers.get('client');
+    //     } else {
+    //       this.toastr.error('Error', 'Invalid login credentials. Please try again.');
+    //     }
+    //   }),
+    //     catchError(this.handleError)
+    //   );
   }
 
   getAuthUser() {
@@ -103,11 +123,20 @@ export class AuthService {
       return false;
     }
   }
+  getClientToken() {
+    const client = localStorage.getItem('client');
+    if (client) {
+      let tokenData = JSON.parse(client)
+      return tokenData.data;
+    } else {
+      return false;
+    }
+  }
   logout() {
+    console.log('Logged out..')
     localStorage.removeItem('currentUser');
-    localStorage.removeItem = null;
-
-    //localStorage.removeItem('appToken');
+    localStorage.removeItem('client');
+    localStorage.removeItem('access_token');
     this.isLoggedIn = false;
     this.isAuthorise = false;
     this.router.navigate(['/login']);

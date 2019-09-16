@@ -5,7 +5,8 @@ import { DriverService } from '../../services/driver.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ConcatSource } from 'webpack-sources';
-import { Router } from '@angular/router';
+import {Router, ActivatedRoute} from "@angular/router";
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-driver-business',
@@ -25,13 +26,17 @@ export class DriverBusinessComponent implements OnInit {
   driverDetails: object;
   driverPostData: {};
   driverUpdateData:{};
-
-  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService) { }
+  resource_id:String;
+  resource_type:String;
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
 
 
   ngOnInit() {
+    this.authService.checkLogin();
     //this.toastrService.overlayContainer = this.toastContainer;
+    this.resource_id = this.route.snapshot.paramMap.get("resource_id");
+    this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     $(window).ready(function () {
       $('.pdf_reject').click(function () {
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');
@@ -71,13 +76,14 @@ export class DriverBusinessComponent implements OnInit {
       licence_number: ['', Validators.required],
     });
     var user = {
-      "resource_id": 454,
-      "resource_type": 'drivers',
-      "os_type": 'web'
-    }
+      "resource_id": + this.resource_id,
+      "resource_type":this.resource_type,
+      "os_type":'web'
+   }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
-      this.driverDetails = details['data'];
+      if (details['success'] == true) {
+      this.driverDetails = details['data']['user_detail'];
       console.log(this.driverDetails);
       console.log(this.driverDetails[0]['aadhaar_number']);
       this.editDriverBusinessForm.patchValue({
@@ -90,6 +96,11 @@ export class DriverBusinessComponent implements OnInit {
         //txtDriverAcc: this.driverDetails[0]['aadhaar_number'],
         licence_number: this.driverDetails[0]['licence_number'],
       });
+    }
+    else
+    {
+      this.toastr.error('Error', 'Something Went Wrong.');
+    }
     });
   }
 
@@ -130,10 +141,11 @@ export class DriverBusinessComponent implements OnInit {
     });
     var user = {
       "session_id":3403,
-      "resource_id": 454,
-      "resource_type": 'drivers',
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
       "os_type": 'web'
     };
+    console.log(user);
     var document={
       "approved_doc":'1,2',
       "rejected_doc":'3,4',
@@ -145,20 +157,32 @@ export class DriverBusinessComponent implements OnInit {
     console.log(this.driverUpdateData);
     // update driver business details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-       //this.router.navigate(['/dashboard']);
+      if (res['success'] == true) {
       console.log(res);
       console.log('onUpdate');
-      this.toastr.success('Success', 'Driver Business Details updated successfully');
       console.log(this.isEditModeOn);
       this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Business Details updated successfully');
+      }
+      else{
+        this.toastr.error('Error', 'Something went wrong');
+      }
     }, errorResponse => {
       console.log(errorResponse);
-      alert(errorResponse);
       this.toastr.error('Error', errorResponse);
     });
 
   }
+  saveDocsStatus(resource_id)
+    {
+      console.log(resource_id);
+      this.router.navigate(['/driver-document' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
+    }
+    backToPersonal(resource_id)
+    {
+      console.log(resource_id);
+      this.router.navigate(['/driver-personal' ,{'resource_id':resource_id,'resource_type':'drivers' }]);  
+    }
 }

@@ -76,7 +76,7 @@
                       [ngClass]="{'d-none1':tat.name === 'non_complient','d-none':tat.name === 'draft'
                         }"
                         >
-                        <div class="card">  
+                        <div class="card" (click)="getTatType(tat.name)">  
                           <div class="action_title ">{{tat.name}}</div>
                           <div class="card-body p-1">
                           <div class="col-md-12">
@@ -186,11 +186,11 @@
     <div class="d-flex pt-3 pb-3">
       <div class="align-self-center tg_select ">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Driver
+        <label class="btn btn-secondary active" (click)="selectDriver()">
+          <input type="radio" name="options" id="option1"   checked > Driver
         </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Vehicle
+        <label class="btn btn-secondary" (click)="selectVehicle()">
+          <input type="radio" name="options" id="option2" > Vehicle
         </label>
       </div>
       </div>
@@ -245,7 +245,7 @@
         <td>{{item.registeredby}}</td>
         <td><span>{{item.induction_status}}</span></td>
         <td>{{item.date_of_registration}}</td>
-        <td><button type="button" routerLink="/driver-personal"  class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
+        <td><button type="button" (click)="Verify(item.resource_id,this.resource_type)" class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
       </tr>
                                 </tbody>
                                 <!-- <tbody>

@@ -9,8 +9,8 @@
 <div class="tit_ver"> 2 OF 3 INFORMATION</div>
 <div class="nav_bt_move"> <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button>
   <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
-  <a routerLink="/driver-personal" class="btn btn-outline-primary nav_bt_move_click" *ngIf="!isEditModeOn">BACK</a>
-  <a routerLink="/driver-document" class="btn  nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">NEXT</a>
+  <a  (click)="backToPersonal(this.resource_id)" class="btn btn-outline-primary nav_bt_move_click" *ngIf="!isEditModeOn">BACK</a>
+  <a  (click)="saveDocsStatus(this.resource_id)" class="btn  nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">NEXT</a>
 </div>
               </div>
           </div>

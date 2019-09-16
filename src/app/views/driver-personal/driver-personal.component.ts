@@ -4,6 +4,8 @@ import * as $ from 'jquery';
 import {DriverService} from '../../services/driver.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import {Router, ActivatedRoute} from "@angular/router";
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-driver-personal',
@@ -23,11 +25,16 @@ export class DriverPersonalComponent implements OnInit {
   driverDetails : object;
   driverPostData : {};
   driverUpdateData:{};
+  resource_id:String;
+  resource_type:String;
   
-  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
     //this.authService.checkLogin();
+     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
+    this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+    console.log(this.resource_id);
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -56,6 +63,7 @@ export class DriverPersonalComponent implements OnInit {
       {doc_display_name: 'RC Book', doc_url: './assets/images/pdf.pdf', id: '2', status: 'approved', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
       {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
   ];
+    
     this.editDriverPersonalForm = this.formBuilder.group({
        driver_name: ['', Validators.required],
        father_spouse_name: ['', Validators.required],
@@ -67,26 +75,32 @@ export class DriverPersonalComponent implements OnInit {
        qualification: [''],
     });
     var user = {
-      "resource_id": 454,
-      "resource_type":'drivers',
+      "resource_id": + this.resource_id,
+      "resource_type":this.resource_type,
       "os_type":'web'
    }
     this.driverPostData = {user};
-
-    this.Driver.getDriverDetails(this.driverPostData).subscribe(details=>{
-     this.driverDetails = details['data']['user_detail'];
-     console.log(this.driverDetails);
-     console.log(this.driverDetails[0]['aadhaar_number']);
-     this.editDriverPersonalForm.patchValue({
-      driver_name: this.driverDetails[0]['aadhaar_number'],
-      father_spouse_name: this.driverDetails[0]['father_spouse_name'],
-      date_of_birth:  moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
-      gender: this.driverDetails[0]['gender'],
-      aadhaar_mobile_number: this.driverDetails[0]['aadhaar_mobile_number'],
-      marital_status: this.driverDetails[0]['marital_status'],
-      blood_group: this.driverDetails[0]['blood_group'],
-      qualification:  this.driverDetails[0]['qualification'],
-    });
+    console.log(this.driverPostData);
+    this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
+      console.log(details);
+      if (details['success'] == true) {
+        this.driverDetails = details['data']['user_detail'];
+        console.log(this.driverDetails);
+        console.log(this.driverDetails[0]['aadhaar_number']);
+        this.editDriverPersonalForm.patchValue({
+          driver_name: this.driverDetails[0]['driver_name'],
+          father_spouse_name: this.driverDetails[0]['father_spouse_name'],
+          date_of_birth: moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
+          gender: this.driverDetails[0]['gender'],
+          aadhaar_mobile_number: this.driverDetails[0]['aadhaar_mobile_number'],
+          marital_status: this.driverDetails[0]['marital_status'],
+          blood_group: this.driverDetails[0]['blood_group'],
+          qualification: this.driverDetails[0]['qualification'],
+        });
+      }
+      else {
+        this.toastr.error('Error', 'Something Went Wrong.');
+      }
     });
   }
 
@@ -126,8 +140,8 @@ export class DriverPersonalComponent implements OnInit {
       });
       var user = {
         "session_id":3403,
-        "resource_id": 454,
-        "resource_type": 'drivers',
+        "resource_id": +this.resource_id,
+        "resource_type": this.resource_type,
         "os_type": 'web'
       };
       var document={
@@ -140,17 +154,25 @@ export class DriverPersonalComponent implements OnInit {
       this.driverUpdateData ={user,data};
       
        // update driver personal details
-     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
-     // this.router.navigate(['/contract/details/' +  data['contractid']]);
-      console.log('onUpdate');
+     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
       console.log(this.isEditModeOn);
       this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
-      this.toastr.success('Success', 'Driver Personal Details updated successfully');
+      this.toastr.success('Success', 'Driver Personal Details updated successfully')
+      }
+      else{
+        this.toastr.error('Error', 'Something went wrong');
+      }
    },errorResponse => {
        this.toastr.error('Error', errorResponse.error[0])
    });  
    
+    }
+    saveDocsStatus(resource_id)
+    {
+      console.log(resource_id);
+      this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
     }
 }

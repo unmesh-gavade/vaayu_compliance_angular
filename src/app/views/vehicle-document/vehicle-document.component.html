@@ -10,7 +10,7 @@
                         <div class="nav_bt_move ">
                             <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button>
                             <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
-                            <a routerLink="/vehicle-personal" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Back</a>
+                            <a (click)="backToPersonal(this.resource_id)" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Back</a>
                          
                           </div>
                       </div>

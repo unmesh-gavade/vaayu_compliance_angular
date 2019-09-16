@@ -4,7 +4,8 @@ import * as $ from 'jquery';
 import {VehicleService} from '../../services/vehicle.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-
+import { AuthService } from '../../auth/auth.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-vehicle-document',
@@ -27,12 +28,16 @@ originalSize: boolean = true;
   vehiclePostData : {};
   pdfDocs:{};
   vehicleUpdateData:{};
-  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService) { }
+  resource_id:String;
+  resource_type:String;
+  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
 
   
   ngOnInit() {
-    //this.authService.checkLogin();
+    this.authService.checkLogin();
+    this.resource_id = this.route.snapshot.paramMap.get("resource_id");
+    this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     $(window).ready(function(){
       
       
@@ -76,16 +81,17 @@ originalSize: boolean = true;
       last_service_date:[''],
    });
    var user = {
-    "resource_id": 373,
-    "resource_type":'vehicles',
+    "resource_id": + this.resource_id,
+    "resource_type":this.resource_type,
     "os_type":'web'
  }
   this.vehiclePostData = {user};
-
+console.log(this.vehiclePostData);
   this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details=>{
+    if (details['success'] == true) {
    this.vehicleDetails = details['data']['user_detail'];
    this.pdfDocs= details['data']['doc_list'];
-   console.log(this.pdfDocs);
+   console.log(details['data']['user_detail']);
    this.editVehicleDocumentForm.patchValue({
     business_associate_id: this.vehicleDetails[0]['business_associate_id'],
     business_area_id: this.vehicleDetails[0]['business_area_id'],
@@ -95,6 +101,10 @@ originalSize: boolean = true;
     txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
     last_service_date: this.vehicleDetails[0]['last_service_date'],
   });
+}
+else{
+  this.toastr.error('Error', 'Something Went Wrong.');
+}
   });
 
   }
@@ -134,8 +144,8 @@ originalSize: boolean = true;
     });
     var user = {
       "session_id":3403,
-      "resource_id": 373,
-      "resource_type": 'vehicles',
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
       "os_type": 'web'
     };
     var document={
@@ -147,13 +157,26 @@ originalSize: boolean = true;
     var data={formData:this.editVehicleDocumentForm.value};
     this.vehicleUpdateData ={user,data,document};
     // update vehicle documents details
-    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(data => {
-      // this.router.navigate(['/contract/details/' +  data['contractid']]);
+    this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      if (res['success'] == true) {
+        console.log(this.isEditModeOn);
+        this.isEditModeOn=false;
+        if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+        else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
+      }
+      else{
+        this.toastr.error('Error', 'Something went wrong');
+      }
     }, errorResponse => {
       this.toastr.error('Error', errorResponse.error[0])
     });
 
 
+  }
+  backToPersonal(resource_id)
+  {
+    console.log(resource_id);
+    this.router.navigate(['/vehicle-personal' ,{'resource_id':resource_id,'resource_type':'vehicles' }]);  
   }
 }

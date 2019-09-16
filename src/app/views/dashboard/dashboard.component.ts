@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import {DashboardService} from '../../services/dashboard.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 @Component({
@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
   dashboardList: Object;
   baList:{};
   tatList:{};
+  isDriverSelected= true;
+  resource_type: String;
+  tat_type:String;
 
   clickEvent(){
       this.status = !this.status;       
@@ -43,44 +46,56 @@ export class DashboardComponent implements OnInit {
     console.log(this.tatList);
     
     });
-    var data = {
-      "resource_type": 'drivers',
-      "search_by_tat":'new_request',
-      "search_by_name":'',
-      "start_page_index":0,
-      "record_per_page":10
-   }
-   this.Dashboard.getDashboardList(data).subscribe(res=>{
-    this.dashboardList = res['data']['filterData'];
-    console.log(this.dashboardList);
-  })
+
+    if(this.isDriverSelected){this.resource_type='drivers'}
+    else{this.resource_type='vehicles'};
+    this.tat_type='draft';
+  //   var data = {
+  //     "resource_type": this.resource_type,
+  //     "search_by_tat":'new_request',
+  //     "search_by_name":'',
+  //     "start_page_index":0,
+  //     "record_per_page":10
+  //  }
+  //  this.Dashboard.getDashboardList(data).subscribe(res=>{
+  //   this.dashboardList = res['data']['filterData'];
+  //   console.log(this.dashboardList);
+  // })
    this.onsubmit();
   }
 
   onsubmit(){
-    
+    console.log('in sumbit');
+    console.log(this.isDriverSelected);
+    console.log(this.resource_type);
     var data = {
-      "resource_type": 'drivers',
-      "search_by_tat":'draft',
+      "resource_type": this.resource_type,
+      "search_by_tat":this.tat_type,
       "search_by_name":'',
       "start_page_index":0,
       "record_per_page":10
    }
+   console.log(data);
    this.Dashboard.getDashboardList(data).subscribe(res=>{
+     console.log('in dash');
+     console.log(res);
     this.dashboardList = res['data']['filterData'];
     console.log(this.dashboardList);
   })
     
   };
-  Verify(resource_id){
+  Verify(resource_id,resource_type) {
     console.log(resource_id);
-    this.router.navigate(['/driver-personal' +  resource_id]);      
-    var user = {
-      "resource_id": resource_id,
-      "resource_type":'drivers',
-      "os_type":'web'
-   };
-   console.log(user);
+    alert(resource_type);
+    if (resource_type == 'drivers') {
+      console.log(resource_type);
+      this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
+    }
+    else {
+      this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+
+    }
+
   };
     onToolbarMenuToggle(){
       console.log('toggle', this.commonService.isMenuOpen);
@@ -90,6 +105,22 @@ export class DashboardComponent implements OnInit {
     search_bt(query){
       this.search_res = query;
     }
+    selectDriver() {
+      this.resource_type = 'drivers';
+      this.onsubmit();
+          return;
+      }
+      selectVehicle() {
+        this.isDriverSelected = false;
+        this.resource_type = 'vehicles';
+        this.onsubmit();
+            return;
+        }
+        getTatType(tatType){
+          this.tat_type=tatType;
+          alert(this.tat_type);
+          this.onsubmit();
+        }
   }
 
 

@@ -4,6 +4,8 @@ import * as $ from 'jquery';
 import {DriverService} from '../../services/driver.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth/auth.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-driver-document',
@@ -23,10 +25,14 @@ export class DriverDocumentComponent implements OnInit {
   driverDetails : object;
   driverPostData : {};
   driverUpdateData:{};
-  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService) { }
+  resource_id:String;
+  resource_type:String;
+  constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
-    //this.authService.checkLogin();
+    this.authService.checkLogin();
+    this.resource_id = this.route.snapshot.paramMap.get("resource_id");
+    this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -66,17 +72,18 @@ export class DriverDocumentComponent implements OnInit {
       sexual_policy: ['', Validators.required],
    });
    var user = {
-    "resource_id": 454,
-    "resource_type":'drivers',
+    "resource_id": + this.resource_id,
+    "resource_type":this.resource_type,
     "os_type":'web'
-    }
+ }
   this.driverPostData = {user};
   this.Driver.getDriverDetails(this.driverPostData).subscribe(details=>{
+    if (details['success'] == true) {
     this.driverDetails = details['data']['user_detail'];
     console.log(this.driverDetails);
     console.log(this.driverDetails[0]['aadhaar_number']);
     this.editDriverDocumentForm.patchValue({
-      txtPoliceVerification: this.driverDetails[0]['aadhaar_number'],
+      txtPoliceVerification: this.driverDetails[0]['txtPoliceVerification'],
       police_verification_vailidty: this.driverDetails[0]['police_verification_vailidty'],
       date_of_police_verification:  this.driverDetails[0]['date_of_police_verification'],
       criminal_offence: this.driverDetails[0]['criminal_offence'],
@@ -85,6 +92,10 @@ export class DriverDocumentComponent implements OnInit {
       medically_certified_date:  moment(this.driverDetails[0]['medically_certified_date']).format("YYYY-MM-DD"),
       sexual_policy:  this.driverDetails[0]['sexual_policy'],
    });
+  }
+  else{
+    this.toastr.error('Error', 'Something Went Wrong.');
+  }
    });
   }
   
@@ -124,8 +135,8 @@ incrementZoom(amount: number) {
     });
     var user = {
       "session_id":3403,
-      "resource_id": 454,
-      "resource_type": 'drivers',
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
       "os_type": 'web'
     };
     var document={
@@ -136,19 +147,28 @@ incrementZoom(amount: number) {
     var formData={};
     var data={formData:this.editDriverDocumentForm.value,document};
     this.driverUpdateData ={user,data};
+    console.log(this.driverUpdateData);
     // update driver Documents details
-    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(data => {
-      // this.router.navigate(['/contract/details/' +  data['contractid']]);
-      console.log('onUpdate');
+    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
       console.log(this.isEditModeOn);
       this.isEditModeOn=false;
       if(this.isEditModeOn){this.valueOfButton = "Cancel"}
       else{this.valueOfButton= "Edit"}
       this.toastr.success('Success', 'Driver Documents Details updated successfully');
+      }
+      else{
+        this.toastr.error('Error', 'Something went wrong');
+      }
     }, errorResponse => {
-      this.toastr.error('Error', errorResponse.error[0])
+      this.toastr.error('Error', errorResponse.error[0]);
     });
   }
+  backToPersonal(resource_id)
+    {
+      console.log(resource_id);
+      this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);  
+    }
   sumbitDriver()
   {
 

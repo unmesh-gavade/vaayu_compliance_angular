@@ -29,6 +29,10 @@ const routes: Routes = [
         path: '',
         component:  DashboardComponent
       },
+      // {
+      //   path: 'driver-personal/:resource_id',
+      //   component: DriverPersonalComponent
+      // },
     ]
   },
   {

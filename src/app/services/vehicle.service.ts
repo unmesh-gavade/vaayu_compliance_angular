@@ -15,6 +15,6 @@ export class VehicleService {
     return this.http.post(this.baseUrl + 'getDetails',data);
   }
   updateVehicleDetails(data){
-   return this.http.put(this.baseUrl +'saveDetails',data)
+   return this.http.post(this.baseUrl +'saveDetails',data)
  }
 }
