@@ -14,12 +14,15 @@ export class DashboardService {
    }
    
   getDashboardList(data) {
+    console.log('url : '+this.baseUrl + 'getDashboardTatList');
+    console.log('body'+JSON.stringify(data));
     return this.http.post(this.baseUrl + 'dashboardFilter', data);
   }
   getBaList() {
-    return this.http.post(this.baseUrl + 'getAllBaList','')
+    return this.http.post(this.baseUrl + 'getAllBaList','');
   }
   getDashboardTats() {
+    console.log('url : '+this.baseUrl + 'getDashboardTatList');
     return this.http.post(this.baseUrl + 'getDashboardTatList','')
   }
 }

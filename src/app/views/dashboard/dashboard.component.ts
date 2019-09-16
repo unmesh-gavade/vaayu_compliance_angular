@@ -4,19 +4,20 @@ import { DashboardService } from '../../services/dashboard.service';
 import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import {AppConst} from '../../const/appConst';
+import { AppConst } from '../../const/appConst';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent implements OnInit {
-  customDate = new Date();
+
   serverDateFormat = AppConst.SERVER_DATE_TIME_FORMAT;
   status: boolean = false;
   dashboardList: Object;
   baList: {};
-  tatList: {};
+  tatList: [];
+  req_status_list: [];
   isDriverSelected = true;
   resource_type: String;
   tat_type: String;
@@ -46,13 +47,19 @@ export class DashboardComponent implements OnInit {
     });
     this.Dashboard.getDashboardTats().subscribe(tats => {
       this.tatList = tats['data']['tat_list'];
-      console.log(this.tatList);
+      this.req_status_list = this.tatList;
+
+      this.req_status_list = this.tatList.filter(item => item.name === 'new_request'
+        || item.name === 'qc_pending'
+        || item.name === 'inducted'
+        || item.name === 'rejected'
+        || item.name === 'ready_for_allocation');
 
     });
 
     if (this.isDriverSelected) { this.resource_type = 'drivers' }
     else { this.resource_type = 'vehicles' };
-    this.tat_type = 'draft';
+    this.tat_type = 'new_request';
     //   var data = {
     //     "resource_type": this.resource_type,
     //     "search_by_tat":'new_request',
@@ -90,7 +97,7 @@ export class DashboardComponent implements OnInit {
   };
   Verify(resource_id, resource_type) {
     console.log(resource_id);
-    alert(resource_type);
+    //alert(resource_type);
     if (resource_type == 'drivers') {
       console.log(resource_type);
       this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
@@ -122,9 +129,10 @@ export class DashboardComponent implements OnInit {
     this.onsubmit();
 
   }
-  getTatType(tatType) {
+  getTatType(tatType, resource_type) {
     this.tat_type = tatType;
-    alert(this.tat_type);
+    this.resource_type = resource_type;
+    //alert(this.tat_type);
     this.onsubmit();
   }
 }
