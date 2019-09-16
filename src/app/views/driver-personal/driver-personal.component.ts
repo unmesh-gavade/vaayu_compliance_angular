@@ -27,14 +27,20 @@ export class DriverPersonalComponent implements OnInit {
   driverUpdateData:{};
   resource_id:String;
   resource_type:String;
+  pdfDocs:{};
+  userRole:String;
+  isDataENtry=false;
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
     //this.authService.checkLogin();
+    const currentUser = this.authService.getAuthUser();
+    this.userRole= currentUser.role;
+    if(this.userRole == 'data_entry'){this.isDataENtry=true}
+    else{this.isDataENtry=false};
      this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
-    console.log(this.resource_id);
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
@@ -80,12 +86,12 @@ export class DriverPersonalComponent implements OnInit {
       "os_type":'web'
    }
     this.driverPostData = {user};
-    console.log(this.driverPostData);
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
-      console.log(details);
       if (details['success'] == true) {
         this.driverDetails = details['data']['user_detail'];
-        console.log(this.driverDetails);
+        this.pdfDocs= details['data']['doc_list'];
+        console.log('in pdfs');
+        console.log(this.pdfDocs);
         console.log(this.driverDetails[0]['aadhaar_number']);
         this.editDriverPersonalForm.patchValue({
           driver_name: this.driverDetails[0]['driver_name'],

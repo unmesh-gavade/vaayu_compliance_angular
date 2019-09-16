@@ -66,7 +66,7 @@ export class VehiclePersonalComponent implements OnInit {
       plate_number: ['',Validators.required],
       category: ['',Validators.required],
       model: ['',Validators.required],
-      txtSeatingCapacity: ['',Validators.required],
+      // txtSeatingCapacity: ['',Validators.required],
       colour: [''],
       fuel_type:[''],
       ac:[''],
@@ -88,7 +88,7 @@ export class VehiclePersonalComponent implements OnInit {
     plate_number: this.vehicleDetails[0]['plate_number'],
     category: this.vehicleDetails[0]['category'],
     model:  this.vehicleDetails[0]['model'],
-    txtSeatingCapacity: this.vehicleDetails[0]['gender'],
+    // txtSeatingCapacity: this.vehicleDetails[0]['gender'],
     colour: this.vehicleDetails[0]['colour'],
     fuel_type: this.vehicleDetails[0]['fuel_type'],
     ac: this.vehicleDetails[0]['ac'],
@@ -116,7 +116,6 @@ else{
   get f() { return this.editVehiclePersonalForm.controls; }
 
   onSubmit() {
-alert('in submit');
     this.submitted = true;
 
     var values = this.editVehiclePersonalForm.value;
@@ -130,7 +129,7 @@ alert('in submit');
       plate_number: values.plate_number,
       category: values.category,
       model:  values.model,
-      txtSeatingCapacity: values.txtSeatingCapacity,
+      // txtSeatingCapacity: values.txtSeatingCapacity,
       colour: values.colour,
       fuel_type: values.fuel_type,
       ac: values.ac,

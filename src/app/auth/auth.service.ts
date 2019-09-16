@@ -77,13 +77,14 @@ export class AuthService {
   .pipe(map(user => {
     console.log(user);
     console.log(user.headers);
-    alert(user.headers.get('content-type'));
-      let myHeader = user.headers.get('client');
-      console.log(myHeader);
+      let client = user.headers.get('client');
+      let access_token = user.headers.get('access-token');
+      console.log(client);
+      console.log(access_token);
       if (user['body']['data'] && user['body']['status'] == true) {
         localStorage.setItem('currentUser', JSON.stringify(user['body']['data']));
-        //localStorage.setItem('client',JSON.stringify(user['body']['data']));
-        //localStorage.setItem('access_token',JSON.stringify(user['body']['data']));
+        //localStorage.setItem('client',client);
+        //localStorage.setItem('access_token',access_token);
         this.isLoggedIn = true;
       } else {
         this.toastr.error('Error', 'Invalid login credentials. Please try again.');

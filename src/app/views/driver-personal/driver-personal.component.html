@@ -111,12 +111,12 @@
                     <div class="pdf_nav" style="display: inherit">
                       <button  class="prevpdf"> < </button> 
                       <ul>
-                        <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == 0" >
+                        <li class="com_pdf" *ngFor="let item of pdfDocs; let index = index" [class.activepdf]="index == 0" >
                           {{item.id}}
                         </li>
                         
                       </ul><button class="nextpdf"> > </button>
-                    </div>
+                    </div>  
                   </div>
               </div>
               <div class="card-body position-relative">
@@ -135,7 +135,7 @@
                           'approved':item.status === 'approved',
                           'rejected':item.status === 'rejected'
                           }" ></span>
-                          <pdf-viewer src="{{item.doc_url}}"  
+                          <pdf-viewer  src="{{item.doc_url}}"  
                           [original-size]="false" class="pdf_view" [zoom]="zoom"   [show-all]="true">
                         </pdf-viewer>
                         <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
@@ -156,7 +156,7 @@
                           <div>
                             <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button>  
                             <button type="button" class="btn btn-outline-danger click_reject pdf_reject">REJECT</button>
-                              <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve">APPROVE</button>
+                              <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve" *ngIf="!this.isDataENtry">APPROVE</button>
                           </div>
                         </div>
                           <div class="col-sm-4">
