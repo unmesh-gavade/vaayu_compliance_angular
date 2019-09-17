@@ -27,12 +27,16 @@ export class DriverDocumentComponent implements OnInit {
   driverUpdateData:{};
   resource_id:String;
   resource_type:String;
+  userRole:String;
+  isDataENtry=false;
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.checkLogin();
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+    if(this.userRole == 'data_entry'){this.isDataENtry=true}
+    else{this.isDataENtry=false};
     $(window).ready(function(){
       $('.pdf_reject').click(function(){
         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
