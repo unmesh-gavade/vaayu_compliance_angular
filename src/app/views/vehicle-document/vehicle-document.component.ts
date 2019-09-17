@@ -30,6 +30,8 @@ originalSize: boolean = true;
   vehicleUpdateData:{};
   resource_id:String;
   resource_type:String;
+  userRole:String;
+  isDataENtry=false;
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
 
@@ -38,6 +40,8 @@ originalSize: boolean = true;
     this.authService.checkLogin();
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+    if(this.userRole == 'data_entry'){this.isDataENtry=true}
+    else{this.isDataENtry=false};
     $(window).ready(function(){
       
       
