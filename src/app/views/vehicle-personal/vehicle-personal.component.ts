@@ -160,7 +160,7 @@ export class VehiclePersonalComponent implements OnInit {
     // update vehicle personal details
     this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       console.log(res);
-      if (res['success'] == true) {
+      if (res['success'] === true) {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -175,8 +175,15 @@ export class VehiclePersonalComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
-    console.log(resource_id);
-    this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+    let array = this.pdfs.filter(i => i.status === 'none')
+    let docsName = '';
+    array.map(i => {
+      docsName += i.doc_display_name + ", ";
+    })
+    if (array.length > 0) {
+      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+    }
+    // this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
   }
 
 
