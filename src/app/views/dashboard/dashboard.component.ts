@@ -49,11 +49,12 @@ export class DashboardComponent implements OnInit {
       this.tatList = tats['data']['tat_list'];
       this.req_status_list = this.tatList;
 
-      this.req_status_list = this.tatList.filter(item => item.name === 'new_request'
-        || item.name === 'qc_pending'
-        || item.name === 'inducted'
-        || item.name === 'rejected'
-        || item.name === 'ready_for_allocation');
+      this.req_status_list = this.tatList.filter(item => 
+                          item.name === 'new_request'
+                            || item.name === 'qc_pending'
+                            || item.name === 'inducted'
+                            || item.name === 'rejected'
+                            || item.name === 'ready_for_allocation');
 
     });
 
