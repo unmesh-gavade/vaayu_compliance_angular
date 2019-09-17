@@ -105,73 +105,76 @@
           </div>
           <div class="card">
               <div class="card-header">
-                  <div class="col-md-12 d-flex justify-content-between align-items-center">
-                   <div class="tit_ver"> Preview Document</div>  
-                   
-                    <div class="pdf_nav" style="display: inherit">
-                      <button  class="prevpdf"> < </button> 
-                      <ul>
-                        <li class="com_pdf" *ngFor="let item of pdfDocs; let index = index" [class.activepdf]="index == 0" >
-                          {{item.id}}
+                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                  <div class="tit_ver"> Preview Document</div>
+        
+                  <div class="pdf_nav" style="display: inherit">
+                    <button class="prevpdf" (click)="onPreviousButtonClick()">
+                      < </button> <ul>
+                        <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == selectedPage"
+                          (click)="pageNumberButtonClicked(index)"
+                        >
+                          {{index+1}}
                         </li>
-                        
-                      </ul><button class="nextpdf" (click)="onNextClick(item, index)">  > </button>
-                    </div>  
+                        </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
                   </div>
+                </div>
               </div>
               <div class="card-body position-relative">
-                  <div class="pdf_zoom">
-                      <button ion-button (click)="incrementZoom(-0.1)">
-                          -
-                         </button>
-                         <button ion-button (click)="incrementZoom(0.1)">
-                           +
-                         </button>
-                        </div>
-                  <ul  class="p-0 pdf_box" >
-                      <li class="pdf_li"  *ngFor="let item of pdfDocs; let index = index" [class.activepdf]="index === 0" >
-                         <span class="togglepdf" [ngClass]="{
-                          'nonstatus':item.status === 'none',
-                          'approved':item.status === 'approved',
-                          'rejected':item.status === 'rejected'
-                          }" ></span>
-                          <pdf-viewer  src="https://{{item.doc_url}}"  
-                          
-                          [original-size]="false" class="pdf_view" [zoom]="zoom"   [show-all]="true">
-                        </pdf-viewer>
-                        <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
-                      </li>
-                    </ul>
+                <div class="pdf_zoom">
+                  <button ion-button (click)="incrementZoom(-0.1)">
+                    -
+                  </button>
+                  <button ion-button (click)="incrementZoom(0.1)">
+                    +
+                  </button>
+                </div>
+                <ul class="p-0 pdf_box">
+                  <li class="pdf_li activepdf" >
+                    <span class="togglepdf" [ngClass]="{
+                          'nonstatus':pdfs[selectedPage].status === 'none',
+                          'approved':pdfs[selectedPage].status === 'approved',
+                          'rejected':pdfs[selectedPage].status === 'rejected'
+                          }"></span>
+                    <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true">
+                    </pdf-viewer>
+                    <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
+                  </li>
+                </ul>
               </div>
               <div class="card-footer bg_white">
-                  <form>
-                      <div class="row">
-                          <div class="col-md-12 d-flex justify-content-between align-items-center">
-                            <ul class="pdf_box">
-                          <li class="tit_ver pdf_li" *ngFor="let item of pdfDocs; let index = index" [class.activepdf]="index === 0" >
-                              <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                              <!-- <input type="text" readonly class="form-control-plaintext tit_ver" id="txtDocumentName" value="Registration Certificate"> -->
-                          {{item.doc_display_name}}
-                          </li>
-                        </ul>
-                          <div>
-                            <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button>  
-                            <button type="button" class="btn btn-outline-danger click_reject pdf_reject">REJECT</button>
-                              <button type="submit"  class="btn btn-success click_reject click_reject_activ pdf_approve" *ngIf="!this.isDataENtry">APPROVE</button>
-                          </div>
-                        </div>
-                          <div class="col-sm-4">
-                              </div>
-                          <div class="col-sm-2"></div>
-                          <div class="col-sm-1">
-                           
-                          </div>
-                          <div class="col-sm-2"></div>
-                          <div clss="col-sm-1">
-                            
-                          </div>
-                        </div>
-                    </form>
+                <form>
+                  <div class="row">
+                    <div class="col-md-12 d-flex justify-content-between align-items-center">
+                      <ul class="pdf_box">
+                        <li class="tit_ver pdf_li activepdf" >
+                          <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
+                          {{pdfs[selectedPage].doc_display_name}}
+                        </li>
+                      </ul>
+                      <div>
+                        <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
+                        <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
+                          (click)="pdfs[selectedPage].status = 'rejected'"
+                        >REJECT</button>
+                        <button type="submit"
+                          class="btn btn-success click_reject click_reject_activ pdf_approve"
+                          (click)="pdfs[selectedPage].status = 'approved'"
+                          >APPROVE</button>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-1">
+        
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div clss="col-sm-1">
+        
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
         </div>

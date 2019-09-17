@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import {DriverService} from '../../services/driver.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import {Router, ActivatedRoute} from "@angular/router";
 import { AuthService } from '../../auth/auth.service';
+import { AppConst } from 'src/app/const/appConst';
 
 @Component({
   selector: 'app-driver-personal',
@@ -14,8 +15,9 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class DriverPersonalComponent implements OnInit {
   zoom: number = 1.0;
-  pdfSrc: string = './assets/images/myfile.pdf';
+  //pdfSrc: string = './assets/images/myfile.pdf';
   pdfs: any[] = [];
+  pdfsDocs:any[]=[];
   valueOfButton = "Edit";
   isEditModeOn = false;
   isDropup = true;
@@ -27,9 +29,11 @@ export class DriverPersonalComponent implements OnInit {
   driverUpdateData:{};
   resource_id:String;
   resource_type:String;
-  pdfDocs:[];
   userRole:String;
   isDataENtry=false;
+  selectedPage = 0;
+  approvedDocsList: Array<{ID: number,status: string}> = []; 
+  rejectedDocsList:Array<{ID: number,status: string}>=[];
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
@@ -41,28 +45,28 @@ export class DriverPersonalComponent implements OnInit {
     else{this.isDataENtry=false};
      this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
-    $(window).ready(function(){
-      $('.pdf_reject').click(function(){
-        $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
-      });
-      $('.pdf_approve').click(function(){
-         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
-       });
-       $('.pdf_preview').click(function(){
-         $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
-       });
-      $('.pdf_nav ul li').click(function() {
-        var index = $(this).index();
-        $(this).addClass('activepdf').siblings().removeClass('activepdf');
-        $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
-      });
-      $('.nextpdf').click( function(){
-        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
-      });
-      $('.prevpdf').click( function(){
-        $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
-      });
-  });
+  //   $(window).ready(function(){
+  //     $('.pdf_reject').click(function(){
+  //       $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
+  //     });
+  //     $('.pdf_approve').click(function(){
+  //        $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
+  //      });
+  //      $('.pdf_preview').click(function(){
+  //        $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
+  //      });
+  //     $('.pdf_nav ul li').click(function() {
+  //       var index = $(this).index();
+  //       $(this).addClass('activepdf').siblings().removeClass('activepdf');
+  //       $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
+  //     });
+  //     $('.nextpdf').click( function(){
+  //       $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
+  //     });
+  //     $('.prevpdf').click( function(){
+  //       $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
+  //     });
+  // });
 
   //   this.pdfs = [
   //     {doc_display_name: 'Insurance', doc_url: './assets/images/myfile.pdf', id: '1', status: 'none', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
@@ -89,9 +93,13 @@ export class DriverPersonalComponent implements OnInit {
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
         this.driverDetails = details['data']['user_detail'];
-        this.pdfDocs= details['data']['doc_list'];
+        this.pdfsDocs = details['data']['doc_list'];
+        console.log('pDF without filter');
+        console.log(this.pdfsDocs);
+        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null);  
         console.log('in pdfs');
-        console.log(this.pdfDocs);
+        console.log('doc count = '+ this.pdfs.length);
+        console.log(this.pdfs);
         console.log(this.driverDetails[0]['aadhaar_number']);
         this.editDriverPersonalForm.patchValue({
           driver_name: this.driverDetails[0]['driver_name'],
@@ -105,8 +113,10 @@ export class DriverPersonalComponent implements OnInit {
         });
       }
       else {
-        this.toastr.error('Error', 'Something Went Wrong.');
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
     });
   }
 
@@ -150,9 +160,13 @@ export class DriverPersonalComponent implements OnInit {
         "resource_type": this.resource_type,
         "os_type": 'web'
       };
+      let approved_doc = this.pdfs.filter(i => i.status === 'approved')
+      let rejected_doc= this.pdfs.filter(i => i.status === 'rejected')
+      console.log(approved_doc);
+      console.log(rejected_doc);
       var document={
-        "approved_doc":'1,2',
-        "rejected_doc":'3,4',
+        "approved_doc":approved_doc,
+        "rejected_doc":rejected_doc,
         "comment":'test'
       };
       var formData={};
@@ -169,16 +183,50 @@ export class DriverPersonalComponent implements OnInit {
       this.toastr.success('Success', 'Driver Personal Details updated successfully')
       }
       else{
-        this.toastr.error('Error', 'Something went wrong');
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       }
    },errorResponse => {
-       this.toastr.error('Error', errorResponse.error[0])
+       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
    });  
    
     }
     saveDocsStatus(resource_id)
     {
-      console.log(resource_id);
-      this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
+      console.log(this.pdfs);
+      let array = this.pdfs.filter(i => i.status === 'none')
+      let docsName = '';
+      array.map(i => {
+        docsName += i.doc_display_name + ", ";
+      })
+      if (array.length > 0) {
+        this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+      }
+      this.onSubmit();
+      // console.log(resource_id);
+      // this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
+    }
+    pageNumberButtonClicked(index) {
+      console.log('page number = '+ index);
+      this.selectedPage = index; 
+    }
+  
+    onPreviousButtonClick () { 
+      if (this.selectedPage > 0) {
+        this.selectedPage = this.selectedPage-1;
+      } 
+      console.log('page number = '+ this.selectedPage);
+    }
+  
+    onNextButtonClick () { 
+      if (this.selectedPage < this.pdfs.length-1) {
+        this.selectedPage = this.selectedPage+1;
+      } 
+      console.log('page number = '+ this.selectedPage);
+    }
+    approveDoc(data){
+      this.approvedDocsList.push({ ID: data.name, status: data.status });
+    }
+    rejectedDoc(data){
+      this.rejectedDocsList.push({ ID: data.name, status: data.status });
     }
 }
