@@ -28,42 +28,21 @@ export class VehiclePersonalComponent implements OnInit {
   vehicleUpdateData: {};
   resource_id: String;
   resource_type: String;
+  userRole:String;
+  isDataENtry=false;
   selectedPage = 0;
+  pdfsDocs:any[]=[];
 
   constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.checkLogin();
+    const currentUser = this.authService.getAuthUser();
+    this.userRole= currentUser.role;
+    if(this.userRole == 'data_entry'){this.isDataENtry=true}
+    else{this.isDataENtry=false};
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
-    // $(window).ready(function () {
-    //   $('.pdf_reject').click(function () {
-    //     $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');
-    //   });
-    //   $('.pdf_approve').click(function () {
-    //     $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
-    //   });
-    //   $('.pdf_preview').click(function () {
-    //     $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
-    //   });
-    //   $('.pdf_nav ul li').click(function () {
-    //     var index = $(this).index();
-    //     $(this).addClass('activepdf').siblings().removeClass('activepdf');
-    //     $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
-    //   });
-    //   $('.nextpdf').click(function () {
-    //     $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
-    //   });
-    //   $('.prevpdf').click(function () {
-    //     $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
-    //   });
-    // });
-
-    // this.pdfs = [
-    //   { doc_display_name: 'Insurance', doc_url: './assets/images/myfile.pdf', id: '1', status: 'none', registeredby: 'Rushi Indulekar', Dateofre: '07 July 2019 | 08:45 PM ', Action: 'VERIFY' },
-    //   { doc_display_name: 'RC Book', doc_url: './assets/images/pdf.pdf', id: '2', status: 'approved', registeredby: 'Rushi Indulekar', Dateofre: '07 July 2019 | 08:45 PM ', Action: 'VERIFY' },
-    //   { doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar', Dateofre: '07 July 2019 | 08:45 PM ', Action: 'VERIFY' },
-    // ];
     this.editVehiclePersonalForm = this.formBuilder.group({
       plate_number: ['', Validators.required],
       category: ['', Validators.required],
@@ -86,9 +65,8 @@ export class VehiclePersonalComponent implements OnInit {
       console.log('personal doc response '+ JSON.stringify(details));
       if (details['success'] == true) {
         this.vehicleDetails = details['data']['user_detail'];
-        this.pdfs = details['data']['doc_list'];
-        this.pdfs = this.pdfs.filter(i => i.doc_url != null);
-        console.log('doc count = '+ this.pdfs.length);
+        this.pdfsDocs = details['data']['doc_list'];        
+        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null && item.doc_type ==='personal');  
         this.editVehiclePersonalForm.patchValue({
           plate_number: this.vehicleDetails[0]['plate_number'],
           category: this.vehicleDetails[0]['category'],
@@ -149,10 +127,12 @@ export class VehiclePersonalComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    var document = {
-      "approved_doc": '1,2',
-      "rejected_doc": '3,4',
-      "comment": 'test'
+    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+    var document={
+      "approved_doc":approvedDocsList,
+      "rejected_doc":rejectedDocsList,
+      "comment":'test'
     };
     var formData = {};
     var data = { formData: this.editVehiclePersonalForm.value };
@@ -176,15 +156,9 @@ export class VehiclePersonalComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
-    let array = this.pdfs.filter(i => i.status === 'none')
-    let docsName = '';
-    array.map(i => {
-      docsName += i.doc_display_name + ", ";
-    })
-    if (array.length > 0) {
-      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
-    }
-    // this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+    this.validateDocuments();
+    this.onSubmit();
+     this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
   }
 
 
@@ -206,6 +180,7 @@ export class VehiclePersonalComponent implements OnInit {
     } 
     console.log('page number = '+ this.selectedPage);
   }
+<<<<<<< HEAD
 
   check_if_doc_is_pdf (docUrl) {
     if (docUrl.includes('.pdf')) {
@@ -215,4 +190,20 @@ export class VehiclePersonalComponent implements OnInit {
     }
   }
 
+=======
+  validateDocuments()
+  {
+   let array = this.pdfs.filter(i => i.status === 'none')
+   console.log(array);
+   let docsName = '';
+   array.map(i => {
+     docsName += i.doc_display_name + "- ";
+   })
+   if (array.length > 0) {
+     this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+     return false;
+   }
+   return true;
+  }
+>>>>>>> 33620e1d09cb0343381e2d362fc11b9076383798
 }

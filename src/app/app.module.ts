@@ -67,7 +67,7 @@ const APP_CONTAINERS = [
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      timeOut: 3000,
+      timeOut: 5000,
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../auth/auth.service';
 import {Router, ActivatedRoute} from "@angular/router";
+import { AppConst } from 'src/app/const/appConst';
 
 @Component({
   selector: 'app-driver-document',
@@ -29,42 +30,20 @@ export class DriverDocumentComponent implements OnInit {
   resource_type:String;
   userRole:String;
   isDataENtry=false;
+  selectedPage = 0
+  pdfsDocs:any[]=[];
+  
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.checkLogin();
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+    const currentUser = this.authService.getAuthUser();
+    this.userRole= currentUser.role;
     if(this.userRole == 'data_entry'){this.isDataENtry=true}
     else{this.isDataENtry=false};
-    $(window).ready(function(){
-      $('.pdf_reject').click(function(){
-        $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
-      });
-      $('.pdf_approve').click(function(){
-         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
-       });
-       $('.pdf_preview').click(function(){
-         $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
-       });
-      $('.pdf_nav ul li').click(function() {
-        var index = $(this).index();
-        $(this).addClass('activepdf').siblings().removeClass('activepdf');
-        $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
-      });
-      $('.nextpdf').click( function(){
-        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf')
-      });
-      $('.prevpdf').click( function(){
-        $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
-      });
-  });
-
-    this.pdfs = [
-      {doc_display_name: 'Insurance', doc_url: './assets/images/myfile.pdf', id: '1', status: 'none', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {doc_display_name: 'RC Book', doc_url: './assets/images/pdf.pdf', id: '2', status: 'approved', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-  ];
+    
     this.editDriverDocumentForm = this.formBuilder.group({
       txtPoliceVerification: [''],
       police_verification_vailidty: [''],
@@ -84,6 +63,8 @@ export class DriverDocumentComponent implements OnInit {
   this.Driver.getDriverDetails(this.driverPostData).subscribe(details=>{
     if (details['success'] == true) {
     this.driverDetails = details['data']['user_detail'];
+    this.pdfsDocs = details['data']['doc_list'];
+    this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null);  
     console.log(this.driverDetails);
     console.log(this.driverDetails[0]['aadhaar_number']);
     this.editDriverDocumentForm.patchValue({
@@ -98,9 +79,11 @@ export class DriverDocumentComponent implements OnInit {
    });
   }
   else{
-    this.toastr.error('Error', 'Something Went Wrong.');
+    this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
   }
-   });
+   }, errorResponse => {
+    this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+  });
   }
   
 incrementZoom(amount: number) {
@@ -143,11 +126,13 @@ incrementZoom(amount: number) {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    var document={
-      "approved_doc":'1,2',
-      "rejected_doc":'3,4',
-      "comment":'test'
-    };
+    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+      var document={
+        "approved_doc":approvedDocsList,
+        "rejected_doc":rejectedDocsList,
+        "comment":'test'
+      };
     var formData={};
     var data={formData:this.editDriverDocumentForm.value,document};
     this.driverUpdateData ={user,data};
@@ -162,10 +147,10 @@ incrementZoom(amount: number) {
       this.toastr.success('Success', 'Driver Documents Details updated successfully');
       }
       else{
-        this.toastr.error('Error', 'Something went wrong');
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       }
     }, errorResponse => {
-      this.toastr.error('Error', errorResponse.error[0]);
+      this.toastr.error('Error',AppConst.SOMETHING_WENT_WRONG);
     });
   }
   backToPersonal(resource_id)
@@ -173,8 +158,53 @@ incrementZoom(amount: number) {
       console.log(resource_id);
       this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);  
     }
+    // saveDocsStatus(resource_id)
+    // {
+    //   this.validateDocuments();
+    //   this.onSubmit();
+    //   this.router.navigate(['/driver-document' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
+    // }
+    pageNumberButtonClicked(index) {
+      console.log('page number = '+ index);
+      this.selectedPage = index; 
+    }
+  
+    onPreviousButtonClick () { 
+      if (this.selectedPage > 0) {
+        this.selectedPage = this.selectedPage-1;
+      } 
+      console.log('page number = '+ this.selectedPage);
+    }
+  
+    onNextButtonClick () { 
+      if (this.selectedPage < this.pdfs.length-1) {
+        this.selectedPage = this.selectedPage+1;
+      } 
+      console.log('page number = '+ this.selectedPage);
+    }
   sumbitDriver()
   {
+   if(this.validateDocuments()) 
+   {
+    this.onSubmit();
+   }
+   else
+   {
 
+   }
   }
+  validateDocuments()
+   {
+    let array = this.pdfs.filter(i => i.status === 'none')
+    console.log(array);
+    let docsName = '';
+    array.map(i => {
+      docsName += i.doc_display_name + "- ";
+    })
+    if (array.length > 0) {
+      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+      return false;
+    }
+    return true;
+   }
 }

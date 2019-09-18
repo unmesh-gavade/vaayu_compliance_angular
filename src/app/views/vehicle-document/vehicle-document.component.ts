@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
-import {VehicleService} from '../../services/vehicle.service';
+import { VehicleService } from '../../services/vehicle.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../auth/auth.service';
-import {Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { AppConst } from 'src/app/const/appConst';
 
 @Component({
   selector: 'app-vehicle-document',
@@ -15,116 +16,97 @@ import {Router, ActivatedRoute} from "@angular/router";
 export class VehicleDocumentComponent implements OnInit {
 
   zoom: number = 1.0;
-originalSize: boolean = true;
+  originalSize: boolean = true;
   pdfSrc: string = './assets/images/myfile.pdf';
   pdfs: any[] = [];
   valueOfButton = "Edit";
   isEditModeOn = false;
   isDropup = true;
-  imageURL="./assets/img/Doc.jpg";
+  imageURL = "./assets/img/Doc.jpg";
   editVehicleDocumentForm: FormGroup;
   submitted = false;
-  vehicleDetails : object;
-  vehiclePostData : {};
-  pdfDocs:{};
-  vehicleUpdateData:{};
-  resource_id:String;
-  resource_type:String;
-  userRole:String;
-  isDataENtry=false;
-  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
+  vehicleDetails: object;
+  vehiclePostData: {};
+  pdfDocs: {};
+  vehicleUpdateData: {};
+  resource_id: String;
+  resource_type: String;
+  userRole: String;
+  isDataENtry = false;
+  pdfsDocs: any[] = [];
+  selectedPage = 0;
+
+  constructor(private formBuilder: FormBuilder, public Vehicle: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
 
-  
+
   ngOnInit() {
     this.authService.checkLogin();
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
-    if(this.userRole == 'data_entry'){this.isDataENtry=true}
-    else{this.isDataENtry=false};
-    $(window).ready(function(){
-      
-      
-      $('.pdf_reject').click(function(){
-        $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('approved').addClass('rejected');      
-      });
-      $('.pdf_approve').click(function(){
-         $('.activepdf > .togglepdf').removeClass('nonstatus').removeClass('rejected').addClass('approved');
-       });
-       $('.pdf_preview').click(function(){
-         $('.activepdf > .togglepdf').removeClass('approved').removeClass('rejected').addClass('nonstatus');
-       });
-      $('.pdf_nav ul li').click(function() {
-       
-        var index = $(this).index();
-        $(this).addClass('activepdf').siblings().removeClass('activepdf');
-        $('.pdf_box li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
-        $('.pdf_box1 li').eq(index).addClass('activepdf').siblings().removeClass('activepdf');
-      });
-      $('.nextpdf').click( function(){
-        $('.activepdf').next().addClass('activepdf').prev().removeClass('activepdf');
-      });
-      $('.prevpdf').click( function(){
-        $('.activepdf').prev().addClass('activepdf').next().removeClass('activepdf')
-      });
-  });
+    const currentUser = this.authService.getAuthUser();
+    this.userRole = currentUser.role;
+    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    else { this.isDataENtry = false };
 
-    this.pdfs = [
-      {doc_display_name: 'Insurance', doc_url: './assets/images/myfile.pdf', id: '1', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {doc_display_name: 'RC Book', doc_url: './assets/images/pdf.pdf', id: '2', status: 'approved', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-      {doc_display_name: 'Fitness Certificate', doc_url: './assets/images/PDFTRON_about.pdf', id: '3', status: 'rejected', registeredby: 'Rushi Indulekar',Dateofre : '07 July 2019 | 08:45 PM ',Action : 'VERIFY'},
-  ];
-  
     this.editVehicleDocumentForm = this.formBuilder.group({
       business_associate_id: [''],
-      business_area_id: ['',Validators.required],
+      business_area_id: ['', Validators.required],
       driver_name: [''],
       txtMobileDeviceNumber: [''],
       txtMobileIMEI: [''],
-      txtMobileModelVersion:[''],
-      last_service_date:[''],
-   });
-   var user = {
-    "resource_id": + this.resource_id,
-    "resource_type":this.resource_type,
-    "os_type":'web'
- }
-  this.vehiclePostData = {user};
-console.log(this.vehiclePostData);
-  this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details=>{
-    if (details['success'] == true) {
-   this.vehicleDetails = details['data']['user_detail'];
-   this.pdfDocs= details['data']['doc_list'];
-   console.log(details['data']['user_detail']);
-   this.editVehicleDocumentForm.patchValue({
-    business_associate_id: this.vehicleDetails[0]['business_associate_id'],
-    business_area_id: this.vehicleDetails[0]['business_area_id'],
-    driver_name: this.vehicleDetails[0]['driver_name'],
-    txtMobileDeviceNumber: this.vehicleDetails[0]['aadhaar_number'],
-    txtMobileIMEI: this.vehicleDetails[0]['aadhaar_number'],
-    txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
-    last_service_date: this.vehicleDetails[0]['last_service_date'],
-  });
-}
-else{
-  this.toastr.error('Error', 'Something Went Wrong.');
-}
-  });
+      txtMobileModelVersion: [''],
+      last_service_date: [''],
+    });
+    var user = {
+      "resource_id": + this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web'
+    }
+    this.vehiclePostData = { user };
+    console.log(this.vehiclePostData);
+    this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details => {
+      if (details['success'] == true) {
+        this.vehicleDetails = details['data']['user_detail'];
+        this.pdfsDocs = details['data']['doc_list'];
+        console.log('pDF without filter');
+        console.log(this.pdfsDocs);
+        this.pdfs = this.pdfsDocs.filter(item => item.doc_url != null);
+        console.log('in pdfs');
+        console.log('doc count = ' + this.pdfs.length);
+        console.log(this.pdfs);
+        this.editVehicleDocumentForm.patchValue({
+          business_associate_id: this.vehicleDetails[0]['business_associate_id'],
+          business_area_id: this.vehicleDetails[0]['business_area_id'],
+          driver_name: this.vehicleDetails[0]['driver_name'],
+          txtMobileDeviceNumber: this.vehicleDetails[0]['aadhaar_number'],
+          txtMobileIMEI: this.vehicleDetails[0]['aadhaar_number'],
+          txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
+          last_service_date: this.vehicleDetails[0]['last_service_date'],
+        });
+      }
+      else {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+    });
 
   }
   incrementZoom(amount: number) {
-    this.zoom += amount;   }
+    this.zoom += amount;
+  }
   onEdit() {
-    this.isEditModeOn = ! this.isEditModeOn;
-    if(this.isEditModeOn){this.valueOfButton = "Cancel"}
-    else{this.valueOfButton= "Edit"}
+    this.isEditModeOn = !this.isEditModeOn;
+    if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+    else { this.valueOfButton = "Edit" }
     console.log(this.isEditModeOn);
-        return;
-    }
-    ShowImage(path){
-      this.imageURL= path; 
-     }
-       // convenience getter for easy access to form fields
+    return;
+  }
+  ShowImage(path) {
+    this.imageURL = path;
+  }
+  // convenience getter for easy access to form fields
   get f() { return this.editVehicleDocumentForm.controls; }
 
   onSubmit() {
@@ -134,53 +116,97 @@ else{
     var values = this.editVehicleDocumentForm.value;
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
-    
-        return;
+
+      return;
     }
     this.editVehicleDocumentForm.patchValue({
       business_associate_id: values.business_associate_id,
       business_area_id: values.business_area_id,
-      driver_name:  values.driver_name,
+      driver_name: values.driver_name,
       txtMobileDeviceNumber: values.txtMobileDeviceNumber,
       txtMobileIMEI: values.txtMobileIMEI,
       txtMobileModelVersion: values.txtMobileModelVersion,
       last_service_date: values.last_service_date,
     });
     var user = {
-      "session_id":3403,
+      "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
+    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
     var document={
-      "approved_doc":'',
-      "rejected_doc":'',
+      "approved_doc":approvedDocsList,
+      "rejected_doc":rejectedDocsList,
       "comment":'test'
     };
-    var formData={};
-    var data={formData:this.editVehicleDocumentForm.value};
-    this.vehicleUpdateData ={user,data,document};
+    var formData = {};
+    var data = { formData: this.editVehicleDocumentForm.value };
+    this.vehicleUpdateData = { user, data, document };
     // update vehicle documents details
     this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       if (res['success'] == true) {
         console.log(this.isEditModeOn);
-        this.isEditModeOn=false;
-        if(this.isEditModeOn){this.valueOfButton = "Cancel"}
-        else{this.valueOfButton= "Edit"}
-      this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
       }
-      else{
-        this.toastr.error('Error', 'Something went wrong');
+      else {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       }
     }, errorResponse => {
-      this.toastr.error('Error', errorResponse.error[0])
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
     });
 
 
   }
-  backToPersonal(resource_id)
+  pageNumberButtonClicked(index) {
+    console.log('page number = '+ index);
+    this.selectedPage = index; 
+  }
+
+  onPreviousButtonClick () { 
+    if (this.selectedPage > 0) {
+      this.selectedPage = this.selectedPage-1;
+    } 
+    console.log('page number = '+ this.selectedPage);
+  }
+
+  onNextButtonClick () { 
+    if (this.selectedPage < this.pdfs.length-1) {
+      this.selectedPage = this.selectedPage+1;
+    } 
+    console.log('page number = '+ this.selectedPage);
+  }
+  sumbitVehicle()
   {
+   if(this.validateDocuments()) 
+   {
+    this.onSubmit();
+   }
+   else
+   {
+
+   }
+  }
+  validateDocuments()
+   {
+    let array = this.pdfs.filter(i => i.status === 'none')
+    console.log(array);
+    let docsName = '';
+    array.map(i => {
+      docsName += i.doc_display_name + "- ";
+    })
+    if (array.length > 0) {
+      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+      return false;
+    }
+    return true;
+   }
+  backToPersonal(resource_id) {
     console.log(resource_id);
-    this.router.navigate(['/vehicle-personal' ,{'resource_id':resource_id,'resource_type':'vehicles' }]);  
+    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
   }
 }
