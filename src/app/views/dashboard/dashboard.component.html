@@ -28,9 +28,9 @@
       <div class="col-md-8 ">
         <div class="container">
           <div class="row">
-            <div class="col-sm " *ngFor="let tat of nonCompliant_ExpiredDoc_Draft; index as i;" 
+            <div class="col-sm " *ngFor="let tat of nonCompliant_Renew_Draft; index as i;" 
               [ngClass]="{'display-non-core': tat.name === 'expired_document','display-non-core': tat.name === 'non_complient'}"
-              >
+               (click)="tat.name === 'renewal_document' ? getDashboardRenewalList(true) : null">
               <div class="d-flex countbx">
                 <div class=" mr-auto count-text"><img src="./assets/images/Path.png"></div>
                 <div class="count-number"><span>driver</span>{{tat.driver}}</div>
@@ -163,7 +163,8 @@
                     <th>Gender</th>
                     <th>Registered by</th>
                     <th>Status </th>
-                    <th>Date of Registered</th>
+                    <th *ngIf="!toShowExpiry()">Registeration Date</th>
+                    <th *ngIf="toShowExpiry()">Expiry Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -177,7 +178,8 @@
                     <td>{{item.gender}}</td>
                     <td>{{item.registeredby}}</td>
                     <td><span>{{item.induction_status}}</span></td>
-                    <td>{{item.date_of_registration | date: serverDateFormat }}</td>
+                    <td *ngIf="!toShowExpiry()">{{item.date_of_registration | date: serverDateFormat }}</td>
+                    <td *ngIf="toShowExpiry()">{{item.expiry_date | date: serverDateFormat}}</td>
                     <td><button type="button" (click)="Verify(item.resource_id,this.resource_type)"
                         class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
                   </tr>
@@ -195,7 +197,8 @@
                     <th>Type</th>
                     <th>Registered by</th>
                     <th>Status</th>
-                    <th>Expiry Date</th>
+                    <th *ngIf="!toShowExpiry()">Registeration Date</th>
+                    <th *ngIf="toShowExpiry()">Expiry Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -209,7 +212,8 @@
                     <td>{{item.model}}</td>
                     <td>{{item.registeredby}}</td>
                     <td><span>{{item.induction_status}}</span></td>
-                    <td>{{item.date_of_registration | date: serverDateFormat }}</td>
+                    <td *ngIf="!toShowExpiry()">{{item.date_of_registration | date: serverDateFormat }}</td>
+                    <td *ngIf="toShowExpiry()">{{item.expiry_date | date: serverDateFormat}}</td>
                     <td><button type="button" (click)="Verify(item.resource_id,this.resource_type)"
                         class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
                   </tr>

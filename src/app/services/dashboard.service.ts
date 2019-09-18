@@ -26,4 +26,9 @@ export class DashboardService {
     console.log('url : '+this.baseUrl + 'getDashboardTatList');
     return this.http.post(this.baseUrl + 'getDashboardTatList','')
   }
+
+  getDashboardRenewalList(data) {
+    console.log('url : '+this.baseUrl + 'getDashboardRenewalList');
+    return this.http.post('http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com:8001/api/v1/induction/docdetails',data)
+  }
 }

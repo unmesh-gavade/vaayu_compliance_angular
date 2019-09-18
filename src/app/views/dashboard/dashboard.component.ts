@@ -5,6 +5,7 @@ import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { AppConst } from '../../const/appConst';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,24 +14,24 @@ import { AppConst } from '../../const/appConst';
 export class DashboardComponent implements OnInit {
 
   serverDateFormat = AppConst.SERVER_DATE_TIME_FORMAT;
-  status: boolean = false;
-  dashboardList: Object;
-  baList: {};
-  tatList: [];
-  req_status_list: [];
-  isDriverSelected = true;
-  resource_type: String;
-  tat_type: String;
+  status: boolean = false
+  dashboardList = []
+  baList: {}
+  tatList: []
+  req_status_list = []
+  isDriverSelected = true
+  resource_type: String
+  tat_type: String
 
   clickEvent() {
-    this.status = !this.status;
+    this.status = !this.status
   }
-  search_res: any = '';
-  public search: any = '';
-  locked: any[] = [];
-  nonCompliant_ExpiredDoc_Draft = [];
+  search_res: any = ''
+  public search: any = ''
+  locked: any[] = []
+  nonCompliant_Renew_Draft = []
 
-  constructor(public commonService: CommonService, public Dashboard: DashboardService, private authService: AuthService, private router: Router, ) { }
+  constructor(private toastr: ToastrService, public commonService: CommonService, public Dashboard: DashboardService, private authService: AuthService, private router: Router, ) { }
 
   ngOnInit() {
     this.authService.checkLogin();
@@ -45,20 +46,20 @@ export class DashboardComponent implements OnInit {
     ];
     this.Dashboard.getBaList().subscribe(res => {
       this.baList = res['data']['list'];
-      console.log(this.baList);
+      console.log('getDashboardRenewalList  = '+ JSON.stringify(this.baList))
     });
     this.Dashboard.getDashboardTats().subscribe(tats => {
       this.tatList = tats['data']['tat_list'];
       this.req_status_list = this.tatList;
       console.log('getDashboardTats'+ JSON.stringify(tats));
-      this.req_status_list = this.tatList.filter((item) => 
+      this.req_status_list = this.tatList.filter((item:{name:String}) => 
                           item.name === 'new_request'
                             || item.name === 'qc_pending'
                             || item.name === 'inducted'
                             || item.name === 'rejected');
 
-      this.nonCompliant_ExpiredDoc_Draft = this.tatList.filter(
-          i => i.name === 'non_complient' || 
+      this.nonCompliant_Renew_Draft = this.tatList.filter((i:{name:String}) => 
+          i.name === 'non_complient' || 
           i.name === 'renewal_document' || 
           i.name === 'draft'
           );
@@ -96,8 +97,6 @@ export class DashboardComponent implements OnInit {
 
 
     this.Dashboard.getDashboardList(data).subscribe(res => {
-      console.log('in dash');
-      console.log(res);
       this.dashboardList = res['data']['filterData'];
       console.log(this.dashboardList);
     })
@@ -141,6 +140,33 @@ export class DashboardComponent implements OnInit {
     this.resource_type = resource_type;
     //alert(this.tat_type);
     this.onsubmit();
+  }
+
+  getDashboardRenewalList (isRenewalBlock) {
+    if (isRenewalBlock) {
+      this.Dashboard.getDashboardRenewalList({
+        "resourcetype": this.resource_type,
+        "search_by_tat": this.tat_type,
+        'docstatus' : 'renewal',
+        "search_by_name": '',
+        "start_page_index": 0,
+        "record_per_page": 10
+      }).subscribe(res => {
+        this.dashboardList = res['data']['listitems'];
+        console.log('getDashboardRenewalList  = '+ JSON.stringify(this.baList))
+      }, error => {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      })
+    }
+  }
+
+  toShowExpiry () {
+    if (this.dashboardList.length > 0) {
+      if (this.dashboardList[0].expiry_date) {
+        return true
+      }
+    }
+    return false;
   }
 }
 
