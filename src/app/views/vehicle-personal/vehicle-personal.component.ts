@@ -87,6 +87,7 @@ export class VehiclePersonalComponent implements OnInit {
       if (details['success'] == true) {
         this.vehicleDetails = details['data']['user_detail'];
         this.pdfs = details['data']['doc_list'];
+        this.pdfs = this.pdfs.filter(i => i.doc_url != null);
         console.log('doc count = '+ this.pdfs.length);
         this.editVehiclePersonalForm.patchValue({
           plate_number: this.vehicleDetails[0]['plate_number'],
@@ -204,6 +205,14 @@ export class VehiclePersonalComponent implements OnInit {
       this.selectedPage = this.selectedPage+1;
     } 
     console.log('page number = '+ this.selectedPage);
+  }
+
+  check_if_doc_is_pdf (docUrl) {
+    if (docUrl.includes('.pdf')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

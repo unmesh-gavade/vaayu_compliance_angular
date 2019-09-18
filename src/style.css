@@ -13571,7 +13571,8 @@ select.dropdown option {
   color: #253238;
   font-weight: 700;
   font-size: 0.75rem;
-  cursor: pointer; }
+  cursor: pointer;
+  text-transform: uppercase; }
 
 .count-number {
   font-size: 1.125rem;
@@ -14090,6 +14091,13 @@ select.form-control.fill_drop option {
 
 .display-non-core img {
   display: none; }
+
+.indrop {
+  border: 1px solid #ccc;
+  box-shadow: none;
+  font-size: 0.75rem;
+  font-weight: 100 !important;
+  padding-left: 13px; }
 
 /*verification end*/
 /*e*/

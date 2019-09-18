@@ -149,14 +149,19 @@
           </button>
         </div>
         <ul class="p-0 pdf_box">
+
           <li class="pdf_li activepdf" >
             <span class="togglepdf" [ngClass]="{
                   'nonstatus':pdfs[selectedPage].status === 'none',
                   'approved':pdfs[selectedPage].status === 'approved',
                   'rejected':pdfs[selectedPage].status === 'rejected'
                   }"></span>
-            <pdf-viewer src="{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true">
+            <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"
+            [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
+            >
             </pdf-viewer>
+            <img src="{{'https://'+pdfs[selectedPage].doc_url}}"  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
+             class="pdf_view" style="width: 100%;">
             <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
           </li>
         </ul>

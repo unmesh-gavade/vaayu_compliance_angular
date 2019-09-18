@@ -28,6 +28,8 @@ export class DashboardComponent implements OnInit {
   search_res: any = '';
   public search: any = '';
   locked: any[] = [];
+  nonCompliant_ExpiredDoc_Draft = [];
+
   constructor(public commonService: CommonService, public Dashboard: DashboardService, private authService: AuthService, private router: Router, ) { }
 
   ngOnInit() {
@@ -48,13 +50,18 @@ export class DashboardComponent implements OnInit {
     this.Dashboard.getDashboardTats().subscribe(tats => {
       this.tatList = tats['data']['tat_list'];
       this.req_status_list = this.tatList;
-
-      this.req_status_list = this.tatList.filter(item => 
+      console.log('getDashboardTats'+ JSON.stringify(tats));
+      this.req_status_list = this.tatList.filter((item) => 
                           item.name === 'new_request'
                             || item.name === 'qc_pending'
                             || item.name === 'inducted'
-                            || item.name === 'rejected'
-                            || item.name === 'ready_for_allocation');
+                            || item.name === 'rejected');
+
+      this.nonCompliant_ExpiredDoc_Draft = this.tatList.filter(
+          i => i.name === 'non_complient' || 
+          i.name === 'renewal_document' || 
+          i.name === 'draft'
+          );
 
     });
 
@@ -105,7 +112,6 @@ export class DashboardComponent implements OnInit {
     }
     else {
       this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
-
     }
 
   };

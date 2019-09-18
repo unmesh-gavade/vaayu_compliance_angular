@@ -4889,7 +4889,7 @@ $color-title-bluer:#F2F2F2;
   }
 
 .countbx{padding:2px 0 2px 0px;}
-.count-text{color:$color_this;font-weight: $font-weight-bold;font-size: 0.75rem;cursor: pointer;}
+.count-text{color:$color_this;font-weight: $font-weight-bold;font-size: 0.75rem;cursor: pointer;text-transform: uppercase;}
 .count-number{font-size:1.125rem;color:$color-numbers;
 span{    font-size: 0.70rem;
     padding-right: 7px;
@@ -5154,6 +5154,11 @@ span{padding-right: 5px;}
 				.toast-message{display: none;}
 				.pdf_rejected_list .pdf_li{visibility: visible;overflow: auto;display: inline;height:auto;	font-size: 0.85rem;}
 				.display-non-core, .display-non-core1{display: block !important;}	
-				.display-non-core img {display: none;}			
+				.display-non-core img {display: none;}	
+				.indrop{border: 1px solid #ccc;
+					box-shadow: none;
+					font-size: 0.75rem;
+					font-weight: 100 !important;
+					padding-left: 13px;}		
 /*verification end*/
 /*e*/
