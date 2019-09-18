@@ -78,13 +78,13 @@ export class AuthService {
     console.log(user);
     console.log(user.headers);
       let client = user.headers.get('client');
-      let access_token = user.headers.get('access-token');
+      let access_token = user.headers.get('access_token');
       console.log(client);
       console.log(access_token);
       if (user['body']['data'] && user['body']['status'] == true) {
         localStorage.setItem('currentUser', JSON.stringify(user['body']['data']));
-        //localStorage.setItem('client',client);
-        //localStorage.setItem('access_token',access_token);
+        localStorage.setItem('client',client);
+        localStorage.setItem('access_token',access_token);
         this.isLoggedIn = true;
       } else {
         this.toastr.error('Error', 'Invalid login credentials. Please try again.');
@@ -118,8 +118,8 @@ export class AuthService {
   getAppToken() {
     const appToken = localStorage.getItem('access_token');
     if (appToken) {
-      let tokenData = JSON.parse(appToken)
-      return tokenData.data;
+      // let tokenData = JSON.parse(appToken)
+      return appToken;
     } else {
       return false;
     }
@@ -127,8 +127,8 @@ export class AuthService {
   getClientToken() {
     const client = localStorage.getItem('client');
     if (client) {
-      let tokenData = JSON.parse(client)
-      return tokenData.data;
+      // let tokenData = JSON.parse(client)
+      return client;
     } else {
       return false;
     }

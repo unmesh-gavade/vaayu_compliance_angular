@@ -15,13 +15,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-       // const currentUser = this.authService.getAuthUser();
-        //const accessToken = this.authService.getAppToken();
-        //const client = this.authService.getAuthorizationToken();
-          const currentUser ="";
-          const accessToken='s6XWBjuT_104sG6IwQ4KPg';
-          const authToken="";
-          const userId='deekshithmech@gmail.com';
+        const currentUser = this.authService.getAuthUser();
+        const accessToken = this.authService.getAppToken();
+        const client = this.authService.getClientToken();
+        //   const currentUser ="";
+        //   const accessToken='s6XWBjuT_104sG6IwQ4KPg';
+        //   const authToken="";
+          const userId=currentUser.uid;
         if (accessToken) {
             
             // req = req.clone({
@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
             );
             req = req.clone({
                 setHeaders:
-                    {'client': 'zf9ADoYFfW4R-sxvchlH7g'}
+                    {'client': ` ${client}`}
                 },
             );
         }

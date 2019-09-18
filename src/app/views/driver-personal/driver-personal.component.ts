@@ -62,12 +62,12 @@ export class DriverPersonalComponent implements OnInit {
     this.driverPostData = {user};
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         this.pdfsDocs = details['data']['doc_list'];
         console.log('pDF without filter');
         console.log(this.pdfsDocs);
-        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null );  
-        // && item.doc_type ==='personal'
+        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null && item.doc_type ==='personal');  
         console.log('in pdfs');
         console.log('doc count = '+ this.pdfs.length);
         console.log(this.pdfs);
@@ -133,9 +133,6 @@ export class DriverPersonalComponent implements OnInit {
       };
       let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
       let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
-       console.log('approvedlist');
-      console.log(approvedDocsList);
-      console.log(rejectedDocsList);
       var document={
         "approved_doc":approvedDocsList,
         "rejected_doc":rejectedDocsList,
@@ -146,36 +143,28 @@ export class DriverPersonalComponent implements OnInit {
       this.driverUpdateData ={user,data};
       
        // update driver personal details
-  //    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-  //     if (res['success'] == true) {
-  //     console.log(this.isEditModeOn);
-  //     this.isEditModeOn=false;
-  //     if(this.isEditModeOn){this.valueOfButton = "Cancel"}
-  //     else{this.valueOfButton= "Edit"}
-  //     this.toastr.success('Success', 'Driver Personal Details updated successfully')
-  //     }
-  //     else{
-  //       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-  //     }
-  //  },errorResponse => {
-  //      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
-  //  });  
+     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
+      console.log(this.isEditModeOn);
+      this.isEditModeOn=false;
+      if(this.isEditModeOn){this.valueOfButton = "Cancel"}
+      else{this.valueOfButton= "Edit"}
+      this.toastr.success('Success', 'Driver Personal Details updated successfully')
+      }
+      else{
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      }
+   },errorResponse => {
+       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
+   });  
    
     }
     saveDocsStatus(resource_id)
     {
-      console.log(this.pdfs);
-      let array = this.pdfs.filter(i => i.status === 'none')
-      let docsName = '';
-      array.map(i => {
-        docsName += i.doc_display_name + ", ";
-      })
-      if (array.length > 0) {
-        this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
-      }
+      this.validateDocuments();
       this.onSubmit();
       // console.log(resource_id);
-      // this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
+      this.router.navigate(['/driver-business' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
     }
     pageNumberButtonClicked(index) {
       console.log('page number = '+ index);
@@ -195,5 +184,18 @@ export class DriverPersonalComponent implements OnInit {
       } 
       console.log('page number = '+ this.selectedPage);
     }
-   
+    validateDocuments()
+    {
+     let array = this.pdfs.filter(i => i.status === 'none')
+     console.log(array);
+     let docsName = '';
+     array.map(i => {
+       docsName += i.doc_display_name + "- ";
+     })
+     if (array.length > 0) {
+       this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+       return false;
+     }
+     return true;
+    }
 }

@@ -159,7 +159,7 @@
                         >REJECT</button>
                         <button type="submit"
                           class="btn btn-success click_reject click_reject_activ pdf_approve"
-                          (click)="pdfs[selectedPage].status = 'approved'"
+                          (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry"
                           >APPROVE</button>
                       </div>
                     </div>
