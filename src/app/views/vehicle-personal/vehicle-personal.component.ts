@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../auth/auth.service';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppConst } from 'src/app/const/appConst';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-vehicle-business',
@@ -44,14 +45,21 @@ export class VehiclePersonalComponent implements OnInit {
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     this.editVehiclePersonalForm = this.formBuilder.group({
-      plate_number: ['', Validators.required],
-      category: ['', Validators.required],
-      model: ['', Validators.required],
-      // txtSeatingCapacity: ['',Validators.required],
-      colour: [''],
-      fuel_type: [''],
-      ac: [''],
-      gps_provider_id: ['']
+      plate_number: ['',Validators.required],
+category: ['',Validators.required],
+model: ['',Validators.required],
+seats: ['',Validators.required],
+colour: ['',Validators.required],
+make_year: ['',Validators.required],
+registration_date: ['',Validators.required],
+insurance_date: ['',Validators.required],
+puc_validity_date: ['',Validators.required],
+fitness_validity_date: ['',Validators.required],
+permit_validity_date: ['',Validators.required],
+ac: ['',Validators.required],
+fuel_type: ['',Validators.required],
+induction_status:['', ''],   
+
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -62,20 +70,26 @@ export class VehiclePersonalComponent implements OnInit {
 
     this.Vehicle.getVehicleDetails(this.vehiclePostData).subscribe(details => {
       
-      console.log('personal doc response '+ JSON.stringify(details));
       if (details['success'] == true) {
+        console.log(details);
         this.vehicleDetails = details['data']['user_detail'];
         this.pdfsDocs = details['data']['doc_list'];        
-        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null && item.doc_type ==='personal');  
+        this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null && item.doc_type ==='business');  
         this.editVehiclePersonalForm.patchValue({
-          plate_number: this.vehicleDetails[0]['plate_number'],
-          category: this.vehicleDetails[0]['category'],
-          model: this.vehicleDetails[0]['model'],
-          // txtSeatingCapacity: this.vehicleDetails[0]['gender'],
-          colour: this.vehicleDetails[0]['colour'],
-          fuel_type: this.vehicleDetails[0]['fuel_type'],
-          ac: this.vehicleDetails[0]['ac'],
-          gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
+          plate_number:  this.vehicleDetails[0]['plate_number'],
+category:  this.vehicleDetails[0]['category'],
+model:  this.vehicleDetails[0]['model'],
+seats:  this.vehicleDetails[0]['seats'],
+colour:  this.vehicleDetails[0]['colour'],
+make_year:  this.vehicleDetails[0]['make_year'],
+registration_date:  this.vehicleDetails[0]['registration_date'],
+insurance_date:  this.vehicleDetails[0]['insurance_date'],
+puc_validity_date:  this.vehicleDetails[0]['puc_validity_date'],
+fitness_validity_date:  this.vehicleDetails[0]['fitness_validity_date'],
+permit_validity_date:  this.vehicleDetails[0]['permit_validity_date'],
+ac:  this.vehicleDetails[0]['ac'],
+fuel_type:  this.vehicleDetails[0]['fuel_type'],
+induction_status: this.vehicleDetails[0]['induction_status']
         });
       }
       else {
@@ -112,14 +126,22 @@ export class VehiclePersonalComponent implements OnInit {
     }
 
     this.editVehiclePersonalForm.patchValue({
-      plate_number: values.plate_number,
-      category: values.category,
-      model: values.model,
-      // txtSeatingCapacity: values.txtSeatingCapacity,
-      colour: values.colour,
-      fuel_type: values.fuel_type,
-      ac: values.ac,
-      gps_provider_id: values.gps_provider_id,
+      plate_number:  values.plate_number,
+category:  values.category,
+model:  values.model,
+seats:  values.seats,
+colour:  values.colour,
+make_year:  values.make_year,
+registration_date:  values.registration_date,
+insurance_date:  values.insurance_date,
+puc_validity_date:  values.puc_validity_date,
+fitness_validity_date:  values.fitness_validity_date,
+permit_validity_date: values.permit_validity_date,
+ac:  values.ac,
+fuel_type:  values.fuel_type,
+induction_status:values.induction_status 
+
+
     });
     var user = {
       "session_id": 3403,
@@ -127,11 +149,17 @@ export class VehiclePersonalComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let ApprovedDocsId = '';
+    let RejectedDocsId='';
+     let approvedDocsList= this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+     ApprovedDocsId = approvedDocsList.join(",");
+   console.log(ApprovedDocsId);
     let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+      RejectedDocsId = rejectedDocsList.join(",");
+   console.log(RejectedDocsId);
     var document={
-      "approved_doc":approvedDocsList,
-      "rejected_doc":rejectedDocsList,
+      "approvedDoc":ApprovedDocsId,
+      "rejectedDdoc":RejectedDocsId,
       "comment":'test'
     };
     var formData = {};
@@ -180,7 +208,6 @@ export class VehiclePersonalComponent implements OnInit {
     } 
     console.log('page number = '+ this.selectedPage);
   }
-<<<<<<< HEAD
 
   check_if_doc_is_pdf (docUrl) {
     if (docUrl.includes('.pdf')) {
@@ -190,7 +217,6 @@ export class VehiclePersonalComponent implements OnInit {
     }
   }
 
-=======
   validateDocuments()
   {
    let array = this.pdfs.filter(i => i.status === 'none')
@@ -205,5 +231,4 @@ export class VehiclePersonalComponent implements OnInit {
    }
    return true;
   }
->>>>>>> 33620e1d09cb0343381e2d362fc11b9076383798
 }

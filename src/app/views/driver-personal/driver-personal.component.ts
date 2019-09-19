@@ -8,6 +8,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import { AuthService } from '../../auth/auth.service';
 import { AppConst } from 'src/app/const/appConst';
 
+
 @Component({
   selector: 'app-driver-personal',
   templateUrl: './driver-personal.component.html',
@@ -32,6 +33,8 @@ export class DriverPersonalComponent implements OnInit {
   userRole:String;
   isDataENtry=false;
   selectedPage = 0;
+  serverDateFormat = AppConst.SERVER_DATE_TIME_FORMAT;
+  
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
@@ -45,14 +48,18 @@ export class DriverPersonalComponent implements OnInit {
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
   
     this.editDriverPersonalForm = this.formBuilder.group({
-       driver_name: ['', Validators.required],
-       father_spouse_name: ['', Validators.required],
-       date_of_birth: ['', Validators.required],
-       gender: [''],
-       aadhaar_mobile_number:  ['', Validators.required],
-       marital_status: [''],
-       blood_group: [''],
-       qualification: [''],
+      driver_name:  ['', Validators.required],
+      father_spouse_name:  ['', Validators.required],
+      gender:  ['', Validators.required],
+      date_of_birth:  ['', Validators.required],
+      marital_status:  ['', Validators.required],
+      aadhaar_mobile_number:  ['', Validators.required],
+      aadhar_number:  ['', Validators.required],
+      blood_group:  ['', Validators.required],
+      local_address:  ['', Validators.required],
+      permanent_address:  ['', Validators.required],
+      qualification:  ['', Validators.required],
+      induction_status:['', ''],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -69,19 +76,23 @@ export class DriverPersonalComponent implements OnInit {
         console.log(this.pdfsDocs);
         this.pdfs = this.pdfsDocs.filter(item=> item.doc_url != null && item.doc_type ==='personal');  
         console.log('in pdfs');
-        console.log('doc count = '+ this.pdfs.length);
+        console.log(this.driverDetails[0]['date_of_birth']);
         console.log(this.pdfs);
-        console.log(this.driverDetails[0]['aadhaar_number']);
         this.editDriverPersonalForm.patchValue({
-          driver_name: this.driverDetails[0]['driver_name'],
+          driver_name:  this.driverDetails[0]['driver_name'],
           father_spouse_name: this.driverDetails[0]['father_spouse_name'],
-          date_of_birth: moment(this.driverDetails[0]['date_of_birth']).format("YYYY-MM-DD"),
-          gender: this.driverDetails[0]['gender'],
-          aadhaar_mobile_number: this.driverDetails[0]['aadhaar_mobile_number'],
-          marital_status: this.driverDetails[0]['marital_status'],
-          blood_group: this.driverDetails[0]['blood_group'],
-          qualification: this.driverDetails[0]['qualification'],
+          gender:  this.driverDetails[0]['gender'],
+          date_of_birth:  this.driverDetails[0]['date_of_birth'],
+          marital_status:  this.driverDetails[0]['marital_status'],
+          aadhaar_mobile_number:  this.driverDetails[0]['aadhaar_mobile_number'],
+          aadhar_number:  this.driverDetails[0]['aadhar_number'],
+          blood_group:  this.driverDetails[0]['blood_group'],
+          local_address: this.driverDetails[0]['local_address'],
+          permanent_address:  this.driverDetails[0]['permanent_address'],
+          qualification:  this.driverDetails[0]['qualification'],
+          induction_status: this.driverDetails[0]['induction_status']
         });
+
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
@@ -106,13 +117,13 @@ export class DriverPersonalComponent implements OnInit {
   get f() { return this.editDriverPersonalForm.controls; }
 
     onSubmit() {
-
+alert('in sub');
       this.submitted = true;
   
       var values = this.editDriverPersonalForm.value;
       // stop here if form is invalid
       if (this.editDriverPersonalForm.invalid) {
-      
+      console.log('from invalid');
           return;
       }
       this.editDriverPersonalForm.patchValue({
@@ -121,9 +132,13 @@ export class DriverPersonalComponent implements OnInit {
         date_of_birth:  moment(values.date_of_birth).format("YYYY-MM-DD"),
         gender: values.gender,
         aadhaar_mobile_number: values.aadhaar_mobile_number,
+        aadhar_number:values.aadhar_number,
         marital_status: values.marital_status,
         blood_group: values.blood_group,
-        qualification: values.qualification 
+        local_address:values.local_address,
+        permanent_address:values.permanent_address,
+        qualification: values.qualification,
+        induction_status:values.induction_status 
       });
       var user = {
         "session_id":3403,
@@ -131,19 +146,27 @@ export class DriverPersonalComponent implements OnInit {
         "resource_type": this.resource_type,
         "os_type": 'web'
       };
-      let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+      let ApprovedDocsId = '';
+      let RejectedDocsId='';
+       let approvedDocsList= this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+       ApprovedDocsId = approvedDocsList.join(",");
+     console.log(ApprovedDocsId);
       let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+        RejectedDocsId = rejectedDocsList.join(",");
+     console.log(RejectedDocsId);
       var document={
-        "approved_doc":approvedDocsList,
-        "rejected_doc":rejectedDocsList,
+        "approvedDoc":ApprovedDocsId,
+        "rejectedDdoc":RejectedDocsId,
         "comment":'test'
       };
+      console.log(document);
       var formData={};
       var data={formData:this.editDriverPersonalForm.value,document};
       this.driverUpdateData ={user,data};
-      
+      console.log(this.driverUpdateData);
        // update driver personal details
      this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+       console.log(res);
       if (res['success'] == true) {
       console.log(this.isEditModeOn);
       this.isEditModeOn=false;
@@ -152,9 +175,11 @@ export class DriverPersonalComponent implements OnInit {
       this.toastr.success('Success', 'Driver Personal Details updated successfully')
       }
       else{
+        alert('error');
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       }
    },errorResponse => {
+     alert('exception');
        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
    });  
    

@@ -19,83 +19,197 @@
             
         </div>
         <div class="card-body">
-            <h5 class="card-title">
-                <div class="alert alert-secondary tit_ver bds" role="alert">
-              DOCUMENT VERIFICATION
-            </div>
-          </h5>
-          <div malihu-scrollbar  [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
-            <div class="form-group row">
-              <label for="lblOwnership" class="col-sm-5 col-form-label">Ownership</label>
-              <div class="col-sm-6">
-                  <div class="align-self-center Ownership ">
-                      <div class="btn-group btn-group-toggle d-flex " data-toggle="buttons">
-                        <label class="btn btn-secondary active justify-content-center">
-                          <input type="radio" name="options" id="option1" autocomplete="off" checked> BA
-                        </label>
-                        <label class="btn btn-secondary justify-content-center">
-                          <input type="radio" name="options" id="option2" autocomplete="off"> DRIVER
-                        </label>
-                      </div>
-                      </div>
-                  <!-- <fieldset>
-                      <div class="switch-toggle switch-candy">
-                        <input id="week" name="view" type="radio" checked>
-                        <label for="week" onclick="">BA</label>
-                        <input id="month" name="view" type="radio">
-                        <label for="month" onclick="">DRIVER</label>
-                        <a></a>
-                      </div>
-                    </fieldset> -->
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblBusinessAssociateName" class="col-sm-5 col-form-label">Business Associate Name</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="business_associate_id" id="business_associate_id"  placeholder="Business Associate Name" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblBusinessArea" class="col-sm-5 col-form-label">Business Area *</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="business_area_id" id="business_area_id" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
-                <div *ngIf="submitted && f.business_area_id.errors">
-                    <div *ngIf="f.business_area_id.errors.required" class="error_class">Business Area is required</div>
-                  </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblDriverNameDetail1" class="col-sm-5 col-form-label">Driver Name Detail 1</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="driver_name" id="driver_name" placeholder="Driver Name Detail 1" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblMobileDeviceNumber" class="col-sm-5 col-form-label">Mobile Device Number</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtMobileDeviceNumber" id="txtMobileDeviceNumber" placeholder="Mobile Device Number" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblMobileIMEI" class="col-sm-5 col-form-label">Mobile IMEI Number</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtMobileIMEI" id="txtMobileIMEI" placeholder="Mobile IMEI Number" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblMobileModelVersion" class="col-sm-5 col-form-label">Mobile Model & Version *</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="txtMobileModelVersion" id="txtMobileModelVersion" placeholder="Mobile Model & Version *" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblLastServiceDate" class="col-sm-5 col-form-label">Last Service Date</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
+          <h5 class="card-title">
+              <div class="alert alert-secondary tit_ver bds" role="alert">
+            DOCUMENT VERIFICATION
+          </div>
+        </h5>
+        <div malihu-scrollbar  [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
+          <div class="form-group row">
+            <label for="lblOwnership" class="col-sm-5 col-form-label">Ownership</label>
+            <div class="col-sm-6">
+                <div class="align-self-center Ownership ">
+                    <div class="btn-group btn-group-toggle d-flex " data-toggle="buttons">
+                      <label class="btn btn-secondary active justify-content-center">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> BA
+                      </label>
+                      <label class="btn btn-secondary justify-content-center">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> DRIVER
+                      </label>
+                    </div>
+                    </div>
+                <!-- <fieldset>
+                    <div class="switch-toggle switch-candy">
+                      <input id="week" name="view" type="radio" checked>
+                      <label for="week" onclick="">BA</label>
+                      <input id="month" name="view" type="radio">
+                      <label for="month" onclick="">DRIVER</label>
+                      <a></a>
+                    </div>
+                  </fieldset> -->
             </div>
           </div>
+          <div class="form-group row">
+            <label for="lblbusiness_associate_id" class="col-sm-5 col-form-label">Business Associate Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="business_associate_id" id="business_associate_id"  placeholder="Business Associate Name" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.business_associate_id.errors">
+                <div *ngIf="f.business_associate_id.errors.required" class="error_class">Business Associate Name is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblbusiness_area_id" class="col-sm-5 col-form-label">Business Area *</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="business_area_id" id="business_area_id" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.business_area_id.errors">
+                  <div *ngIf="f.business_area_id.errors.required" class="error_class">Business Area is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblroad_tax_validity_date" class="col-sm-5 col-form-label">Road Tax validity Date *</label>
+            <div class="col-sm-6 mb-0">
+              <!-- <input type="text" class="form-control" formControlName="road_tax_validity_date" id="road_tax_validity_date" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <div class="form-group form-group-custom">
+                <div class="input-group input-group-custom">
+                  <input type="text" class="form-control date_form_control" formControlName="road_tax_validity_date" id="road_tax_validity_date" placeholder="Road Tax validity Date *"
+                         name="dp"  ngbDatepicker #RoadTaxvalidityDate="ngbDatepicker"  >
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="RoadTaxvalidityDate.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && f.road_tax_validity_date.errors">
+                  <div *ngIf="f.road_tax_validity_date.errors.required" class="error_class">Road Tax validity Date is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lbllast_service_date" class="col-sm-5 col-form-label">Last Service Date</label>
+            <div class="col-sm-6">
+              <!-- <input type="text" class="form-control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <div class="form-group form-group-custom">
+                <div class="input-group input-group-custom">
+                  <input type="text" class="form-control date_form_control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date *"
+                         name="dp"  ngbDatepicker #RoadTaxvalidityDate="ngbDatepicker"  >
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="RoadTaxvalidityDate.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && f.last_service_date.errors">
+                <div *ngIf="f.last_service_date.errors.required" class="error_class">Last Service Date is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lbllast_service_km" class="col-sm-5 col-form-label">Last Service KM</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="last_service_km" id="last_service_km" placeholder="Last Service KM" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.last_service_km.errors">
+                <div *ngIf="f.last_service_km.errors.required" class="error_class">Last Service KM is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblkm_at_induction" class="col-sm-5 col-form-label">KM at the time of Induction</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="km_at_induction" id="km_at_induction" placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.km_at_induction.errors">
+                <div *ngIf="f.km_at_induction.errors.required" class="error_class">KM at the time of Induction is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblpermit_type" class="col-sm-5 col-form-label">Permit Type</label>
+            <div class="col-sm-6">
+              <!-- <input type="text" class="form-control" formControlName="permit_type" id="permit_type" placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <select name="account" formControlName="permit_type" id="permit_type" class="form-control dropdown dropdown_custom indrop"  [attr.disabled]="isEditModeOn ? null : '' ">
+                <option >Mumbai </option>
+                <option >Panvel    </option>
+                <option >Ratnagiri  </option>
+              
+              </select>
+              <div *ngIf="submitted && f.permit_type.errors">
+                <div *ngIf="f.permit_type.errors.required" class="error_class">Permit Type</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lbldate_of_registration" class="col-sm-5 col-form-label">Date of Induction</label>
+            <div class="col-sm-6 mb-0">
+              <!-- <input type="text" class="form-control" formControlName="date_of_registration" id="date_of_registration" placeholder="Driver Name Detail 1" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <div class="form-group form-group-custom">
+                <div class="input-group input-group-custom">
+                  <input type="text" class="form-control date_form_control" formControlName="date_of_registration" id="date_of_registration" placeholder="Date of Induction *"
+                         name="dp"  ngbDatepicker #date_of_registration="ngbDatepicker" >
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="date_of_registration.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="submitted && f.date_of_registration.errors">
+                <div *ngIf="f.date_of_registration.errors.required" class="error_class">Date of Induction is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblstatus" class="col-sm-5 col-form-label">Active</label>
+            <div class="col-sm-6">
+              <!-- <input type="text" class="form-control" formControlName="status" id="status" placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <select name="account" formControlName="status" id="status" class="form-control dropdown dropdown_custom indrop"  [attr.disabled]="isEditModeOn ? null : '' ">
+                <option >YES </option>
+                <option >NO    </option>
+                
+              
+              </select>
+              <div *ngIf="submitted && f.status.errors">
+                <div *ngIf="f.status.errors.required" class="error_class">Active is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lbldevice_id" class="col-sm-5 col-form-label">GPS Device ID</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="device_id" id="device_id" placeholder="GPS Device ID" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.device_id.errors">
+                <div *ngIf="f.device_id.errors.required" class="error_class">GPS Device ID is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblgps_provider_id" class="col-sm-5 col-form-label">GPS Provider</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id" placeholder="GPS Provider'" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.gps_provider_id.errors">
+                <div *ngIf="f.gps_provider_id.errors.required" class="error_class">GPS Provider is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblMobileIMEI" class="col-sm-5 col-form-label">Dedicated vehicle</label>
+            <div class="col-sm-6">
+              <!-- <input type="text" class="form-control" formControlName="txtMobileIMEI" id="txtMobileIMEI" placeholder="Mobile IMEI Number" [attr.disabled]="isEditModeOn ? null : '' "> -->
+              <select name="account" formControlName="Qualification" id="Qualification" class="form-control dropdown dropdown_custom indrop"  [attr.disabled]="isEditModeOn ? null : '' ">
+                <option >YES </option>
+                <option >NO    </option>
+                <option>Buffer vehicle</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblsite_name" class="col-sm-5 col-form-label">Dedicated Site Name *</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="site_name" id="site_name" placeholder="Dedicated Site Name *" [attr.disabled]="isEditModeOn ? null : '' ">
+              <div *ngIf="submitted && f.site_name.errors">
+                <div *ngIf="f.site_name.errors.required" class="error_class">Dedicated Site Name is required</div>
+            </div>
+            </div>
+          </div>
+          
         </div>
+      </div>
         </form>
       </div>
       <div class="card">

@@ -4,19 +4,21 @@
       <form [formGroup]="editDriverDocumentForm" (ngSubmit)="onSubmit()">
         <div class="card-header">
           <div class="col-md-12">
-              <div class="row">
-                  <div class="col-md-12 d-flex justify-content-between align-items-center">
-                    <div class="tit_ver"> 3 OF 3 INFORMATION</div>
-                    <div class="nav_bt_move"> 
-                        <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"
-                        (click)="onEdit()">{{valueOfButton}}</button>
-                        <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
-                        <a (click)="backToPersonal(this.resource_id)" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Back</a>
-                    </div>
-                  </div>
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-between align-items-center">
+                <div class="tit_ver"> 3 OF 3 INFORMATION</div>
+                <div class="nav_bt_move">
+                  <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"
+                    (click)="onEdit()">{{valueOfButton}}</button>
+                  <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ"
+                    *ngIf="isEditModeOn">Save</button>
+                  <a (click)="backToPersonal(this.resource_id)"
+                    class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Back</a>
                 </div>
+              </div>
+            </div>
           </div>
-         
+
         </div>
         <div class="card-body">
           <h5 class="card-title">
@@ -24,175 +26,277 @@
               DOCUMENT VERIFICATION
             </div>
           </h5>
-          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
-          <div class="form-group row">
-            <label for="lblPoliceVerification" class="col-sm-5 col-form-label">Police Verification</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtPoliceVerification" id="txtPoliceVerification" placeholder="Police Verification" [attr.disabled]="isEditModeOn ? null : '' " />
+          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll">
+            <div class="form-group row">
+              <label for="lblverified_by_police" class="col-sm-5 col-form-label">Police Verification</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="txtPoliceVerification" id="txtPoliceVerification" placeholder="Police Verification" [attr.disabled]="isEditModeOn ? null : '' " /> -->
+                <select name="verified_by_police" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="verified_by_police" id="verified_by_police"
+                  [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>YES </option>
+                  <option>NO</option>
+                </select>
+                <div *ngIf="submitted && f.verified_by_police.errors">
+                  <div *ngIf="f.verified_by_police.errors.required" class="error_class">Licence Type is required</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblPoliceVerificationValidity" class="col-sm-5 col-form-label">Police Verification
-              Validity</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="police_verification_vailidty" id="police_verification_vailidty" placeholder="Police Verification Validity" [attr.disabled]="isEditModeOn ? null : '' ">
+            <div class="form-group row">
+              <label for="lblpolice_verification_vailidty" class="col-sm-5 col-form-label">Police Verification
+                Validity</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="police_verification_vailidty"
+                  id="police_verification_vailidty" placeholder="Police Verification Validity"
+                  [attr.disabled]="isEditModeOn ? null : '' ">
+
+                <div *ngIf="submitted && f.police_verification_vailidty.errors">
+                  <div *ngIf="f.police_verification_vailidty.errors.required" class="error_class">Police Verification is
+                    required</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblDateOfPoliceVeri" class="col-sm-5 col-form-label">Date Of Police Verification</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+            <div class="form-group row">
+              <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification
+                *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+               -->
+                <div class="form-group form-group-custom mb-0">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control"
+                      formControlName="date_of_police_verification" id="date_of_police_verification"
+                      placeholder="Badge Expiry Date *" name="dp" ngbDatepicker
+                      #date_of_police_verification="ngbDatepicker" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="date_of_police_verification.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="submitted && f.date_of_police_verification.errors">
+                  <div *ngIf="f.date_of_police_verification.errors.required" class="error_class">Date Of Police
+                    Verification is required</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblCriminalOffense" class="col-sm-5 col-form-label">Criminal Offense</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="criminal_offence" id="criminal_offence" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' ">
+            <div class="form-group row">
+              <label for="lblcriminal_offence" class="col-sm-5 col-form-label">Criminal Offense *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="criminal_offence" id="criminal_offence" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' "> -->
+
+                <select name="criminal_offence" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="criminal_offence" id="criminal_offence" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>YES </option>
+                  <option>NO</option>
+                </select>
+
+                <div *ngIf="submitted && f.criminal_offence.errors">
+                  <div *ngIf="f.criminal_offence.errors.required" class="error_class">Criminal Offense is required</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblBGCDate" class="col-sm-5 col-form-label">BGC Date</label>
-            <div class="col-sm-6">
+            <!-- <div class="form-group row">
+            <label for="lblbgc_date" class="col-sm-5 col-form-label">BGC Date</label>
+            <div class="col-sm-6 mb-0">
                 <div class="form-group form-group-custom">
                     <div class="input-group input-group-custom">
                       <input type="text" class="form-control date_form_control" fromControlName="bgc_date" id="bgc_date" placeholder="BGC Date *"
-                             name="dp"  ngbDatepicker #d="ngbDatepicker" >
+                             name="dp"  ngbDatepicker #bgc_date="ngbDatepicker" >
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar" (click)="bgc_date.toggle()" type="button"></button>
                       </div>
                     </div>
                   </div>
-              <!-- <input type="text" class="form-control" formControlName="bgc_date" id="bgc_date" placeholder="BGC Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
+<div *ngIf="submitted && f.bgc_date.errors">
+  <div *ngIf="f.bgc_date.errors.required" class="error_class">BGC Date is required</div>
+</div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblBGCAgency" class="col-sm-5 col-form-label">BGC Agency</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="bgc_agency_id" id="bgc_agency_id" placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
+          </div> -->
+            <div class="form-group row">
+              <label for="lblbgc_date" class="col-sm-5 col-form-label">BGC Date *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+               -->
+                <div class="form-group form-group-custom mb-0">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" formControlName="bgc_date" id="bgc_date"
+                      placeholder="bgc date Date *" name="dp" ngbDatepicker #bgc_date="ngbDatepicker"
+                      [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="bgc_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="submitted && f.bgc_date.errors">
+                  <div *ngIf="f.bgc_date.errors.required" class="error_class">BGC Date is required</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblMedicalCertifiedDate" class="col-sm-5 col-form-label">Medical Certified Date</label>
+            <div class="form-group row">
+              <label for="lblbgc_agency_id" class="col-sm-5 col-form-label">BGC Agency</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="bgc_agency_id" id="bgc_agency_id"
+                  placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
+
+                <div *ngIf="submitted && f.bgc_agency_id.errors">
+                  <div *ngIf="f.bgc_agency_id.errors.required" class="error_class">BGC Date is required is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group row">
+            <label for="lblmedically_certified_date" class="col-sm-5 col-form-label">Medical Certified Date</label>
             <div class="col-sm-6">
                 <div class="form-group form-group-custom">
                     <div class="input-group input-group-custom">
                       <input type="text" class="form-control date_form_control" fromControlName="medically_certified_date" placeholder="Medical Certified Date"
-                             name="dp" id="medically_certified_date" ngbDatepicker #d="ngbDatepicker" >
+                             name="dp" id="medically_certified_date" ngbDatepicker #medically_certified_date="ngbDatepicker" >
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar" (click)="medically_certified_date.toggle()" type="button"></button>
                       </div>
                     </div>
                   </div>
-              <!-- <input type="text" class="form-control" formControlName="medically_certified_date" id="medically_certified_date" placeholder="Medical Certified Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  
+<div *ngIf="submitted && f.medically_certified_date.errors">
+  <div *ngIf="f.medically_certified_date.errors.required" class="error_class">Medical Certified Date is required</div>
+</div>
+              
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblSexualHarr" class="col-sm-5 col-form-label">Sexual Harrassment Policy*</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="sexual_policy" id="sexual_policy" placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.sexual_policy.errors">
-                <div *ngIf="f.sexual_policy.errors.required" class="error_class">Licence Number is required</div>
+          </div> -->
+
+            <div class="form-group row">
+              <label for="lblmedically_certified_date" class="col-sm-5 col-form-label">Medical Certified Date *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
+               -->
+                <div class="form-group form-group-custom mb-0">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" formControlName="medically_certified_date"
+                      id="medically_certified_date" placeholder="bgc date Date *" name="dp" ngbDatepicker
+                      #medically_certified_date="ngbDatepicker" [attr.disabled]="isEditModeOn ? null : '' ">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="medically_certified_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="submitted && f.medically_certified_date.errors">
+                  <div *ngIf="f.medically_certified_date.errors.required" class="error_class">Medical Certified Date is
+                    required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblsexual_policy" class="col-sm-5 col-form-label">Sexual Harrassment Policy *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="sexual_policy" id="sexual_policy"
+                  placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.sexual_policy.errors">
+                  <div *ngIf="f.sexual_policy.errors.required" class="error_class">Sexual Harrassment Policy is required
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        </form>
+      </form>
     </div>
     <div class="card">
-        <div class="card-header">
-          <div class="col-md-12 d-flex justify-content-between align-items-center">
-            <div class="tit_ver"> Preview Document</div>
-  
-            <div class="pdf_nav" style="display: inherit">
-              <button class="prevpdf" (click)="onPreviousButtonClick()">
-                < </button> <ul>
-                  <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == selectedPage"
-                    (click)="pageNumberButtonClicked(index)"
-                  >
-                    {{index+1}}
-                  </li>
-                  </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
-            </div>
+      <div class="card-header">
+        <div class="col-md-12 d-flex justify-content-between align-items-center">
+          <div class="tit_ver"> Preview Document</div>
+
+          <div class="pdf_nav" style="display: inherit">
+            <button class="prevpdf" (click)="onPreviousButtonClick()">
+              < </button> <ul>
+                <li class="com_pdf" *ngFor="let item of pdfs; let index = index"
+                  [class.activepdf]="index == selectedPage" (click)="pageNumberButtonClicked(index)">
+                  {{index+1}}
+                </li>
+                </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
           </div>
         </div>
-        <div class="card-body position-relative">
-          <div class="pdf_zoom">
-            <button ion-button (click)="incrementZoom(-0.1)">
-              -
-            </button>
-            <button ion-button (click)="incrementZoom(0.1)">
-              +
-            </button>
-          </div>
-          <ul class="p-0 pdf_box">
-            <li class="pdf_li activepdf" >
-              <span class="togglepdf" [ngClass]="{
+      </div>
+      <div class="card-body position-relative">
+        <div class="pdf_zoom">
+          <button ion-button (click)="incrementZoom(-0.1)">
+            -
+          </button>
+          <button ion-button (click)="incrementZoom(0.1)">
+            +
+          </button>
+        </div>
+        <ul class="p-0 pdf_box">
+          <li class="pdf_li activepdf">
+            <span class="togglepdf" [ngClass]="{
                     'nonstatus':pdfs[selectedPage].status === 'none',
                     'approved':pdfs[selectedPage].status === 'approved',
                     'rejected':pdfs[selectedPage].status === 'rejected'
                     }"></span>
-              <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true">
-              </pdf-viewer>
-              <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
-            </li>
-          </ul>
-        </div>
-        <div class="card-footer bg_white">
-          <form>
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <ul class="pdf_box">
-                  <li class="tit_ver pdf_li activepdf" >
-                    <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                    {{pdfs[selectedPage].doc_display_name}}
-                  </li>
-                </ul>
-                <div>
-                  <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
-                  <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                    (click)="pdfs[selectedPage].status = 'rejected'"
-                  >REJECT</button>
-                  <button type="submit"
-                    class="btn btn-success click_reject click_reject_activ pdf_approve"
-                    (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry"
-                    >APPROVE</button>
-                </div>
-              </div>
-              <div class="col-sm-4">
-              </div>
-              <div class="col-sm-2"></div>
-              <div class="col-sm-1">
-  
-              </div>
-              <div class="col-sm-2"></div>
-              <div clss="col-sm-1">
-  
+            <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view"
+              [zoom]="zoom" [show-all]="true">
+            </pdf-viewer>
+            <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer bg_white">
+        <form>
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+              <ul class="pdf_box">
+                <li class="tit_ver pdf_li activepdf">
+                  <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
+                  {{pdfs[selectedPage].doc_display_name}}
+                </li>
+              </ul>
+              <div>
+                <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
+                <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
+                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
+                  (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry">APPROVE</button>
               </div>
             </div>
-          </form>
-        </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2"></div>
+            <div clss="col-sm-1">
+
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
   </div>
   <div class="container-fluid mt-4 p-3 bg-white">
     <div class="row ">
       <div class="col-md-12 d-flex align-items-center">
-      <div class="col-sm-6">
-        <input type="text" class="form-control txtRejectedDocinput very_input tg_select" id="txtRejectedDoc"
-          placeholder="Sexual Harrassment Policy, Police Verication">
-      </div>
-      <div class="col-sm-4">
-        
-      
-          <select name="account"  id="PerPage"   class="form-control dropdown fill_drop fill_drop_vrfy">
-          
-              <option  > Select Rejection Reason </option>
-              <option >Blur Document</option>
-              <option>Wrong Documnet</option>
-              <option>Incorrect Data</option>
-              <option>Separated link</option>
-            </select>
-        <!-- <div class="btn-group " dropdown [dropup]="isDropup">
+        <div class="col-sm-6">{{rejectedDocNames}}
+          <input type="text" class="form-control txtRejectedDocinput very_input tg_select" id="txtRejectedDoc"
+            placeholder="Sexual Harrassment Policy, Police Verication">
+        </div>
+        <div class="col-sm-4">
+
+
+          <select name="account" id="PerPage" class="form-control dropdown fill_drop fill_drop_vrfy">
+
+            <option> Select Rejection Reason </option>
+            <option>Blur Document</option>
+            <option>Wrong Documnet</option>
+            <option>Incorrect Data</option>
+            <option>Separated link</option>
+          </select>
+          <!-- <div class="btn-group " dropdown [dropup]="isDropup">
           <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle  "
             aria-controls="dropdown-basic">
             Select Rejection Reason <span class="caret"></span>      
@@ -206,10 +310,10 @@
             </li>
           </ul>
         </div> -->
-      </div>
-      <div class="col-sm-2">
-        <a href="javascript:void(0)" class="btn btn-primary bt_blue very_bt" (click)="sumbitDriver()">SUBMIT</a>
-      </div>
+        </div>
+        <div class="col-sm-2">
+          <a href="javascript:void(0)" class="btn btn-primary bt_blue very_bt" (click)="sumbitDriver()">SUBMIT</a>
+        </div>
       </div>
     </div>
   </div>

@@ -32,6 +32,7 @@ export class DriverDocumentComponent implements OnInit {
   isDataENtry=false;
   selectedPage = 0
   pdfsDocs:any[]=[];
+  rejectedDocNames:String;
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
@@ -45,16 +46,17 @@ export class DriverDocumentComponent implements OnInit {
     else{this.isDataENtry=false};
     
     this.editDriverDocumentForm = this.formBuilder.group({
-      txtPoliceVerification: [''],
-      police_verification_vailidty: [''],
-      date_of_police_verification: [''],
-      criminal_offence: [''],
-      bgc_date:[''],
-      bgc_agency_id:[''],
-      medically_certified_date:[''],
+      verified_by_police:['',''],
+      police_verification_vailidty: ['', Validators.required],
+      date_of_police_verification: ['', Validators.required],
+      criminal_offence: ['', Validators.required],
+      bgc_date: ['', Validators.required],
+      bgc_agency_id: ['', Validators.required],
+      medically_certified_date: ['', Validators.required],
       sexual_policy: ['', Validators.required],
+      induction_status:['', ''],
    });
-   var user = {
+   var user =  {
     "resource_id": + this.resource_id,
     "resource_type":this.resource_type,
     "os_type":'web'
@@ -68,14 +70,15 @@ export class DriverDocumentComponent implements OnInit {
     console.log(this.driverDetails);
     console.log(this.driverDetails[0]['aadhaar_number']);
     this.editDriverDocumentForm.patchValue({
-      txtPoliceVerification: this.driverDetails[0]['txtPoliceVerification'],
+      verified_by_police: this.driverDetails[0]['verified_by_police'],
       police_verification_vailidty: this.driverDetails[0]['police_verification_vailidty'],
-      date_of_police_verification:  this.driverDetails[0]['date_of_police_verification'],
+      date_of_police_verification: this.driverDetails[0]['date_of_police_verification'],
       criminal_offence: this.driverDetails[0]['criminal_offence'],
-      bgc_date:  moment(this.driverDetails[0]['bgc_date']).format("YYYY-MM-DD"),
+      bgc_date: this.driverDetails[0]['bgc_date'],
       bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
-      medically_certified_date:  moment(this.driverDetails[0]['medically_certified_date']).format("YYYY-MM-DD"),
-      sexual_policy:  this.driverDetails[0]['sexual_policy'],
+      medically_certified_date: this.driverDetails[0]['medically_certified_date'],
+      sexual_policy: this.driverDetails[0]['sexual_policy'],
+      induction_status: this.driverDetails[0]['induction_status']
    });
   }
   else{
@@ -84,6 +87,7 @@ export class DriverDocumentComponent implements OnInit {
    }, errorResponse => {
     this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
   });
+  this.showRejectedDocuments();
   }
   
 incrementZoom(amount: number) {
@@ -111,14 +115,16 @@ incrementZoom(amount: number) {
         return;
     }
     this.editDriverDocumentForm.patchValue({
-      txtPoliceVerification: values.txtPoliceVerification,
+      verified_by_police:values.verified_by_police,
       police_verification_vailidty: values.police_verification_vailidty,
-      date_of_police_verification:  values.date_of_police_verification,
+      date_of_police_verification: values.date_of_police_verification,
       criminal_offence: values.criminal_offence,
-      bgc_date:   moment(values.bgc_date).format("YYYY-MM-DD"),
-      bgc_agency_id:values.bgc_agency_id,
-      medically_certified_date:   moment(values.medically_certified_date).format("YYYY-MM-DD"),
-      sexual_policy:  values.sexual_policy,
+      bgc_date: values.bgc_date,
+      bgc_agency_id: values.bgc_agency_id,
+      medically_certified_date:values.medically_certified_date,
+      sexual_policy:values.sexual_policy,
+      induction_status:values.induction_status 
+
     });
     var user = {
       "session_id":3403,
@@ -126,11 +132,17 @@ incrementZoom(amount: number) {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let ApprovedDocsId = '';
+    let RejectedDocsId='';
+     let approvedDocsList= this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+     ApprovedDocsId = approvedDocsList.join(",");
+   console.log(ApprovedDocsId);
     let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+      RejectedDocsId = rejectedDocsList.join(",");
+   console.log(RejectedDocsId);
       var document={
-        "approved_doc":approvedDocsList,
-        "rejected_doc":rejectedDocsList,
+        "approvedDoc":ApprovedDocsId,
+        "rejectedDdoc":RejectedDocsId,
         "comment":'test'
       };
     var formData={};
@@ -206,5 +218,18 @@ incrementZoom(amount: number) {
       return false;
     }
     return true;
+   }
+   showRejectedDocuments()
+   {
+    let array = this.pdfs.filter(i => i.status === 'rejected')
+    console.log(array);
+    let docsName = '';
+    array.map(i => {
+      docsName += i.doc_display_name + ", ";
+    })
+    if (array.length > 0) {
+      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+      this.rejectedDocNames =docsName;
+    }
    }
 }

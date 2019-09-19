@@ -48,14 +48,17 @@ export class DriverBusinessComponent implements OnInit {
     else{this.isDataENtry=false};
     
     this.editDriverBusinessForm = this.formBuilder.group({
-      //txtTermsOfService: [''],
-      business_state: [''],
-      business_city: [''],
-      bank_name: [''],
-      bank_no: [''],
-      ifsc_code: [''],
-     // txtDriverAcc: [''],
-      licence_number: ['', Validators.required],
+    licence_number: ['', Validators.required],
+    licence_type: ['', Validators.required],
+    licence_validity: ['', Validators.required],
+    date_of_registration: ['', Validators.required],
+    badge_number: ['', Validators.required],
+    badge_issue_date: ['', Validators.required],
+    badge_expiry_date: ['', Validators.required],
+    bank_name: ['', Validators.required],
+    bank_no: ['', Validators.required],
+    ifsc_code: ['', Validators.required],
+    induction_status:['', ''],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -71,14 +74,17 @@ export class DriverBusinessComponent implements OnInit {
       console.log(details);
       console.log(this.driverDetails[0]['aadhaar_number']);
       this.editDriverBusinessForm.patchValue({
-        //txtTermsOfService: this.driverDetails[0]['aadhaar_number'],
-        business_state: this.driverDetails[0]['business_state'],
-        business_city: this.driverDetails[0]['business_city'],
+        licence_number: this.driverDetails[0]['licence_number'],
+        licence_type: this.driverDetails[0]['licence_type'],
+        licence_validity: this.driverDetails[0]['licence_validity'],
+        date_of_registration: this.driverDetails[0]['Date_Of_Induction'],
+        badge_number: this.driverDetails[0]['badge_number'],
+        badge_issue_date: this.driverDetails[0]['badge_issue_date'],
+        badge_expiry_date: this.driverDetails[0]['badge_expiry_date'],
         bank_name: this.driverDetails[0]['bank_name'],
         bank_no: this.driverDetails[0]['bank_no'],
         ifsc_code: this.driverDetails[0]['ifsc_code'],
-        //txtDriverAcc: this.driverDetails[0]['aadhaar_number'],
-        licence_number: this.driverDetails[0]['licence_number'],
+        induction_status: this.driverDetails[0]['induction_status']
       });
     }
     else
@@ -116,14 +122,18 @@ export class DriverBusinessComponent implements OnInit {
       return;
     }
     this.editDriverBusinessForm.patchValue({
-      //txtTermsOfService: values.txtTermsOfService,
-      business_state: values.business_state,
-      business_city: values.business_city,
-      bank_name: values.bank_name,
-      bank_no: values.bank_no,
-      ifsc_code: values.ifsc_code,
-      // txtDriverAcc: values.txtDriverAcc,
-       licence_number: values.licence_number
+      licence_number: values.licence_number,
+        licence_type: values.licence_type,
+        licence_validity: values.licence_validity,
+        date_of_registration: values.date_of_registration,
+        badge_number: values.badge_number,
+        badge_issue_date: values.badge_issue_date,
+        badge_expiry_date: values.badge_expiry_date,
+        bank_name: values.bank_name,
+        bank_no: values.bank_no,
+        ifsc_code:values.ifsc_code,
+      induction_status:values.induction_status 
+
     });
     var user = {
       "session_id":3403,
@@ -131,11 +141,17 @@ export class DriverBusinessComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let ApprovedDocsId = '';
+      let RejectedDocsId='';
+       let approvedDocsList= this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+       ApprovedDocsId = approvedDocsList.join(",");
+     console.log(ApprovedDocsId);
       let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
+        RejectedDocsId = rejectedDocsList.join(",");
+     console.log(RejectedDocsId);
       var document={
-        "approved_doc":approvedDocsList,
-        "rejected_doc":rejectedDocsList,
+        "approvedDoc":ApprovedDocsId,
+        "rejectedDdoc":RejectedDocsId,
         "comment":'test'
       };
     var formData={};

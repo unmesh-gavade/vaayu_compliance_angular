@@ -13571,8 +13571,7 @@ select.dropdown option {
   color: #253238;
   font-weight: 700;
   font-size: 0.75rem;
-  cursor: pointer;
-  text-transform: uppercase; }
+  cursor: pointer; }
 
 .count-number {
   font-size: 1.125rem;

@@ -50,13 +50,19 @@ export class VehicleDocumentComponent implements OnInit {
     else { this.isDataENtry = false };
 
     this.editVehicleDocumentForm = this.formBuilder.group({
-      business_associate_id: [''],
+      business_associate_id: ['', Validators.required],
       business_area_id: ['', Validators.required],
-      driver_name: [''],
-      txtMobileDeviceNumber: [''],
-      txtMobileIMEI: [''],
-      txtMobileModelVersion: [''],
-      last_service_date: [''],
+      road_tax_validity_date: ['', Validators.required],
+      last_service_date: ['', Validators.required],
+      last_service_km: ['', Validators.required],
+      km_at_induction: ['', Validators.required],
+      permit_type: ['', Validators.required],
+      date_of_registration: ['', Validators.required],
+      status: ['', Validators.required],
+      device_id: ['', Validators.required],
+      gps_provider_id: ['', Validators.required],
+      site_name: ['', Validators.required],
+      induction_status:['', ''],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -78,11 +84,17 @@ export class VehicleDocumentComponent implements OnInit {
         this.editVehicleDocumentForm.patchValue({
           business_associate_id: this.vehicleDetails[0]['business_associate_id'],
           business_area_id: this.vehicleDetails[0]['business_area_id'],
-          driver_name: this.vehicleDetails[0]['driver_name'],
-          txtMobileDeviceNumber: this.vehicleDetails[0]['aadhaar_number'],
-          txtMobileIMEI: this.vehicleDetails[0]['aadhaar_number'],
-          txtMobileModelVersion: this.vehicleDetails[0]['aadhaar_number'],
+          road_tax_validity_date: this.vehicleDetails[0]['road_tax_validity_date'],
           last_service_date: this.vehicleDetails[0]['last_service_date'],
+          last_service_km: this.vehicleDetails[0]['last_service_km'],
+          km_at_induction: this.vehicleDetails[0]['km_at_induction'],
+          permit_type: this.vehicleDetails[0]['permit_type'],
+          date_of_registration: this.vehicleDetails[0]['date_of_registration'],
+          status: this.vehicleDetails[0]['status'],
+          device_id: this.vehicleDetails[0]['device_id'],
+          gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
+          site_name: this.vehicleDetails[0]['site_name'],
+          induction_status: this.vehicleDetails[0]['induction_status']
         });
       }
       else {
@@ -122,11 +134,19 @@ export class VehicleDocumentComponent implements OnInit {
     this.editVehicleDocumentForm.patchValue({
       business_associate_id: values.business_associate_id,
       business_area_id: values.business_area_id,
-      driver_name: values.driver_name,
-      txtMobileDeviceNumber: values.txtMobileDeviceNumber,
-      txtMobileIMEI: values.txtMobileIMEI,
-      txtMobileModelVersion: values.txtMobileModelVersion,
+      road_tax_validity_date: values.road_tax_validity_date,
       last_service_date: values.last_service_date,
+      last_service_km: values.last_service_km,
+      km_at_induction: values.km_at_induction,
+      permit_type: values.permit_type,
+      date_of_registration: values.date_of_registration,
+      status: values.status,
+      device_id: values.device_id,
+      gps_provider_id: values.gps_provider_id,
+      site_name: values.site_name,
+      induction_status:values.induction_status 
+
+
     });
     var user = {
       "session_id": 3403,
@@ -134,12 +154,18 @@ export class VehicleDocumentComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsList = this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+    let ApprovedDocsId = '';
+    let RejectedDocsId='';
+     let approvedDocsList= this.pdfs.filter(i => i.status === 'approved').map(item=>item.id);
+     ApprovedDocsId = approvedDocsList.join(",");
+   console.log(ApprovedDocsId);
     let rejectedDocsList= this.pdfs.filter(i => i.status === 'rejected').map(item=>item.id);
-    var document={
-      "approved_doc":approvedDocsList,
-      "rejected_doc":rejectedDocsList,
-      "comment":'test'
+      RejectedDocsId = rejectedDocsList.join(",");
+   console.log(RejectedDocsId);
+    var document = {
+      "approvedDoc":ApprovedDocsId,
+      "rejectedDdoc":RejectedDocsId,
+      "comment": 'test'
     };
     var formData = {};
     var data = { formData: this.editVehicleDocumentForm.value };
@@ -163,36 +189,32 @@ export class VehicleDocumentComponent implements OnInit {
 
   }
   pageNumberButtonClicked(index) {
-    console.log('page number = '+ index);
-    this.selectedPage = index; 
+    console.log('page number = ' + index);
+    this.selectedPage = index;
   }
 
-  onPreviousButtonClick () { 
+  onPreviousButtonClick() {
     if (this.selectedPage > 0) {
-      this.selectedPage = this.selectedPage-1;
-    } 
-    console.log('page number = '+ this.selectedPage);
+      this.selectedPage = this.selectedPage - 1;
+    }
+    console.log('page number = ' + this.selectedPage);
   }
 
-  onNextButtonClick () { 
-    if (this.selectedPage < this.pdfs.length-1) {
-      this.selectedPage = this.selectedPage+1;
-    } 
-    console.log('page number = '+ this.selectedPage);
+  onNextButtonClick() {
+    if (this.selectedPage < this.pdfs.length - 1) {
+      this.selectedPage = this.selectedPage + 1;
+    }
+    console.log('page number = ' + this.selectedPage);
   }
-  sumbitVehicle()
-  {
-   if(this.validateDocuments()) 
-   {
-    this.onSubmit();
-   }
-   else
-   {
+  sumbitVehicle() {
+    if (this.validateDocuments()) {
+      this.onSubmit();
+    }
+    else {
 
-   }
+    }
   }
-  validateDocuments()
-   {
+  validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')
     console.log(array);
     let docsName = '';
@@ -200,11 +222,11 @@ export class VehicleDocumentComponent implements OnInit {
       docsName += i.doc_display_name + "- ";
     })
     if (array.length > 0) {
-      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
+      this.toastr.error('Error', 'Please approve or reject all documents: ' + docsName);
       return false;
     }
     return true;
-   }
+  }
   backToPersonal(resource_id) {
     console.log(resource_id);
     this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);

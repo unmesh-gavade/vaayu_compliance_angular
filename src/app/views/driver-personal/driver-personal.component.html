@@ -1,181 +1,276 @@
 <div class="container-fluid pt-4">
-        <div class="card-group">
-          <div class="card">
-              <form [formGroup]="editDriverPersonalForm" (ngSubmit)="onSubmit()">
-            <div class="card-header">
-              <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-12 d-flex ">
-                    <div class="tit_ver mr-auto align-self-center">1 OF 3 INFORMATION</div>
-                    <div class="nav_bt_move ">
-                      <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"  (click)="onEdit()" >{{valueOfButton}}</button></div>
-                    <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="isEditModeOn">Save</button>
-                    <a (click)="saveDocsStatus(this.resource_id)" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Next</a>
-                  </div>
-               
+  <div class="card-group">
+    <div class="card">
+      <form [formGroup]="editDriverPersonalForm" (ngSubmit)="onSubmit()">
+        <div class="card-header">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 d-flex ">
+                <div class="tit_ver mr-auto align-self-center">1 OF 3 INFORMATION</div>
+                <div class="nav_bt_move ">
+                  <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"
+                    (click)="onEdit()">{{valueOfButton}}</button></div>
+                <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ"
+                  *ngIf="isEditModeOn">Save</button>
+                <a (click)="saveDocsStatus(this.resource_id)"
+                  class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Next</a>
               </div>
+
             </div>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">
-                    <div class="alert alert-secondary tit_ver bds" role="alert">
-                        Personal Info
-                    </div>
-                  </h5>
-                  <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll" >
-                <div class="form-group row">
-                  <label for="lblDriverName" class="col-sm-5 col-form-label">Driver Name *</label>
-                  <div class="col-sm-6">
-                    <input type="text" formControlName="driver_name" class="form-control" id="driver_name"  placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.driver_name.errors">
-                        <div *ngIf="f.driver_name.errors.required" class="error_class">Driver name is required</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblFatherSpouseName" class="col-sm-5 col-form-label">Father Name/Spouse *</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="father_spouse_name" id="father_spouse_name"  placeholder="Father Name/Spouse *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.father_spouse_name.errors">
-                        <div *ngIf="f.father_spouse_name.errors.required" class="error_class">Father/Spouse name is required</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblGender" class="col-sm-5 col-form-label">Gender</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' ">
-                  </div>
-                </div>
-                
-                <div class="form-group row">
-                    
-                  <label for="lblDateOfBirth" class="col-sm-5 col-form-label">Date Of Birth *</label>
-                  <div class="col-sm-6">
-                      <form class="form-inline">
-                          <div class="form-group form-group-custom">
-                            <div class="input-group input-group-custom">
-                              <input type="text" class="form-control date_form_control" placeholder="Date Of Birth *"
-                                     name="dp"  ngbDatepicker #d="ngbDatepicker" >
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                    <!-- <input type="text" class="form-control input-datepicker" formControlName="date_of_birth" id="date_of_birth" placeholder="Date Of Birth *" [attr.disabled]="isEditModeOn ? null : '' " ngbDatepicker #d="ngbDatepicker">
-                    <div class="input-group-append date_icon">
-                        <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
-                      </div> -->
-                    <div *ngIf="submitted && f.date_of_birth.errors">
-                        <div *ngIf="f.date_of_birth.errors.required" class="error_class">Date Of Birth is required</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblContactNumber" class="col-sm-5 col-form-label">Contact Number *</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="aadhaar_mobile_number" id="aadhaar_mobile_number" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
-                    <div *ngIf="submitted && f.aadhaar_mobile_number.errors">
-                        <div *ngIf="f.aadhaar_mobile_number.errors.required" class="error_class">Contact Number is required</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblMaritalStatus" class="col-sm-5 col-form-label">Marital Status</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="marital_status" id="marital_status" placeholder="Single" [attr.disabled]="isEditModeOn ? null : '' ">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblBloodGroup" class="col-sm-5 col-form-label">Blood Group</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="blood_group" id="blood_group" placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="lblQualification" class="col-sm-5 col-form-label">Qualification</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" formControlName="qualification" id="qualification" placeholder="Qualification" [attr.disabled]="isEditModeOn ? null : '' ">
-                  </div>
-                </div>
-                </div>
-            </div>
-          </form>
           </div>
-          <div class="card">
-              <div class="card-header">
-                <div class="col-md-12 d-flex justify-content-between align-items-center">
-                  <div class="tit_ver"> Preview Document</div>
-        
-                  <div class="pdf_nav" style="display: inherit">
-                    <button class="prevpdf" (click)="onPreviousButtonClick()">
-                      < </button> <ul>
-                        <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == selectedPage"
-                          (click)="pageNumberButtonClicked(index)"
-                        >
-                          {{index+1}}
-                        </li>
-                        </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <div class="alert alert-secondary tit_ver bds" role="alert">
+              Personal Info
+            </div>
+          </h5>
+          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll">
+            <div class="form-group row">
+              <label for="lbldriver_name" class="col-sm-5 col-form-label">Driver Name *</label>
+              <div class="col-sm-6">
+                <input type="text" formControlName="driver_name" class="form-control" id="driver_name"
+                  placeholder="Driver Name *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.driver_name.errors">
+                  <div *ngIf="f.driver_name.errors.required" class="error_class">Driver name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblfather_spouse_name" class="col-sm-5 col-form-label">Father Name/Spouse *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="father_spouse_name" id="father_spouse_name"
+                  placeholder="Father Name/Spouse *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.father_spouse_name.errors">
+                  <div *ngIf="f.father_spouse_name.errors.required" class="error_class">Father/Spouse name is required
                   </div>
                 </div>
               </div>
-              <div class="card-body position-relative">
-                <div class="pdf_zoom">
-                  <button ion-button (click)="incrementZoom(-0.1)">
-                    -
-                  </button>
-                  <button ion-button (click)="incrementZoom(0.1)">
-                    +
-                  </button>
+            </div>
+            <div class="form-group row">
+              <label for="lblgender" class="col-sm-5 col-form-label">Gender</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
+                  id="gender" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>Male </option>
+                  <option>Female</option>
+                </select>
+
+                <div *ngIf="submitted && f.gender.errors">
+                  <div *ngIf="f.gender.errors.required" class="error_class">Gender is required</div>
                 </div>
-                <ul class="p-0 pdf_box">
-                  <li class="pdf_li activepdf" >
-                    <span class="togglepdf" [ngClass]="{
+              </div>
+            </div>
+
+            <div class="form-group row">
+
+              <label for="lbldate_of_birth" class="col-sm-5 col-form-label">Date Of Birth *</label>
+              <div class="col-sm-6">
+                <div class="form-inline">
+                  <div class="form-group form-group-custom">
+                    <div class="input-group input-group-custom">
+                      <input type="text" class="form-control date_form_control" formControlName="date_of_birth"
+                        id="date_of_birth" placeholder="Date Of Birth *" name="dp" ngbDatepicker
+                        #DateOfBirth="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="DateOfBirth.toggle()"
+                          type="button"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <div *ngIf="submitted && f.date_of_birth.errors">
+                  <div *ngIf="f.date_of_birth.errors.required" class="error_class">Date Of Birth is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblmarital_status" class="col-sm-5 col-form-label">Marital Status *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="marital_status" id="marital_status" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="marital_status" id="marital_status" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>Married</option>
+                  <option>Unmarried</option>
+                </select>
+                <div *ngIf="submitted && f.marital_status.errors">
+                  <div *ngIf="f.marital_status.errors.required" class="error_class"> Marital Status is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="lblaadhaar_mobile_number" class="col-sm-5 col-form-label">Contact Number *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="aadhaar_mobile_number"
+                  id="aadhaar_mobile_number" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.aadhaar_mobile_number.errors">
+                  <div *ngIf="f.aadhaar_mobile_number.errors.required" class="error_class">Contact Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblblood_group" class="col-sm-5 col-form-label">Aadhaar Number *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="aadhar_number" id="aadhar_number"
+                  placeholder="aadhaarnumber *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.aadhar_number.errors">
+                  <div *ngIf="f.aadhar_number.errors.required" class="error_class">Aadhaar Number is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblblood_group" class="col-sm-5 col-form-label">Blood Group</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="blood_group" id="blood_group"
+                  placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.blood_group.errors">
+                  <div *ngIf="f.blood_group.errors.required" class="error_class">Blood Group is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lbllocal_address" class="col-sm-5 col-form-label">Present Address</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="local_address" id="local_address"
+                  placeholder="Present Address" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.local_address.errors">
+                  <div *ngIf="f.local_address.errors.required" class="error_class">Present Address is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblpermanent_address" class="col-sm-5 col-form-label">Permanent Address</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="permanent_address" id="permanent_address"
+                  placeholder="Permanent Address" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.permanent_address.errors">
+                  <div *ngIf="f.permanent_address.errors.required" class="error_class">Permanent Address is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group row">
+              <label for="lblTotalYearofDrivingExperience" class="col-sm-5 col-form-label">Total Year of Driving
+                Experience</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="total_year_of_driving_experience" id="total_year_of_driving_experience"
+                  placeholder="Total Year of Driving Experience" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.total_year_of_driving_experience.errors">
+                  <div *ngIf="f.total_year_of_driving_experience.errors.required" class="error_class">Total Year of
+                    Driving Experience is required</div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="form-group row">
+              <label for="lbltermsofservice" class="col-sm-5 col-form-label">Terms Of Service</label>
+              <div class="col-sm-6">
+                <select name="account" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="termsofservice" id="termsofservice" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>Through BA </option>
+                  <option>DCO</option>
+                </select>
+                <div *ngIf="submitted && f.termsofservice.errors">
+                  <div *ngIf="f.termsofservice.errors.required" class="error_class">Terms Of Service is required</div>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <label for="lblqualification" class="col-sm-5 col-form-label">Qualification</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="Terms_Of_Service" id="permanent_address" placeholder="Permanent Address" [attr.disabled]="isEditModeOn ? null : '' "> -->
+
+                <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" formControlName="qualification" id="qualification"
+                  class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>8th</option>
+                  <option>10th </option>
+                  <option>12th </option>
+                  <option>Graduate </option>
+                </select>
+
+                <div *ngIf="submitted && f.qualification.errors">
+                  <div *ngIf="f.qualification.errors.required" class="error_class">Qualification is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="col-md-12 d-flex justify-content-between align-items-center">
+          <div class="tit_ver"> Preview Document</div>
+
+          <div class="pdf_nav" style="display: inherit">
+            <button class="prevpdf" (click)="onPreviousButtonClick()">
+              < </button> <ul>
+                <li class="com_pdf" *ngFor="let item of pdfs; let index = index"
+                  [class.activepdf]="index == selectedPage" (click)="pageNumberButtonClicked(index)">
+                  {{index+1}}
+                </li>
+                </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body position-relative">
+        <div class="pdf_zoom">
+          <button ion-button (click)="incrementZoom(-0.1)">
+            -
+          </button>
+          <button ion-button (click)="incrementZoom(0.1)">
+            +
+          </button>
+        </div>
+        <ul class="p-0 pdf_box">
+          <li class="pdf_li activepdf">
+            <span class="togglepdf" [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
                           'approved':pdfs[selectedPage].status === 'approved',
                           'rejected':pdfs[selectedPage].status === 'rejected'
                           }"></span>
-                    <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true">
-                    </pdf-viewer>
-                    <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
-                  </li>
-                </ul>
-              </div>
-              <div class="card-footer bg_white">
-                <form>
-                  <div class="row">
-                    <div class="col-md-12 d-flex justify-content-between align-items-center">
-                      <ul class="pdf_box">
-                        <li class="tit_ver pdf_li activepdf" >
-                          <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                          {{pdfs[selectedPage].doc_display_name}}
-                        </li>
-                      </ul>
-                      <div>
-                        <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
-                        <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                          (click)="pdfs[selectedPage].status = 'rejected'"
-                        >REJECT</button>
-                        <button type="submit"
-                          class="btn btn-success click_reject click_reject_activ pdf_approve"
-                          (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry"
-                          >APPROVE</button>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                    </div>
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-1">
-        
-                    </div>
-                    <div class="col-sm-2"></div>
-                    <div clss="col-sm-1">
-        
-                    </div>
-                  </div>
-                </form>
+            <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view"
+              [zoom]="zoom" [show-all]="true">
+            </pdf-viewer>
+            <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer bg_white">
+        <form>
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+              <ul class="pdf_box">
+                <li class="tit_ver pdf_li activepdf">
+                  <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
+                  {{pdfs[selectedPage].doc_display_name}}
+                </li>
+              </ul>
+              <div>
+                <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
+                <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
+                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
+                  (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry">APPROVE</button>
               </div>
             </div>
-        </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2"></div>
+            <div clss="col-sm-1">
+
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
+</div>

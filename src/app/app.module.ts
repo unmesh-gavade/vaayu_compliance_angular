@@ -25,7 +25,6 @@ import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
-
 //Http-Intersepter -- To add header to each http request
 
 import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';

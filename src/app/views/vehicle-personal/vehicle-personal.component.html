@@ -29,7 +29,7 @@
           </h5>
           <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll">
             <div class="form-group row">
-              <label for="lblRegistrationNo" class="col-sm-5 col-form-label">Registration No*</label>
+              <label for="lblplate_number" class="col-sm-5 col-form-label">Registration No*</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="plate_number" id="plate_number"
                   placeholder="Registration No*" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -39,17 +39,27 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblVehicleCategory" class="col-sm-5 col-form-label">Vehicle Category *</label>
+              <label for="lblcategory" class="col-sm-5 col-form-label">Vehicle Category *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="category" id="category"
-                  placeholder="Vehicle Category *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <!-- <input type="text" class="form-control" formControlName="category" id="category"
+                placeholder="Vehicle Category *" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" formControlName="category" id="category"
+                  class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>SEDAN </option>
+                  <option>PREMIUM SEDAN </option>
+                  <option>HATCHBACK </option>
+                  <option>SUV </option>
+                  <option>PREMIUM SUV </option>
+                  <option>MINI BUS </option>
+                  <option>BUS</option>
+                </select>
                 <div *ngIf="submitted && f.category.errors">
                   <div *ngIf="f.category.errors.required" class="error_class">Vehicle Category is required</div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblVehicleModel" class="col-sm-5 col-form-label">Vehicle Model *</label>
+              <label for="lblmodel" class="col-sm-5 col-form-label">Vehicle Model *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="model" id="model" placeholder="Vehicle Model *"
                   [attr.disabled]="isEditModeOn ? null : '' ">
@@ -58,44 +68,230 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="form-group row">
-            <label for="lblSeatingCapacity" class="col-sm-5 col-form-label">Seating Capacity *</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="txtSeatingCapacity" id="txtSeatingCapacity"
-                placeholder="Seating Capacity *" [attr.disabled]="isEditModeOn ? null : '' ">
-              <div *ngIf="submitted && f.txtSeatingCapacity.errors">
-                <div *ngIf="f.txtSeatingCapacity.errors.required" class="error_class">Seating Capacity is required</div>
+            <div class="form-group row">
+              <label for="lblseats" class="col-sm-5 col-form-label">Seating Capacity *</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="seats" id="seats"
+                  placeholder="Seating Capacity *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <div *ngIf="submitted && f.seats.errors">
+                  <div *ngIf="f.seats.errors.required" class="error_class">Seating Capacity is required</div>
+                </div>
               </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblcolour" class="col-sm-5 col-form-label">Color</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="colour" id="colour" placeholder="Color"
+                [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" formControlName="colour" id="colour"
+                  class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>WHITE </option>
+                  <option>BLACK </option>
+                  <option>RED </option>
+                  <option>BLUE </option>
+                  <option>SILVER </option>
+                  <option>YELLOW </option>
+                  <option>BROWN</option>
+                  <option>OTHERS</option>
+                </select>
+
+
+                <div *ngIf="submitted && f.colour.errors">
+                  <div *ngIf="f.colour.errors.required" class="error_class">Color is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblmake_year" class="col-sm-5 col-form-label">Manufacture Date *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="make_year" id="make_year"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" formControlName="make_year" id="make_year"
+                      placeholder="Manufacture Date *" name="dp" ngbDatepicker #make_year="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="make_year.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="submitted && f.make_year.errors">
+                  <div *ngIf="f.make_year.errors.required" class="error_class">Manufacture Date is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblregistration_date" class="col-sm-5 col-form-label">Registration Date *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="registration_date" id="fuel_type"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
+                      name="dp" ngbDatepicker #registration_date="ngbDatepicker" formControlName="registration_date"
+                      id="registration_date">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="registration_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.registration_date.errors">
+                  <div *ngIf="f.registration_date.errors.required" class="error_class">Registration Date is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="lblinsurance_date" class="col-sm-5 col-form-label">Insurance Date *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="registration_date" id="fuel_type"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
+                      name="dp" ngbDatepicker #insurance_date="ngbDatepicker" formControlName="insurance_date"
+                      id="insurance_date">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="insurance_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.insurance_date.errors">
+                  <div *ngIf="f.insurance_date.errors.required" class="error_class">Insurance Date is required</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="lblpuc_validity_date" class="col-sm-5 col-form-label">PUC Validity Date *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="puc_validity_date" id="puc_validity_date"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control" formControlName="puc_validity_date"
+                      id="puc_validity_date" placeholder="PUC Validity Date  *" name="dp" ngbDatepicker
+                      #puc_validity_date="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="puc_validity_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="submitted && f.puc_validity_date.errors">
+                  <div *ngIf="f.puc_validity_date.errors.required" class="error_class">PUC Validity Date is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblfitness_validity_date" class="col-sm-5 col-form-label">Fitness Certificate Validity Date
+                *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="fitness_validity_date" id="fitness_validity_date"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control"
+                      placeholder="Fitness Certificate Validity Date *" name="dp" ngbDatepicker
+                      #fitness_validity_date="ngbDatepicker" formControlName="fitness_validity_date"
+                      id="fitness_validity_date">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="fitness_validity_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="submitted && f.fitness_validity_date.errors">
+                  <div *ngIf="f.fitness_validity_date.errors.required" class="error_class">Fitness Certificate Validity
+                    Date is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblpermit_validity_date" class="col-sm-5 col-form-label">Commercial Permit Validity Date
+                *</label>
+              <div class="col-sm-6 mb-0">
+                <!-- <input type="text" class="form-control" formControlName="permit_validity_date" id="permit_validity_date"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom">
+                  <div class="input-group input-group-custom">
+                    <input type="text" class="form-control date_form_control"
+                      placeholder="Commercial Permit Validity Date *" name="dp" ngbDatepicker
+                      #permit_validity_date="ngbDatepicker" formControlName="permit_validity_date"
+                      id="permit_validity_date">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="permit_validity_date.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="submitted && f.permit_validity_date.errors">
+                  <div *ngIf="f.permit_validity_date.errors.required" class="error_class">Commercial Permit Validity
+                    Date is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblac" class="col-sm-5 col-form-label">AC/Non</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="ac" id="ac" placeholder="AC/Non"
+                [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" formControlName="ac" id="ac" class="form-control dropdown dropdown_custom indrop"
+                  [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>AC </option>
+                  <option>NON AC </option>
+
+                </select>
+
+
+                <div *ngIf="submitted && f.ac.errors">
+                  <div *ngIf="f.ac.errors.required" class="error_class">AC/Non is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="lblfuel_type" class="col-sm-5 col-form-label">Type Of Fuel</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="fuel_type" id="fuel_type"
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <select name="account" formControlName="fuel_type" id="fuel_type"
+                  class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option>Diesel </option>
+                  <option>Petrol </option>
+                  <option>Electric </option>
+                  <option>CNG </option>
+
+                </select>
+
+
+                <div *ngIf="submitted && f.fuel_type.errors">
+                  <div *ngIf="f.fuel_type.errors.required" class="error_class">Type Of Fuel is required</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="form-group row">
+            <label for="lblGPSDevice" class="col-sm-5 col-form-label">GPS Device ID</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
+                placeholder="GPS Device ID" [attr.disabled]="isEditModeOn ? null : '' ">
             </div>
           </div> -->
-            <div class="form-group row">
-              <label for="lblColor" class="col-sm-5 col-form-label">Color</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="colour" id="colour" placeholder="Color"
-                  [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblTypeOfFuel" class="col-sm-5 col-form-label">Type Of Fuel</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="fuel_type" id="fuel_type"
-                  placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblACNon" class="col-sm-5 col-form-label">AC/Non</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="ac" id="ac" placeholder="AC/Non"
-                  [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblGPSDevice" class="col-sm-5 col-form-label">GPS Device ID</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
-                  placeholder="GPS Device ID" [attr.disabled]="isEditModeOn ? null : '' ">
-              </div>
-            </div>
           </div>
         </div>
       </form>
@@ -130,9 +326,8 @@
           <div class="pdf_nav" style="display: inherit">
             <button class="prevpdf" (click)="onPreviousButtonClick()">
               < </button> <ul>
-                <li class="com_pdf" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index == selectedPage"
-                  (click)="pageNumberButtonClicked(index)"
-                >
+                <li class="com_pdf" *ngFor="let item of pdfs; let index = index"
+                  [class.activepdf]="index == selectedPage" (click)="pageNumberButtonClicked(index)">
                   {{index+1}}
                 </li>
                 </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
@@ -150,18 +345,21 @@
         </div>
         <ul class="p-0 pdf_box">
 
-          <li class="pdf_li activepdf" >
+          <li class="pdf_li activepdf">
             <span class="togglepdf" [ngClass]="{
                   'nonstatus':pdfs[selectedPage].status === 'none',
                   'approved':pdfs[selectedPage].status === 'approved',
                   'rejected':pdfs[selectedPage].status === 'rejected'
                   }"></span>
-            <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"
+            <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view"
+              [zoom]="zoom" [show-all]="true">
+            </pdf-viewer>
+            <!-- <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"
             [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
             >
-            </pdf-viewer>
-            <img src="{{'https://'+pdfs[selectedPage].doc_url}}"  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
-             class="pdf_view" style="width: 100%;">
+            </pdf-viewer> -->
+            <!-- <img src="{{'https://'+pdfs[selectedPage].doc_url}}"  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
+             class="pdf_view" style="width: 100%;"> -->
             <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
           </li>
         </ul>
@@ -171,7 +369,7 @@
           <div class="row">
             <div class="col-md-12 d-flex justify-content-between align-items-center">
               <ul class="pdf_box">
-                <li class="tit_ver pdf_li activepdf" >
+                <li class="tit_ver pdf_li activepdf">
                   <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
                   {{pdfs[selectedPage].doc_display_name}}
                 </li>
@@ -179,12 +377,9 @@
               <div>
                 <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
                 <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                  (click)="pdfs[selectedPage].status = 'rejected'"
-                >REJECT</button>
-                <button type="submit"
-                  class="btn btn-success click_reject click_reject_activ pdf_approve"
-                  (click)="pdfs[selectedPage].status = 'approved'"
-                  >APPROVE</button>
+                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
+                  (click)="pdfs[selectedPage].status = 'approved'">APPROVE</button>
               </div>
             </div>
             <div class="col-sm-4">
