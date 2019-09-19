@@ -168,10 +168,13 @@ export class VehicleDocumentComponent implements OnInit {
       "comment": 'test'
     };
     var formData = {};
-    var data = { formData: this.editVehicleDocumentForm.value };
-    this.vehicleUpdateData = { user, data, document };
+    var data = { formData: this.editVehicleDocumentForm.value,document };
+    this.vehicleUpdateData = { user, data };
+    console.log(this.vehicleUpdateData);
     // update vehicle documents details
     this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      console.log(res);
+
       if (res['success'] == true) {
         console.log(this.isEditModeOn);
         this.isEditModeOn = false;

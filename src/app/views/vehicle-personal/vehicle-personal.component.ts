@@ -163,8 +163,8 @@ induction_status:values.induction_status
       "comment":'test'
     };
     var formData = {};
-    var data = { formData: this.editVehiclePersonalForm.value };
-    this.vehicleUpdateData = { user, data, document };
+    var data = { formData: this.editVehiclePersonalForm.value,document };
+    this.vehicleUpdateData = { user, data };
     console.log(this.vehicleUpdateData);
     // update vehicle personal details
     this.Vehicle.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {

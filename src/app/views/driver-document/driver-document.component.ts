@@ -32,7 +32,6 @@ export class DriverDocumentComponent implements OnInit {
   isDataENtry=false;
   selectedPage = 0
   pdfsDocs:any[]=[];
-  rejectedDocNames:String;
   
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr:ToastrService, private route: ActivatedRoute, private router: Router,private authService: AuthService) { }
 
@@ -87,7 +86,6 @@ export class DriverDocumentComponent implements OnInit {
    }, errorResponse => {
     this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
   });
-  this.showRejectedDocuments();
   }
   
 incrementZoom(amount: number) {
@@ -218,18 +216,5 @@ incrementZoom(amount: number) {
       return false;
     }
     return true;
-   }
-   showRejectedDocuments()
-   {
-    let array = this.pdfs.filter(i => i.status === 'rejected')
-    console.log(array);
-    let docsName = '';
-    array.map(i => {
-      docsName += i.doc_display_name + ", ";
-    })
-    if (array.length > 0) {
-      this.toastr.error('Error', 'Please approve or reject all documents: '+ docsName);
-      this.rejectedDocNames =docsName;
-    }
    }
 }
