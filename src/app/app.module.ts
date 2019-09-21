@@ -23,6 +23,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DefaultLayoutComponent } from './containers/default-layout';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 //Http-Intersepter -- To add header to each http request
@@ -70,6 +71,7 @@ const APP_CONTAINERS = [
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     { 

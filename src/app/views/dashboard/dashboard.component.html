@@ -157,29 +157,29 @@
                 <thead>
                   <!-- drivers heading -->
                   <tr>
-                    <th>Name</th>
-                    <th>Business Associate</th>
+                    <th>NAME</th>
+                    <th>BUSINESS ASSOCIATE</th>
                     <th>DL NO.</th>
-                    <th>Gender</th>
-                    <th>Registered by</th>
-                    <th>Status </th>
-                    <th *ngIf="!toShowExpiry()">Registeration Date</th>
-                    <th *ngIf="toShowExpiry()">Expiry Date</th>
-                    <th>Action</th>
+                    <th>GENDER</th>
+                    <th>REGISTERED BY</th>
+                    <th>STATUS </th>
+                    <th *ngIf="!toShowExpiry()">REGISTRATION DATE</th>
+                    <th *ngIf="toShowExpiry()">EXPIRY DATE</th>
+                    <th>ACTION</th>
                   </tr>
                 </thead>
                 <tbody>
                   <!-- for drivers -->
                   <tr
                     *ngFor="let item of dashboardList | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
+                    <td>{{item.driver_name}}</td>
                     <td>{{item.ba_legel_name}}</td>
-                    <td>{{item.resource_id}}</td>
                     <td>{{item.licence_number}}</td>
                     <td>{{item.gender}}</td>
-                    <td>{{item.registeredby}}</td>
+                    <td>{{item.registeredby === null ? item.registeredby:'UMAR SAYYED'}}</td>
                     <td><span>{{item.induction_status}}</span></td>
-                    <td *ngIf="!toShowExpiry()">{{item.date_of_registration | date: serverDateFormat }}</td>
-                    <td *ngIf="toShowExpiry()">{{item.expiry_date | date: serverDateFormat}}</td>
+                    <td *ngIf="!toShowExpiry()">{{getFormatterDate(item.date_of_registration) | date: serverDateFormat }}</td>
+                    <td *ngIf="toShowExpiry()">{{getFormatterDate(item.expiry_date) | date: serverDateFormat}}</td>
                     <td><button type="button" (click)="Verify(item.resource_id,this.resource_type)"
                         class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
                   </tr>
@@ -197,7 +197,7 @@
                     <th>Type</th>
                     <th>Registered by</th>
                     <th>Status</th>
-                    <th *ngIf="!toShowExpiry()">Registeration Date</th>
+                    <th *ngIf="!toShowExpiry()">Registration Date</th>
                     <th *ngIf="toShowExpiry()">Expiry Date</th>
                     <th>Action</th>
                   </tr>
@@ -212,8 +212,8 @@
                     <td>{{item.model}}</td>
                     <td>{{item.registeredby}}</td>
                     <td><span>{{item.induction_status}}</span></td>
-                    <td *ngIf="!toShowExpiry()">{{item.date_of_registration | date: serverDateFormat }}</td>
-                    <td *ngIf="toShowExpiry()">{{item.expiry_date | date: serverDateFormat}}</td>
+                    <td *ngIf="!toShowExpiry()">{{getFormatterDate(item.date_of_registration) | date: serverDateFormat }}</td>
+                    <td *ngIf="toShowExpiry()">{{getFormatterDate(item.expiry_date) | date: serverDateFormat}}</td>
                     <td><button type="button" (click)="Verify(item.resource_id,this.resource_type)"
                         class="btn bt_blue text-white pl-4 pr-4">VERIFY</button></td>
                   </tr>

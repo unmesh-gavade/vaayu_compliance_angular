@@ -1,7 +1,7 @@
 <div class="container-fluid pt-4">
   <div class="card-group">
     <div class="card">
-      <form [formGroup]="editDriverPersonalForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="card-header">
           <div class="col-md-12">
             <div class="row">
@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblgender" class="col-sm-5 col-form-label">Gender</label>
+              <label for="lblgender" class="col-sm-5 col-form-label">Gender *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
@@ -72,6 +72,9 @@
                     <div class="input-group input-group-custom">
                       <input type="text" class="form-control date_form_control" formControlName="date_of_birth"
                         id="date_of_birth" placeholder="Date Of Birth *" name="dp" ngbDatepicker
+                        [disabled]="isEditModeOn?false:true"
+                        [(ngModel)]="date_of_birth_model" 
+                        value="{{getFormattedDate(date_of_birth_model)|date: serverDateFormat}}"
                         #DateOfBirth="ngbDatepicker">
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="DateOfBirth.toggle()"
@@ -92,8 +95,8 @@
                 <!-- <input type="text" class="form-control" formControlName="marital_status" id="marital_status" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" class="form-control dropdown dropdown_custom indrop"
                   formControlName="marital_status" id="marital_status" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>Married</option>
-                  <option>Unmarried</option>
+                  <option value='Married'>Married</option>
+                  <option value='Single'>Unmarried</option>
                 </select>
                 <div *ngIf="submitted && f.marital_status.errors">
                   <div *ngIf="f.marital_status.errors.required" class="error_class"> Marital Status is required</div>
@@ -123,7 +126,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblblood_group" class="col-sm-5 col-form-label">Blood Group</label>
+              <label for="lblblood_group" class="col-sm-5 col-form-label">Blood Group *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="blood_group" id="blood_group"
                   placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -133,7 +136,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lbllocal_address" class="col-sm-5 col-form-label">Present Address</label>
+              <label for="lbllocal_address" class="col-sm-5 col-form-label">Present Address *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="local_address" id="local_address"
                   placeholder="Present Address" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -143,7 +146,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblpermanent_address" class="col-sm-5 col-form-label">Permanent Address</label>
+              <label for="lblpermanent_address" class="col-sm-5 col-form-label">Permanent Address *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="permanent_address" id="permanent_address"
                   placeholder="Permanent Address" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -228,14 +231,21 @@
         </div>
         <ul class="p-0 pdf_box">
           <li class="pdf_li activepdf">
-            <span class="togglepdf" [ngClass]="{
+            <span class="togglepdf"
+              *ngIf="pdfs.length > 0"
+             [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
                           'approved':pdfs[selectedPage].status === 'approved',
                           'rejected':pdfs[selectedPage].status === 'rejected'
-                          }"></span>
-            <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view"
-              [zoom]="zoom" [show-all]="true">
+                          }">{{pdfs[selectedPage].doc_url}}</span>
+             <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
+              [zoom]="zoom" [show-all]="true"
+              [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
+              >
             </pdf-viewer>
+            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " 
+             [ngClass]="{'d-none': check_if_doc_is_pdf()}"
+              class="pdf_view" style="width: 100%;">
             <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
           </li>
         </ul>

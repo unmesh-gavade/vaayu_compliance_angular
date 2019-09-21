@@ -1,7 +1,7 @@
 <div class="container-fluid pt-4">
   <div class="card-group">
     <div class="card">
-      <form [formGroup]="editVehiclePersonalForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="card-header">
           <div class="col-md-12">
             <div class="row">
@@ -102,17 +102,24 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblmake_year" class="col-sm-5 col-form-label">Manufacture Date *</label>
+              <label for="lblmake_year" class="col-sm-5 col-form-label">Manufacture Date * </label>
               <div class="col-sm-6 mb-0">
                 <!-- <input type="text" class="form-control" formControlName="make_year" id="make_year"
-                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> 
+              
+               
+              -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" class="form-control date_form_control" formControlName="make_year" id="make_year"
-                      placeholder="Manufacture Date *" name="dp" ngbDatepicker #make_year="ngbDatepicker">
+                      placeholder="Manufacture Date *" name="dp" ngbDatepicker #make_year="ngbDatepicker"
+                      [disabled]="isEditModeOn?false:true"
+                      [(ngModel)]="manufacturing_date_model" 
+                      value="{{getFormattedDate(manufacturing_date_model)|date: serverDateFormat}}"
+                      >
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="make_year.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -131,11 +138,13 @@
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
-                      name="dp" ngbDatepicker #registration_date="ngbDatepicker" formControlName="registration_date"
-                      id="registration_date">
+                      [(ngModel)]="registration_date_model" name="dp" ngbDatepicker #registration_date="ngbDatepicker"
+                      formControlName="registration_date" id="registration_date"
+                      value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
+                      [disabled]="isEditModeOn?false:true">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="registration_date.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -155,11 +164,13 @@
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
-                      name="dp" ngbDatepicker #insurance_date="ngbDatepicker" formControlName="insurance_date"
-                      id="insurance_date">
+                      [(ngModel)]="insurance_date_model"
+                      value="{{getFormattedDate(insurance_date_model)|date: serverDateFormat}}" name="dp" ngbDatepicker
+                      #insurance_date="ngbDatepicker" formControlName="insurance_date"
+                      [disabled]="isEditModeOn?false:true" id="insurance_date">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="insurance_date.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -178,11 +189,12 @@
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" class="form-control date_form_control" formControlName="puc_validity_date"
-                      id="puc_validity_date" placeholder="PUC Validity Date  *" name="dp" ngbDatepicker
-                      #puc_validity_date="ngbDatepicker">
+                      [(ngModel)]="puc_date_model" value="{{getFormattedDate(puc_date_model)|date: serverDateFormat}}"
+                      [disabled]="isEditModeOn?false:true" id="puc_validity_date" placeholder="PUC Validity Date  *"
+                      name="dp" ngbDatepicker #puc_validity_date="ngbDatepicker">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="puc_validity_date.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -202,13 +214,14 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control"
+                    <input type="text" class="form-control date_form_control" [(ngModel)]="fitness_date_model"
+                      value="{{getFormattedDate(fitness_date_model)|date: serverDateFormat}}"
                       placeholder="Fitness Certificate Validity Date *" name="dp" ngbDatepicker
-                      #fitness_validity_date="ngbDatepicker" formControlName="fitness_validity_date"
-                      id="fitness_validity_date">
+                      [disabled]="isEditModeOn?false:true" #fitness_validity_date="ngbDatepicker"
+                      formControlName="fitness_validity_date" id="fitness_validity_date">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="fitness_validity_date.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -228,13 +241,14 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control"
+                    <input type="text" class="form-control date_form_control" [(ngModel)]="permit_date_model"
+                      value="{{getFormattedDate(permit_date_model)|date: serverDateFormat}}"
                       placeholder="Commercial Permit Validity Date *" name="dp" ngbDatepicker
-                      #permit_validity_date="ngbDatepicker" formControlName="permit_validity_date"
-                      id="permit_validity_date">
+                      [disabled]="isEditModeOn?false:true" #permit_validity_date="ngbDatepicker"
+                      formControlName="permit_validity_date" id="permit_validity_date">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="permit_validity_date.toggle()"
-                        type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -253,8 +267,8 @@
                 [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="ac" id="ac" class="form-control dropdown dropdown_custom indrop"
                   [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>AC </option>
-                  <option>NON AC </option>
+                  <option value='0'>AC</option>
+                  <option value='1'>NON AC</option>
 
                 </select>
 
@@ -346,21 +360,23 @@
         <ul class="p-0 pdf_box">
 
           <li class="pdf_li activepdf">
-            <span class="togglepdf" [ngClass]="{
+            <span class="togglepdf" *ngIf="pdfs.length > 0" [ngClass]="{
                   'nonstatus':pdfs[selectedPage].status === 'none',
                   'approved':pdfs[selectedPage].status === 'approved',
                   'rejected':pdfs[selectedPage].status === 'rejected'
-                  }"></span>
-            <pdf-viewer src="https://{{pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view"
-              [zoom]="zoom" [show-all]="true">
+                  }">{{pdfs[selectedPage].doc_url}}</span>
+            <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
+              [zoom]="zoom" [show-all]="true"
+              [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
+              >
             </pdf-viewer>
+            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
+            class="pdf_view" style="width: 100%;">
             <!-- <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"
             [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
             >
-            </pdf-viewer> -->
-            <!-- <img src="{{'https://'+pdfs[selectedPage].doc_url}}"  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
-             class="pdf_view" style="width: 100%;"> -->
-            <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
+           
+            <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
           </li>
         </ul>
       </div>
@@ -371,7 +387,7 @@
               <ul class="pdf_box">
                 <li class="tit_ver pdf_li activepdf">
                   <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                  {{pdfs[selectedPage].doc_display_name}}
+                  {{pdfs.length > 0 ? pdfs[selectedPage].doc_display_name:''}}
                 </li>
               </ul>
               <div>

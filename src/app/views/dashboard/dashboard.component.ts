@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   serverDateFormat = AppConst.SERVER_DATE_TIME_FORMAT;
   status: boolean = false
   dashboardList = []
-  baList: {}
-  tatList: []
+  baList = []
+  tatList = []
   req_status_list = []
   isDriverSelected = true
   resource_type: String
@@ -49,8 +49,7 @@ export class DashboardComponent implements OnInit {
       console.log('getDashboardRenewalList  = '+ JSON.stringify(this.baList))
     });
     this.Dashboard.getDashboardTats().subscribe(tats => {
-      this.tatList = tats['data']['tat_list'];
-      this.req_status_list = this.tatList;
+      this.tatList = <[]>tats['data']['tat_list'];
       console.log('getDashboardTats'+ JSON.stringify(tats));
       this.req_status_list = this.tatList.filter((item:{name:String}) => 
                           item.name === 'new_request'
@@ -98,7 +97,7 @@ export class DashboardComponent implements OnInit {
 
     this.Dashboard.getDashboardList(data).subscribe(res => {
       this.dashboardList = res['data']['filterData'];
-      console.log(this.dashboardList);
+      console.log(JSON.stringify(this.dashboardList));
     })
 
   };
@@ -167,6 +166,13 @@ export class DashboardComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  getFormatterDate(date) {
+    if (date === 0 || date === '0000-00-00' || date === '0000-00-00 00:00:00') {
+      return null;
+    }
+    return date;
   }
 }
 

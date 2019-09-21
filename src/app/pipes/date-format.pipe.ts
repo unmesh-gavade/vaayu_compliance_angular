@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isString } from 'util';
 
 @Pipe({
   name: 'dateFormat'
@@ -6,8 +7,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DateFormatPipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
-    console.log(value);
-    console.log(args);
+    if (value != null && typeof value === 'string') {
+      return value.trim()
+    }
     return null;
   }
 
