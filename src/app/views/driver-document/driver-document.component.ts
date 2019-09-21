@@ -166,24 +166,7 @@ export class DriverDocumentComponent implements OnInit {
   //   this.onSubmit();
   //   this.router.navigate(['/driver-document' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
   // }
-  pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
-    this.selectedPage = index;
-  }
-
-  onPreviousButtonClick() {
-    if (this.selectedPage > 0) {
-      this.selectedPage = this.selectedPage - 1;
-    }
-    console.log('page number = ' + this.selectedPage);
-  }
-
-  onNextButtonClick() {
-    if (this.selectedPage < this.pdfs.length - 1) {
-      this.selectedPage = this.selectedPage + 1;
-    }
-    console.log('page number = ' + this.selectedPage);
-  }
+  
   sumbitDriver() {
     if (this.validateDocuments()) {
       this.onSubmit();
