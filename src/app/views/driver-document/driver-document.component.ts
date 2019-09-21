@@ -212,4 +212,34 @@ export class DriverDocumentComponent implements OnInit {
     }
     return date;
   }
+
+  pageNumberButtonClicked(index) {
+    console.log('page number = ' + index);
+    this.selectedPage = index;
+  }
+
+  onPreviousButtonClick() {
+    if (this.selectedPage > 0) {
+      this.selectedPage = this.selectedPage - 1;
+    }
+    console.log('page number = ' + this.selectedPage);
+  }
+
+  onNextButtonClick() {
+    if (this.selectedPage < this.pdfs.length - 1) {
+      this.selectedPage = this.selectedPage + 1;
+    }
+    console.log('page number = ' + this.selectedPage);
+  }
+  check_if_doc_is_pdf() {
+    if (this.pdfs.length > this.selectedPage) {
+      let docUrl = this.pdfs[this.selectedPage].doc_url
+      if (docUrl.includes('.pdf')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
 }
