@@ -8,13 +8,19 @@ import { ConstantService } from './constant.service';
 export class VehicleService {
   public baseUrl: String = "";
 
-  constructor(private http: HttpClient, public constService : ConstantService) {
-    this.baseUrl= constService.serverUrl;
-   }
-   getVehicleDetails(data){
-    return this.http.post(this.baseUrl + 'getDetails',data);
+  constructor(private http: HttpClient, public constService: ConstantService) {
+    this.baseUrl = constService.serverUrl;
   }
-  updateVehicleDetails(data){
-   return this.http.post(this.baseUrl +'saveDetails',data)
- }
+  getVehicleDetails(data) {
+    console.log('url = ' + this.baseUrl + 'getDetails')
+    return this.http.post(this.baseUrl + 'getDetails', data);
+  }
+  updateVehicleDetails(data) {
+    return this.http.post(this.baseUrl + 'saveDetails', data)
+  }
+
+  getBaList() {
+    console.log('url : ' + this.baseUrl + 'getAllBaList');
+    return this.http.post(this.baseUrl + 'getAllBaList', '');
+  }
 }

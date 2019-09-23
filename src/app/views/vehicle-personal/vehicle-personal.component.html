@@ -285,10 +285,10 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="fuel_type" id="fuel_type"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>Diesel </option>
-                  <option>Petrol </option>
-                  <option>Electric </option>
-                  <option>CNG </option>
+                  <option value='Diesel'>Diesel </option>
+                  <option value='Petrol'>Petrol </option>
+                  <option value="Electric">Electric</option>
+                  <option value="CNG">CNG </option>
 
                 </select>
 
@@ -362,8 +362,8 @@
           <li class="pdf_li activepdf">
             <span class="togglepdf" *ngIf="pdfs.length > 0" [ngClass]="{
                   'nonstatus':pdfs[selectedPage].status === 'none',
-                  'approved':pdfs[selectedPage].status === 'approved',
-                  'rejected':pdfs[selectedPage].status === 'rejected'
+                  'approved':pdfs[selectedPage].status === 'Approved',
+                  'rejected':pdfs[selectedPage].status === 'Rejected'
                   }">{{pdfs[selectedPage].doc_url}}</span>
             <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true"
@@ -393,9 +393,9 @@
               <div>
                 <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
                 <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                  (click)="pdfs[selectedPage].status = 'Rejected'">REJECT</button>
                 <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
-                  (click)="pdfs[selectedPage].status = 'approved'">APPROVE</button>
+                  (click)="pdfs[selectedPage].status = 'Approved'">APPROVE</button>
               </div>
             </div>
             <div class="col-sm-4">

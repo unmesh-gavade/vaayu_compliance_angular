@@ -8,7 +8,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppConst } from 'src/app/const/appConst';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class VehiclePersonalComponent implements OnInit {
   pdfSrc: string = './assets/images/myfile.pdf';
   pdfs = [];
   valueOfButton = "Edit";
-  isEditModeOn = true;
+  isEditModeOn = false;
   isDropup = true;
   imageURL = "./assets/img/Doc.jpg";
   form: FormGroup;
@@ -148,19 +148,16 @@ export class VehiclePersonalComponent implements OnInit {
       "os_type": 'web'
     };
     
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'rejected').map(item => item.id).join(",");
-    console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
-    console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
       "comment": 'test'
     };
-    var formData = {};
     var data = { formData: this.form.value, document };
     this.vehicleUpdateData = { user, data };
-    console.log(this.vehicleUpdateData);
+    console.log(JSON.stringify(this.vehicleUpdateData));
     // update vehicle personal details
     this.apiService.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       console.log(res);
@@ -169,9 +166,10 @@ export class VehiclePersonalComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+        this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles' }]); 
       }
       else {
-
+        this.toastr.error('Error', res['message']);
       }
     }, errorResponse => {
       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
@@ -179,7 +177,6 @@ export class VehiclePersonalComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
-    this.validateDocuments();
     this.onSubmit();
     //this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
   }

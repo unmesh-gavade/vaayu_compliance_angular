@@ -188,14 +188,14 @@ export class DriverPersonalComponent implements OnInit {
     this.selectedPage = index;
   }
 
-  onPreviousButtonClick() {
+  onPreviousButtonClick(e) {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
     console.log('page number = ' + this.selectedPage);
   }
 
-  onNextButtonClick() {
+  onNextButtonClick(e) {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }

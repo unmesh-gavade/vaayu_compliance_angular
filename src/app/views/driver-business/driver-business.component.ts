@@ -19,7 +19,7 @@ import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap
 export class DriverBusinessComponent implements OnInit {
   zoom: number = 1.0;
   pdfSrc: string = './assets/images/myfile.pdf';
-  pdfs: any[] = [];
+  pdfs: any[] = [{doc_display_name:''}];
   valueOfButton = "Edit";
   isEditModeOn = false;
   isDropup = true;
