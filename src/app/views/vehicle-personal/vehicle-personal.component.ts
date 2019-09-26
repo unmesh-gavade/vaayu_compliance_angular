@@ -155,6 +155,8 @@ export class VehiclePersonalComponent implements OnInit {
       "rejectedDdoc": rejectedDocsId,
       "comment": 'test'
     };
+    console.log('approvedDocsId Docs '+approvedDocsId);
+    console.log('rejectedDocsId Docs '+rejectedDocsId);
     var data = { formData: this.form.value, document };
     this.vehicleUpdateData = { user, data };
     console.log(JSON.stringify(this.vehicleUpdateData));
@@ -209,19 +211,7 @@ export class VehiclePersonalComponent implements OnInit {
     }
   }
 
-  validateDocuments() {
-    let array = this.pdfs.filter(i => i.status === 'none')
-    console.log(array);
-    let docsName = '';
-    array.map(i => {
-      docsName += i.doc_display_name + "- ";
-    })
-    if (array.length > 0) {
-      this.toastr.error('Error', 'Please approve or reject all documents: ' + docsName);
-      return false;
-    }
-    return true;
-  }
+  
 
   print(arg) {
     console.log(JSON.stringify(arg));

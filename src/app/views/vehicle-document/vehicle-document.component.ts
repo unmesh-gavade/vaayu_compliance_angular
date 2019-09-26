@@ -140,6 +140,7 @@ export class VehicleDocumentComponent implements OnInit {
     this.submitted = true;
 
     var values = this.editVehicleDocumentForm.value;
+    
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
       if (this.editVehicleDocumentForm)

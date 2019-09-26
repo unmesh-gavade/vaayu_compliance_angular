@@ -92,7 +92,7 @@
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="road_tax_validity_date_model"
                       value="{{getFormattedDate(road_tax_validity_date_model)|date: serverDateFormat}}"
                       [disabled]="isEditModeOn?false:true">
-                    >
+                
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="RoadTaxvalidityDate.toggle()"
                         type="button"></button>
@@ -116,7 +116,6 @@
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="last_service_date_model"
                       value="{{getFormattedDate(last_service_date_model)|date: serverDateFormat}}"
                       [disabled]="isEditModeOn?false:true">
-                    >
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="RoadTaxvalidityDate.toggle()"
                         type="button"></button>
@@ -328,8 +327,8 @@
         <div class="col-md-12 d-flex align-items-center">
           <div class="col-sm-6">
             <span>Rejected Documents</span>
-            <ul class="p-0 pdf_box pdf_rejected_list">
-              <li class="pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0"
+            <ul style="line-height: 280%" class="p-0 pdf_box pdf_rejected_list">
+              <li style="margin-right: 12px; text-align:center !important;" class="pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0"
                 [ngClass]="{'btn btn-secondary active justify-content-center':item.status !== 'Approved'}" [class.d-none]="item.status === 'Approved'">{{item.doc_display_name}}
               </li>
             </ul>
