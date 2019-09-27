@@ -11,6 +11,7 @@ export class DashboardService {
   resource_type = 'vehicles';
   tat_type = 'new_request';
   isDriverSelected = false;
+  toHide_verify_button = false;
 
   constructor(private http: HttpClient, public constService : ConstantService) {
     this.baseUrl= constService.serverUrl;

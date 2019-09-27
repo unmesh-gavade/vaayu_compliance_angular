@@ -68,7 +68,7 @@ export class VehicleDocumentComponent implements OnInit {
       gps_provider_id: ['', Validators.required],
       site_name: ['', Validators.required],
       induction_status: [''],
-      comment: [null, Validators.required],
+      comment: [null],
     });
     this.fetchVehicleData();
     this.getBAListing();
@@ -222,7 +222,6 @@ export class VehicleDocumentComponent implements OnInit {
   }
   sumbitVehicle() {
     if (this.validateDocuments()) {
-      
       this.onSubmit();
     }
   }

@@ -242,7 +242,7 @@
                           'nonstatus':pdfs[selectedPage].status === 'none',
                           'approved':pdfs[selectedPage].status === 'approved',
                           'rejected':pdfs[selectedPage].status === 'rejected'
-                          }">{{pdfs[selectedPage].doc_url}}</span>
+                          }"></span>
              <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true"
               [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  

@@ -60,7 +60,8 @@ export class DriverDocumentComponent implements OnInit {
       bgc_agency_id: ['', Validators.required],
       medically_certified_date: ['', Validators.required],
       sexual_policy: ['', Validators.required],
-      induction_status: ['', ''],
+      induction_status: [''],
+      comment: [null],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -128,8 +129,8 @@ export class DriverDocumentComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'rejected').map(item => item.id).join(",");
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
     console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
     console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
@@ -171,20 +172,23 @@ export class DriverDocumentComponent implements OnInit {
     if (this.validateDocuments()) {
       this.onSubmit();
     }
-    else {
-
-    }
   }
   validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')
-    console.log(array);
-    let docsName = '';
-    array.map(i => {
-      docsName += i.doc_display_name + "- ";
-    })
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
     if (array.length > 0) {
-      this.toastr.error('Error', 'Please approve or reject all documents: ' + docsName);
+      this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
+    } else if (rejected.length > 0 && this.form.controls.comment.invalid) {
+      this.toastr.error('Error', 'Select Rejection Reason');
+      this.form.patchValue({
+        induction_status: 'Rejected'
+      });
+      return false;
+    } else {
+      this.form.patchValue({
+        induction_status: 'Approved'
+      });
     }
     return true;
   }
