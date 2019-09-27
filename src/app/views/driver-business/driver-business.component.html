@@ -240,9 +240,9 @@
               *ngIf="pdfs.length > 0"
              [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
-                          'approved':pdfs[selectedPage].status === 'approved',
-                          'rejected':pdfs[selectedPage].status === 'rejected'
-                          }">{{pdfs[selectedPage].doc_url}}</span>
+                          'approved':pdfs[selectedPage].status === 'Approved',
+                          'rejected':pdfs[selectedPage].status === 'Rejected'
+                          }"></span>
              <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true"
               [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
@@ -260,7 +260,7 @@
           <div class="row">
             <div class="col-md-12 d-flex justify-content-between align-items-center">
               <ul class="pdf_box">
-                <li class="tit_ver pdf_li activepdf">
+                <li class="tit_ver pdf_li activepdf" *ngIf="pdfs.length > 0">
                   <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
                   {{pdfs[selectedPage].doc_display_name}}
                 </li>
@@ -268,9 +268,9 @@
               <div>
                 <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
                 <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                  (click)="pdfs[selectedPage].status = 'Rejected'">REJECT</button>
                 <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
-                  (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry">APPROVE</button>
+                  (click)="pdfs[selectedPage].status = 'Approved'" *ngIf="!isDataENtry">APPROVE</button>
               </div>
             </div>
             <div class="col-sm-4">

@@ -73,10 +73,12 @@ export class DriverPersonalComponent implements OnInit {
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
-        console.log(JSON.stringify(details));
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'personal');
+        console.log('docs with urls');
+        console.log(this.pdfs);
         this.form.patchValue({
           driver_name: this.driverDetails[0]['driver_name'],
           father_spouse_name: this.driverDetails[0]['father_spouse_name'],
@@ -147,8 +149,8 @@ export class DriverPersonalComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'rejected').map(item => item.id).join(",");
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
     console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
     console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
@@ -215,7 +217,8 @@ export class DriverPersonalComponent implements OnInit {
   }
 
   getFormattedDate(date) {
-    if (date === 0 || date === '0000-00-00') {
+    if (Object.prototype.toString.call(date) === "[object Date]") {
+   // if (date === 0 || date === '0000-00-00') {
       return null;
     }
     return date;
@@ -225,7 +228,7 @@ export class DriverPersonalComponent implements OnInit {
   check_if_doc_is_pdf() {
     if (this.pdfs.length > this.selectedPage) {
       let docUrl = this.pdfs[this.selectedPage].doc_url
-      if (docUrl.includes('.pdf')) {
+      if (docUrl && docUrl.includes('.pdf')) {
         return true;
       } else {
         return false;

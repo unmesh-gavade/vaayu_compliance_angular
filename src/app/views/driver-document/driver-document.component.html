@@ -1,7 +1,7 @@
 <div class="container-fluid pt-4">
+ <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="card-group">
     <div class="card">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="card-header">
           <div class="col-md-12">
             <div class="row">
@@ -180,7 +180,6 @@
             </div>
           </div>
         </div>
-      </form>
     </div>
     <div class="card">
       <div class="card-header">
@@ -213,9 +212,9 @@
               *ngIf="pdfs.length > 0"
              [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
-                          'approved':pdfs[selectedPage].status === 'approved',
-                          'rejected':pdfs[selectedPage].status === 'rejected'
-                          }">{{pdfs[selectedPage].doc_url}}</span>
+                          'approved':pdfs[selectedPage].status === 'Approved',
+                          'rejected':pdfs[selectedPage].status === 'Rejected'
+                          }"></span>
              <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true"
               [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
@@ -229,11 +228,10 @@
         </ul>
       </div>
       <div class="card-footer bg_white">
-        <form>
           <div class="row">
             <div class="col-md-12 d-flex justify-content-between align-items-center">
               <ul class="pdf_box">
-                <li class="tit_ver pdf_li activepdf">
+                <li class="tit_ver pdf_li activepdf" *ngIf="pdfs.length > 0">
                   <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
                   {{pdfs[selectedPage].doc_display_name}}
                 </li>
@@ -241,9 +239,9 @@
               <div>
                 <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
                 <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
-                  (click)="pdfs[selectedPage].status = 'rejected'">REJECT</button>
+                  (click)="pdfs[selectedPage].status = 'Rejected'">REJECT</button>
                 <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
-                  (click)="pdfs[selectedPage].status = 'approved'" *ngIf="!isDataENtry">APPROVE</button>
+                  (click)="pdfs[selectedPage].status = 'Approved'" *ngIf="!isDataENtry">APPROVE</button>
               </div>
             </div>
             <div class="col-sm-4">
@@ -257,7 +255,6 @@
 
             </div>
           </div>
-        </form>
       </div>
     </div>
   </div>
@@ -267,7 +264,7 @@
         <div class="col-sm-6">
           <ul class="p-0 pdf_box pdf_rejected_list">
             <li class="pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0"
-              [class.text-success]="item.status === 'rejected'" [class.d-none]="item.status === 'approved'">
+              [class.text-success]="item.status === 'Rejected'" [class.d-none]="item.status === 'Approved'">
               {{item.doc_display_name}}
             </li>
           </ul>
@@ -276,9 +273,8 @@
         <div class="col-sm-4">
 
 
-          <select name="account" id="PerPage" class="form-control dropdown fill_drop fill_drop_vrfy">
-
-            <option> Select Rejection Reason </option>
+          <select name="account" id="PerPage" class="form-control dropdown fill_drop fill_drop_vrfy" formControlName="comment">
+              <option [ngValue]="null">Select Rejection Reason</option>
             <option>Blur Document</option>
             <option>Wrong Documnet</option>
             <option>Incorrect Data</option>
@@ -305,4 +301,5 @@
       </div>
     </div>
   </div>
+</form>
 </div>

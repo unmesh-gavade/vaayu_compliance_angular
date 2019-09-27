@@ -40,11 +40,9 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     
     if (this.loginForm.invalid) {
-      console.log('invalid');
         return;
     }
     this.authService.login(this.username.value, this.password.value).subscribe((data) => {
-      console.log(this.authService.isLoggedIn);
        if (this.authService.isLoggedIn) {
          //this.authService.ValidateToken().subscribe((authData) => {
             //const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
