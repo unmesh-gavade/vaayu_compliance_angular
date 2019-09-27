@@ -27,10 +27,7 @@ export class AuthService {
   checkLogin() {
     const currentUser = this.getAuthUser();
     //const appToken = this.getAppToken();
-   console.log(currentUser);
-   //console.log(appToken);
     if (currentUser) {
-      console.log('its true');
       return true;
     }
 
@@ -75,8 +72,6 @@ export class AuthService {
       observe: 'response'
   })
   .pipe(map(user => {
-    console.log(user);
-    console.log(user.headers);
       let client = user.headers.get('client');
       let access_token = user.headers.get('access_token');
       console.log(client);
@@ -134,7 +129,6 @@ export class AuthService {
     }
   }
   logout() {
-    console.log('Logged out..')
     localStorage.removeItem('currentUser');
     localStorage.removeItem('client');
     localStorage.removeItem('access_token');

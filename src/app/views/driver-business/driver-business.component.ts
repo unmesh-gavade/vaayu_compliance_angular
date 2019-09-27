@@ -80,7 +80,7 @@ export class DriverBusinessComponent implements OnInit {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
-        
+        console.log(details);
   
         this.form.patchValue({
           licence_number: this.driverDetails[0]['licence_number'],
@@ -138,8 +138,8 @@ export class DriverBusinessComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web'
     };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'rejected').map(item => item.id).join(",");
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
     console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
     console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
@@ -215,7 +215,7 @@ export class DriverBusinessComponent implements OnInit {
   check_if_doc_is_pdf() {
     if (this.pdfs.length > this.selectedPage) {
       let docUrl = this.pdfs[this.selectedPage].doc_url
-      if (docUrl.includes('.pdf')) {
+      if (docUrl && docUrl.includes('.pdf')) {
         return true;
       } else {
         return false;
@@ -224,9 +224,13 @@ export class DriverBusinessComponent implements OnInit {
   }
 
   getFormattedDate(date) {
-    if (date === 0 || date === '0000-00-00') {
+    if (Object.prototype.toString.call(date) === "[object Date]") {
+   // if (date === '0' || date === '0000-00-00') 
+    {
       return null;
+      
     }
     return date;
   }
+}
 }

@@ -70,7 +70,7 @@ export class DriverDocumentComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
-      console.log(JSON.stringify(details));
+      console.log(details);
       if (details['success'] == true) {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
@@ -78,12 +78,12 @@ export class DriverDocumentComponent implements OnInit {
 
         this.form.patchValue({
           verified_by_police: this.driverDetails[0]['verified_by_police'],
-          police_verification_vailidty: this.driverDetails[0]['police_verification_vailidty'],
-          date_of_police_verification: this.driverDetails[0]['date_of_police_verification'],
+          police_verification_vailidty:new Date(this.driverDetails[0]['police_verification_vailidty']),
+          date_of_police_verification: new Date(this.driverDetails[0]['date_of_police_verification']) ,
           criminal_offence: this.driverDetails[0]['criminal_offence'],
-          bgc_date: this.driverDetails[0]['bgc_date'],
+          bgc_date: new Date(this.driverDetails[0]['bgc_date']) ,
           bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
-          medically_certified_date: this.driverDetails[0]['medically_certified_date'],
+          medically_certified_date: new Date(this.driverDetails[0]['medically_certified_date']) ,
           sexual_policy: this.driverDetails[0]['sexual_policy'],
           induction_status: this.driverDetails[0]['induction_status']
         });
@@ -136,7 +136,7 @@ export class DriverDocumentComponent implements OnInit {
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
+      "comment": this.form.controls.comment.value
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
@@ -151,7 +151,8 @@ export class DriverDocumentComponent implements OnInit {
         this.toastr.success('Success', 'Driver Documents Details updated successfully');
       }
       else {
-        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+        console.log(res);
+        this.toastr.error('Error', res['errors']);
       }
     }, errorResponse => {
       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
@@ -192,9 +193,9 @@ export class DriverDocumentComponent implements OnInit {
     }
     return true;
   }
-
   getFormattedDate(date) {
-    if (date === 0 || date === '0000-00-00') {
+    if (Object.prototype.toString.call(date) === "[object Date]") {
+    //if (date === 0 || date === '0000-00-00') {
       return null;
     }
     return date;
@@ -221,7 +222,7 @@ export class DriverDocumentComponent implements OnInit {
   check_if_doc_is_pdf() {
     if (this.pdfs.length > this.selectedPage) {
       let docUrl = this.pdfs[this.selectedPage].doc_url
-      if (docUrl.includes('.pdf')) {
+      if (docUrl && docUrl.includes('.pdf')) {
         return true;
       } else {
         return false;
