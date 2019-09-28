@@ -118,7 +118,7 @@
             <div class="form-group row">
               <label for="lblblood_group" class="col-sm-5 col-form-label">Aadhaar Number *</label>
               <div class="col-sm-6">
-                <input type="number" max="12" class="form-control" formControlName="aadhar_number" id="aadhar_number"
+                <input type="number" onKeyPress="if(this.value.length==12) return false;" class="form-control" formControlName="aadhar_number" id="aadhar_number"
                   placeholder="aadhaarnumber *" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.aadhar_number.errors">
                   <div *ngIf="f.aadhar_number.errors.required" class="error_class">Aadhaar Number is required</div>

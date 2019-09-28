@@ -40,6 +40,7 @@ export class VehicleDocumentComponent implements OnInit {
   road_tax_validity_date_model: Date;
   registration_date_model: Date;
   last_service_date_model: Date;
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -53,6 +54,11 @@ export class VehicleDocumentComponent implements OnInit {
     this.userRole = currentUser.role;
     if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
+
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
 
     this.editVehicleDocumentForm = this.formBuilder.group({
       business_associate_id: ['', Validators.required],
@@ -68,7 +74,7 @@ export class VehicleDocumentComponent implements OnInit {
       gps_provider_id: ['', Validators.required],
       site_name: ['', Validators.required],
       induction_status: [''],
-      comment: [null],
+      comment: [null, Validators.required],
     });
     this.fetchVehicleData();
     this.getBAListing();
@@ -78,7 +84,8 @@ export class VehicleDocumentComponent implements OnInit {
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
     }
     this.vehiclePostData = { user };
 
@@ -140,6 +147,7 @@ export class VehicleDocumentComponent implements OnInit {
     this.submitted = true;
 
     var values = this.editVehicleDocumentForm.value;
+   
     
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
@@ -149,25 +157,26 @@ export class VehicleDocumentComponent implements OnInit {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
-    this.editVehicleDocumentForm.patchValue({
-      business_associate_id: values.business_associate_id,
-      business_area_id: values.business_area_id,
-      road_tax_validity_date: values.road_tax_validity_date,
-      last_service_date: values.last_service_date,
-      last_service_km: values.last_service_km,
-      km_at_induction: values.km_at_induction,
-      permit_type: values.permit_type,
-      registration_date: values.registration_date,
-      status: values.status,
-      device_id: values.device_id,
-      gps_provider_id: values.gps_provider_id,
-      site_name: values.site_name
-    });
+    // this.editVehicleDocumentForm.patchValue({
+    //   business_associate_id: values.business_associate_id,
+    //   business_area_id: values.business_area_id,
+    //   road_tax_validity_date: values.road_tax_validity_date,
+    //   last_service_date: values.last_service_date,
+    //   last_service_km: values.last_service_km,
+    //   km_at_induction: values.km_at_induction,
+    //   permit_type: values.permit_type,
+    //   registration_date: values.registration_date,
+    //   status: values.status,
+    //   device_id: values.device_id,
+    //   gps_provider_id: values.gps_provider_id,
+    //   site_name: values.site_name
+    // });
     var user = {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
@@ -190,7 +199,8 @@ export class VehicleDocumentComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
+        this.toastr.success('Success', 'Vehicle Details submitted successfully');
+        this.router.navigate(['/dashboard']);      
       }
       else {
         this.toastr.error('Error', res['message']);
@@ -247,7 +257,8 @@ export class VehicleDocumentComponent implements OnInit {
   }
   backToPersonal(resource_id) {
     console.log(resource_id);
-    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles',
+    'is_renewal': this.is_renewal }]);
   }
 
   getFormattedDate(date) {

@@ -94,10 +94,12 @@ export class DashboardComponent implements OnInit {
     console.log(resource_id);
     //alert(resource_type);
     if (resource_type == 'drivers') {
-      this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
+      this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': resource_type, 
+      'is_renewal': this.dashboardService.is_renewal }]);
     }
     else {
-      this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+      this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': resource_type,
+      'is_renewal': this.dashboardService.is_renewal }]);
     }
 
   };

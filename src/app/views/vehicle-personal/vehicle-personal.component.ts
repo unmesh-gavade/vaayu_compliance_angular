@@ -45,6 +45,7 @@ export class VehiclePersonalComponent implements OnInit {
   permit_date_model: Date
 
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public apiService: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -56,6 +57,12 @@ export class VehiclePersonalComponent implements OnInit {
     else { this.isDataENtry = false };
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
+
     this.form = this.formBuilder.group({
       plate_number: ['', Validators.required],
       category: ['', Validators.required],
@@ -76,7 +83,8 @@ export class VehiclePersonalComponent implements OnInit {
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
     }
     this.vehiclePostData = { user };
 
@@ -145,7 +153,8 @@ export class VehiclePersonalComponent implements OnInit {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
     };
     
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
@@ -168,7 +177,8 @@ export class VehiclePersonalComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
-        this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles' }]); 
+        this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
+        'is_renewal': this.is_renewal }]);
       }
       else {
         this.toastr.error('Error', res['message']);
