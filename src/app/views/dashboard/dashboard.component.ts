@@ -131,7 +131,7 @@ export class DashboardComponent implements OnInit {
     if (smallTatType === 'new_request' || smallTatType === 'qc_pending') {
       this.dashboardService.toHide_verify_button = false;
     } else {
-      // this.dashboardService.toHide_verify_button = true;
+      this.dashboardService.toHide_verify_button = true;
     }
     //alert(this.tat_type);
     this.fetchListing();

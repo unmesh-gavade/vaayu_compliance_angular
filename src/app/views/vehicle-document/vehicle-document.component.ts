@@ -37,6 +37,7 @@ export class VehicleDocumentComponent implements OnInit {
 
   selectedPage = 0;
   baList = [];
+  siteList = [];
   road_tax_validity_date_model: Date;
   registration_date_model: Date;
   last_service_date_model: Date;
@@ -72,12 +73,13 @@ export class VehicleDocumentComponent implements OnInit {
       status: [''],
       device_id: ['', Validators.required],
       gps_provider_id: ['', Validators.required],
-      site_name: ['', Validators.required],
+      site_id: ['', Validators.required],
       induction_status: [''],
       comment: [null, Validators.required],
     });
     this.fetchVehicleData();
     this.getBAListing();
+    this.getSiteList();
   }
 
   fetchVehicleData () {
@@ -85,12 +87,12 @@ export class VehicleDocumentComponent implements OnInit {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
       "os_type": 'web',
-      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
     }
     this.vehiclePostData = { user };
 
     this.service.getVehicleDetails(this.vehiclePostData).subscribe(details => {
-      // console.log(JSON.stringify(details));
+      console.log(JSON.stringify(details));
       if (details['success'] == true) {
         this.vehicleDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
@@ -108,7 +110,7 @@ export class VehicleDocumentComponent implements OnInit {
           status: this.vehicleDetails[0]['status'],
           device_id: this.vehicleDetails[0]['device_id'],
           gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
-          site_name: this.vehicleDetails[0]['site_name'],
+          site_id: this.vehicleDetails[0]['site_id'],
           induction_status: this.vehicleDetails[0]['induction_status']
         });
       }
@@ -124,6 +126,15 @@ export class VehicleDocumentComponent implements OnInit {
     this.service.getBaList().subscribe(res => {
       this.baList = res['data']['list'];
       // console.log('getBaList  = '+ JSON.stringify(this.baList))
+    });
+  }
+
+  getSiteList() {
+    this.service.getSiteList({
+      'Content-Type': 'application/json',
+    }).subscribe(res => {
+      console.log('sitelist'+JSON.stringify(res));
+      this.siteList = res['data']['list'];
     });
   }
 
@@ -169,14 +180,14 @@ export class VehicleDocumentComponent implements OnInit {
     //   status: values.status,
     //   device_id: values.device_id,
     //   gps_provider_id: values.gps_provider_id,
-    //   site_name: values.site_name
+    //   site_id: values.site_id
     // });
     var user = {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
       "os_type": 'web',
-      is_renew: this.is_renewal, // renewal - 1 ,  normal - 0
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");

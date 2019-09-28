@@ -73,7 +73,7 @@ export class DriverDocumentComponent implements OnInit {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
       "os_type": 'web',
-      is_renew: this.is_renewal,
+      is_renew: Number(this.is_renewal),
     }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
@@ -135,7 +135,7 @@ export class DriverDocumentComponent implements OnInit {
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
       "os_type": 'web',
-      is_renew: this.is_renewal,
+      is_renew: Number(this.is_renewal),
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
