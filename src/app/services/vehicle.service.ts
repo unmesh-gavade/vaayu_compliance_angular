@@ -23,4 +23,9 @@ export class VehicleService {
     console.log('url : ' + this.baseUrl + 'getAllBaList');
     return this.http.post(this.baseUrl + 'getAllBaList', '');
   }
+
+  getSiteList(headers) {
+    console.log('url : ' + 'http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com:8001/api/v1/getAllSiteList' + 'getSiteList');
+    return this.http.post('http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com:8001/api/v1/getAllSiteList', headers);
+  }
 }

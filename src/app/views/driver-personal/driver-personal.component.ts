@@ -39,6 +39,7 @@ export class DriverPersonalComponent implements OnInit {
 
   date_of_birth_model: Date
 
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -50,6 +51,10 @@ export class DriverPersonalComponent implements OnInit {
     else { this.isDataENtry = false };
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
 
     this.form = this.formBuilder.group({
       driver_name: ['', Validators.required],
@@ -63,22 +68,22 @@ export class DriverPersonalComponent implements OnInit {
       local_address: ['', Validators.required],
       permanent_address: ['', Validators.required],
       qualification: ['', Validators.required],
-      induction_status: ['', ''],
+      induction_status: [''],
     });
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
     }
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
+      console.log(details);
       if (details['success'] == true) {
-        console.log(details);
+        
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'personal');
-        console.log('docs with urls');
-        console.log(this.pdfs);
         this.form.patchValue({
           driver_name: this.driverDetails[0]['driver_name'],
           father_spouse_name: this.driverDetails[0]['father_spouse_name'],
@@ -129,25 +134,26 @@ export class DriverPersonalComponent implements OnInit {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
-    this.form.patchValue({
-      driver_name: values.driver_name,
-      father_spouse_name: values.father_spouse_name,
-      date_of_birth: moment(values.date_of_birth).format("YYYY-MM-DD"),
-      gender: values.gender,
-      aadhaar_mobile_number: values.aadhaar_mobile_number,
-      aadhar_number: values.aadhar_number,
-      marital_status: values.marital_status,
-      blood_group: values.blood_group,
-      local_address: values.local_address,
-      permanent_address: values.permanent_address,
-      qualification: values.qualification,
-      induction_status: values.induction_status
-    });
+    // this.form.patchValue({
+    //   driver_name: values.driver_name,
+    //   father_spouse_name: values.father_spouse_name,
+    //   date_of_birth: moment(values.date_of_birth).format("YYYY-MM-DD"),
+    //   gender: values.gender,
+    //   aadhaar_mobile_number: values.aadhaar_mobile_number,
+    //   aadhar_number: values.aadhar_number,
+    //   marital_status: values.marital_status,
+    //   blood_group: values.blood_group,
+    //   local_address: values.local_address,
+    //   permanent_address: values.permanent_address,
+    //   qualification: values.qualification,
+    //   induction_status: values.induction_status
+    // });
     var user = {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal)
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
@@ -169,7 +175,8 @@ export class DriverPersonalComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Driver Personal Details updated successfully')
-        this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers' }]);
+        this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
+        'is_renewal': this.is_renewal }]);
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);

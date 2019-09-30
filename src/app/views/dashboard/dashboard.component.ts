@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   search_res: any = ''
   public search: any = ''
   nonCompliant_Renew_Draft = []
+  toHide_verify_button = false;
 
   constructor(private toastr: ToastrService, public commonService: CommonService, public dashboardService: DashboardService, private authService: AuthService, private router: Router, ) { }
 
@@ -58,9 +59,9 @@ export class DashboardComponent implements OnInit {
                             || item.name === 'rejected');
 
       this.nonCompliant_Renew_Draft = this.tatList.filter((i:{name:String}) => 
-          i.name === 'non_complient' || 
-          i.name === 'renewal_document' || 
-          i.name === 'draft'
+          i.name === 'non_complient' 
+          || i.name === 'renewal_document' 
+          // || i.name === 'draft'
           );
 
     });
@@ -70,6 +71,7 @@ export class DashboardComponent implements OnInit {
 
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
+    this.toHide_verify_button = this.dashboardService.toHide_verify_button;
     console.log(this.tat_type);
     console.log(this.resource_type);
     var data = {
@@ -92,11 +94,12 @@ export class DashboardComponent implements OnInit {
     console.log(resource_id);
     //alert(resource_type);
     if (resource_type == 'drivers') {
-      console.log(resource_type);
-      this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
+      this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': resource_type, 
+      'is_renewal': this.dashboardService.is_renewal }]);
     }
     else {
-      this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+      this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': resource_type,
+      'is_renewal': this.dashboardService.is_renewal }]);
     }
 
   };
@@ -124,6 +127,12 @@ export class DashboardComponent implements OnInit {
   getTatType(tatType, resource_type) {
     this.dashboardService.tat_type = tatType;
     this.dashboardService.resource_type = resource_type;
+    let smallTatType = tatType.toLowerCase();
+    if (smallTatType === 'new_request' || smallTatType === 'qc_pending') {
+      this.dashboardService.toHide_verify_button = false;
+    } else {
+      this.dashboardService.toHide_verify_button = true;
+    }
     //alert(this.tat_type);
     this.fetchListing();
   }

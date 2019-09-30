@@ -37,9 +37,11 @@ export class VehicleDocumentComponent implements OnInit {
 
   selectedPage = 0;
   baList = [];
+  siteList = [];
   road_tax_validity_date_model: Date;
   registration_date_model: Date;
   last_service_date_model: Date;
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -54,6 +56,11 @@ export class VehicleDocumentComponent implements OnInit {
     if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
+
     this.editVehicleDocumentForm = this.formBuilder.group({
       business_associate_id: ['', Validators.required],
       business_area_id: ['', Validators.required],
@@ -66,24 +73,26 @@ export class VehicleDocumentComponent implements OnInit {
       status: [''],
       device_id: ['', Validators.required],
       gps_provider_id: ['', Validators.required],
-      site_name: ['', Validators.required],
+      site_id: ['', Validators.required],
       induction_status: [''],
       comment: [null, Validators.required],
     });
     this.fetchVehicleData();
     this.getBAListing();
+    this.getSiteList();
   }
 
   fetchVehicleData () {
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
     }
     this.vehiclePostData = { user };
 
     this.service.getVehicleDetails(this.vehiclePostData).subscribe(details => {
-      // console.log(JSON.stringify(details));
+      console.log(JSON.stringify(details));
       if (details['success'] == true) {
         this.vehicleDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
@@ -101,7 +110,7 @@ export class VehicleDocumentComponent implements OnInit {
           status: this.vehicleDetails[0]['status'],
           device_id: this.vehicleDetails[0]['device_id'],
           gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
-          site_name: this.vehicleDetails[0]['site_name'],
+          site_id: this.vehicleDetails[0]['site_id'],
           induction_status: this.vehicleDetails[0]['induction_status']
         });
       }
@@ -117,6 +126,15 @@ export class VehicleDocumentComponent implements OnInit {
     this.service.getBaList().subscribe(res => {
       this.baList = res['data']['list'];
       // console.log('getBaList  = '+ JSON.stringify(this.baList))
+    });
+  }
+
+  getSiteList() {
+    this.service.getSiteList({
+      'Content-Type': 'application/json',
+    }).subscribe(res => {
+      console.log('sitelist'+JSON.stringify(res));
+      this.siteList = res['data']['list'];
     });
   }
 
@@ -140,6 +158,7 @@ export class VehicleDocumentComponent implements OnInit {
     this.submitted = true;
 
     var values = this.editVehicleDocumentForm.value;
+   
     
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
@@ -149,25 +168,26 @@ export class VehicleDocumentComponent implements OnInit {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
-    this.editVehicleDocumentForm.patchValue({
-      business_associate_id: values.business_associate_id,
-      business_area_id: values.business_area_id,
-      road_tax_validity_date: values.road_tax_validity_date,
-      last_service_date: values.last_service_date,
-      last_service_km: values.last_service_km,
-      km_at_induction: values.km_at_induction,
-      permit_type: values.permit_type,
-      registration_date: values.registration_date,
-      status: values.status,
-      device_id: values.device_id,
-      gps_provider_id: values.gps_provider_id,
-      site_name: values.site_name
-    });
+    // this.editVehicleDocumentForm.patchValue({
+    //   business_associate_id: values.business_associate_id,
+    //   business_area_id: values.business_area_id,
+    //   road_tax_validity_date: values.road_tax_validity_date,
+    //   last_service_date: values.last_service_date,
+    //   last_service_km: values.last_service_km,
+    //   km_at_induction: values.km_at_induction,
+    //   permit_type: values.permit_type,
+    //   registration_date: values.registration_date,
+    //   status: values.status,
+    //   device_id: values.device_id,
+    //   gps_provider_id: values.gps_provider_id,
+    //   site_id: values.site_id
+    // });
     var user = {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
@@ -190,7 +210,8 @@ export class VehicleDocumentComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Vehicle Documents Details updated successfully');
+        this.toastr.success('Success', 'Vehicle Details submitted successfully');
+        this.router.navigate(['/dashboard']);      
       }
       else {
         this.toastr.error('Error', res['message']);
@@ -222,7 +243,6 @@ export class VehicleDocumentComponent implements OnInit {
   }
   sumbitVehicle() {
     if (this.validateDocuments()) {
-      
       this.onSubmit();
       this.router.navigate(['/dashboard']);
     }
@@ -249,7 +269,8 @@ export class VehicleDocumentComponent implements OnInit {
   }
   backToPersonal(resource_id) {
     console.log(resource_id);
-    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
+    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles',
+    'is_renewal': this.is_renewal }]);
   }
 
   getFormattedDate(date) {

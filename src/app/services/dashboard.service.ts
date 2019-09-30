@@ -11,12 +11,16 @@ export class DashboardService {
   resource_type = 'vehicles';
   tat_type = 'new_request';
   isDriverSelected = false;
+  toHide_verify_button = false;
+
+  is_renewal = 0;
 
   constructor(private http: HttpClient, public constService : ConstantService) {
     this.baseUrl= constService.serverUrl;
-   }
+  }
    
   getDashboardList(data) {
+    this.is_renewal = 0;
     console.log('url : '+this.baseUrl + 'dashboardFilter');
     console.log('body'+JSON.stringify(data));
     return this.http.post(this.baseUrl + 'dashboardFilter', data);
@@ -31,6 +35,7 @@ export class DashboardService {
   }
 
   getDashboardRenewalList(data) {
+    this.is_renewal = 1;
     console.log('url : '+this.baseUrl + 'getDashboardRenewalList');
     return this.http.post('http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com:8001/api/v1/induction/docdetails',data)
   }

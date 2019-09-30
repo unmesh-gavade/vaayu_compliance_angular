@@ -40,6 +40,7 @@ export class DriverBusinessComponent implements OnInit {
   induction_date_model: Date
   badge_issue_date_model: Date
   badge_expiry_date_model: Date
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -54,6 +55,11 @@ export class DriverBusinessComponent implements OnInit {
     this.userRole = currentUser.role;
     if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
+
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
 
     this.form = this.formBuilder.group({
       licence_number: ['', Validators.required],
@@ -71,7 +77,8 @@ export class DriverBusinessComponent implements OnInit {
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
     }
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
@@ -136,7 +143,8 @@ export class DriverBusinessComponent implements OnInit {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
@@ -160,7 +168,8 @@ export class DriverBusinessComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Driver Business Details updated successfully');
-        this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers' }]);
+        this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+        'is_renewal': this.is_renewal }]);
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
@@ -178,7 +187,8 @@ export class DriverBusinessComponent implements OnInit {
  
   backToPersonal(resource_id) {
     console.log(resource_id);
-    this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
+    this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers',
+    'is_renewal': this.is_renewal }]);
   }
   validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')

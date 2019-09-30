@@ -39,6 +39,7 @@ export class DriverDocumentComponent implements OnInit {
   date_of_police_verification_model: Date
   bgc_date_model: Date
   medically_certified_date_model: Date
+  is_renewal = 0;
 
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -51,6 +52,11 @@ export class DriverDocumentComponent implements OnInit {
     if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
+    this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    if (!this.is_renewal) {
+      this.is_renewal = 0;
+    }
+
     this.form = this.formBuilder.group({
       verified_by_police: ['', ''],
       police_verification_vailidty: ['', Validators.required],
@@ -60,13 +66,14 @@ export class DriverDocumentComponent implements OnInit {
       bgc_agency_id: ['', Validators.required],
       medically_certified_date: ['', Validators.required],
       sexual_policy: ['', Validators.required],
-      induction_status: ['', ''],
-      comment: ['', Validators.required],
+      induction_status: [''],
+      comment: [null, Validators.required],
     });
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
     }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
@@ -127,7 +134,8 @@ export class DriverDocumentComponent implements OnInit {
       "session_id": 3403,
       "resource_id": +this.resource_id,
       "resource_type": this.resource_type,
-      "os_type": 'web'
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
@@ -148,7 +156,8 @@ export class DriverDocumentComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Driver Documents Details updated successfully');
+        this.toastr.success('Success', 'Driver Documents submitted successfully');
+        this.router.navigate(['/dashboard']);      
       }
       else {
         console.log(res);
@@ -160,7 +169,8 @@ export class DriverDocumentComponent implements OnInit {
   }
   backToPersonal(resource_id) {
     console.log(resource_id);
-    this.router.navigate(['/driver-business', { 'resource_id': resource_id, 'resource_type': 'drivers' }]);
+    this.router.navigate(['/driver-business', { 'resource_id': resource_id, 'resource_type': 'drivers',
+    'is_renewal': this.is_renewal }]);
   }
   // saveDocsStatus(resource_id)
   // {
@@ -170,12 +180,10 @@ export class DriverDocumentComponent implements OnInit {
   // }
   
   sumbitDriver() {
+    
     if (this.validateDocuments()) {
       this.onSubmit();
       this.router.navigate(['/dashboard']);
-    }
-    else {
-
     }
   }
   validateDocuments() {
@@ -184,18 +192,13 @@ export class DriverDocumentComponent implements OnInit {
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } 
-     if (rejected.length > 0) {
+    } else if (rejected.length > 0 && this.form.controls.comment.invalid) {
+      this.toastr.error('Error', 'Select Rejection Reason');
       this.form.patchValue({
         induction_status: 'Rejected'
       });
-      if (this.form.controls.comment.invalid) {
-        this.toastr.error('Error', 'Select Rejection Reason');
-        return false;
-      }
-      return true;
-    }
-    else {
+      return false;
+    } else {
       this.form.patchValue({
         induction_status: 'Approved'
       });

@@ -237,12 +237,24 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblsite_name" class="col-sm-5 col-form-label">Dedicated Site Name *</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="site_name" id="site_name"
+              <label for="lblsite_id" class="col-sm-5 col-form-label">Dedicated Site Name *</label>
+              <!-- <div class="col-sm-6">
+                <input type="text" class="form-control" formControlName="site_id" id="site_id"
                   placeholder="Dedicated Site Name *" [attr.disabled]="isEditModeOn ? null : '' ">
-                <div *ngIf="submitted && f.site_name.errors">
-                  <div *ngIf="f.site_name.errors.required" class="error_class">Dedicated Site Name is required</div>
+                <div *ngIf="submitted && f.site_id.errors">
+                  <div *ngIf="f.site_id.errors.required" class="error_class">Dedicated Site Name is required</div>
+                </div>
+              </div> -->
+              <div class="col-sm-6">
+                <select name="account" formControlName="site_id" id="site_id"
+                  class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option *ngFor="let ba of siteList; let i = index" value="{{ba.id}}">{{ba.name}}</option>
+
+
+                </select>
+                <div *ngIf="submitted && f.site_id.errors">
+                  <div *ngIf="f.site_id.errors.required" class="error_class">Dedicated Site Name is
+                    required</div>
                 </div>
               </div>
             </div>
