@@ -42,6 +42,7 @@ export class VehicleDocumentComponent implements OnInit {
   registration_date_model: Date;
   last_service_date_model: Date;
   is_renewal = 0;
+  serverDateFormat = AppConst.SERVER_DATE_FORMAT;
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -227,14 +228,14 @@ export class VehicleDocumentComponent implements OnInit {
     this.selectedPage = index;
   }
 
-  onPreviousButtonClick() {
+  onPreviousButtonClick(e) {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
     console.log('page number = ' + this.selectedPage);
   }
 
-  onNextButtonClick($event) {
+  onNextButtonClick(e) {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }

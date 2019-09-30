@@ -30,6 +30,10 @@ export class DashboardComponent implements OnInit {
   nonCompliant_Renew_Draft = []
   toHide_verify_button = false;
 
+  search_text = '';
+  pageSize = 5;
+  currentPage = 1;
+
   constructor(private toastr: ToastrService, public commonService: CommonService, public dashboardService: DashboardService, private authService: AuthService, private router: Router, ) { }
 
   ngOnInit() {
@@ -107,7 +111,6 @@ export class DashboardComponent implements OnInit {
     console.log('toggle', this.commonService.isMenuOpen);
     this.commonService.toggleMenu();
   }
-  private pageSize: number = 5;
   search_bt(query) {
     this.search_res = query;
   }
