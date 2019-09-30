@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="d-flex align-items-center justify-content-between">
     <div class="compliance_welcom_box">
-      <div (click)="toggleClass($event,'testClass')"></div>
+      <div></div>
 
       <h6>HOME</h6>
       <h5>Good Morning, Rushi</h5>
@@ -29,7 +29,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm " *ngFor="let tat of nonCompliant_Renew_Draft; index as i;" 
-              [ngClass]="{'display-non-core': tat.name === 'expired_document','display-non-core': tat.name === 'non_complient'}"
+              [ngClass]="{'display-non-core': tat.name === 'expired_document' || tat.name === 'non_complient'}"
                >
               <div class="d-flex countbx">
                 <div class=" mr-auto count-text"><img src="./assets/images/Path.png"></div>
@@ -134,7 +134,7 @@
                   <div class="form-inline">
 
                     <input class="form-control mr-sm-2 tg_select ta_search" type="search"
-                      placeholder="DL number, Name,…" aria-label="Search" [(ngModel)]="query" id="listSearch">
+                      placeholder="DL number, Name,…" aria-label="Search" [(ngModel)]="search_text" id="listSearch">
                     <!-- <button _ngcontent-pnc-c3="" class="btn bt_blue text-white pt-2 pb-2 pl-4 pr-4" (click)="search_bt(query)" type="submit">SEARCH</button> -->
                     <!-- <button _ngcontent-pnc-c3="" class="btn bt_blue text-white pt-2 pb-2 pl-4 pr-4"  type="submit" display="none">SEARCH</button> -->
                   </div>
@@ -174,7 +174,7 @@
                 <tbody>
                   <!-- for drivers -->
                   <tr
-                    *ngFor="let item of dashboardList | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
+                    *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
                     <td>{{item.driver_name}}</td>
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.licence_number}}</td>
@@ -209,8 +209,8 @@
                 <tbody>
                   <!-- for vehicles -->
                   <tr
-                    *ngFor="let item of dashboardList | LockFilter: query | paginate: { itemsPerPage: pageSize, currentPage: p }">
-                    <td>{{item.driver_name}}</td>
+                    *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage:  currentPage}">
+                    <td>{{item.driver_name }} </td>
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.rc_book_no}}</td>
                     <td>{{item.model}}</td>
@@ -231,7 +231,7 @@
           </div>
           <div class="card-body pt-0 pb-3 pr-4 d-flex justify-content-end">
 
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 
           </div>
         </div>

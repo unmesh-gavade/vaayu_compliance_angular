@@ -25,7 +25,7 @@
               Personal Info
             </div>
           </h5>
-          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll">
+          <div malihu-scrollbar  class="light light-scroll">
             <div class="form-group row">
               <label for="lbldriver_name" class="col-sm-5 col-form-label">Driver Name *</label>
               <div class="col-sm-6">
@@ -210,13 +210,13 @@
           <div class="tit_ver"> Preview Document</div>
 
           <div class="pdf_nav" style="display: inherit">
-            <button class="prevpdf" (click)="onPreviousButtonClick()">
+            <button class="prevpdf" (click)="onPreviousButtonClick($event)">
               < </button> <ul>
                 <li class="com_pdf" *ngFor="let item of pdfs; let index = index"
                   [class.activepdf]="index == selectedPage" (click)="pageNumberButtonClicked(index)">
                   {{index+1}}
                 </li>
-                </ul><button class="nextpdf" (click)="onNextButtonClick()"> > </button>
+                </ul><button class="nextpdf" (click)="onNextButtonClick($event)"> > </button>
           </div>
         </div>
       </div>
@@ -230,10 +230,8 @@
           </button>
         </div>
         <ul class="p-0 pdf_box">
-          <li class="pdf_li activepdf">
-            {{pdfs[selectedPage].status}}
+          <li class="pdf_li activepdf" *ngIf="pdfs.length > 0">
             <span class="togglepdf"
-              *ngIf="pdfs.length > 0"
              [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
                           'approved':pdfs[selectedPage].status === 'Approved',
