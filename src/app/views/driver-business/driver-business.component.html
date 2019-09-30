@@ -28,7 +28,7 @@
             </div>
           </h5>
 
-          <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions2" class="light light-scroll">
+          <div malihu-scrollbar class="light light-scroll">
             <!-- <div class="form-group row">
             <label for="lblTermsOfService" class="col-sm-5 col-form-label">Terms Of Service</label>
             <div class="col-sm-6">
@@ -235,9 +235,9 @@
           </button>
         </div>
         <ul class="p-0 pdf_box">
-          <li class="pdf_li activepdf">
+
+          <li class="pdf_li activepdf" *ngIf="pdfs.length > 0">
             <span class="togglepdf"
-              *ngIf="pdfs.length > 0"
              [ngClass]="{
                           'nonstatus':pdfs[selectedPage].status === 'none',
                           'approved':pdfs[selectedPage].status === 'Approved',
