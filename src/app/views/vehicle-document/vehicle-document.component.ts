@@ -224,6 +224,7 @@ export class VehicleDocumentComponent implements OnInit {
     if (this.validateDocuments()) {
       
       this.onSubmit();
+      this.router.navigate(['/dashboard']);
     }
   }
   validateDocuments() {

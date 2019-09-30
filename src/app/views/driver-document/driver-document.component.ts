@@ -172,6 +172,7 @@ export class DriverDocumentComponent implements OnInit {
   sumbitDriver() {
     if (this.validateDocuments()) {
       this.onSubmit();
+      this.router.navigate(['/dashboard']);
     }
     else {
 
