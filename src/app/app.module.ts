@@ -24,6 +24,7 @@ import { DefaultLayoutComponent } from './containers/default-layout';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+// import { MatDialogServiceModule } from 'dialog-service'
 
 
 //Http-Intersepter -- To add header to each http request
@@ -72,6 +73,7 @@ const APP_CONTAINERS = [
       preventDuplicates: true,
     }),
     BsDatepickerModule.forRoot(),
+    // MatDialogServiceModule,
   ],
   providers: [
     { 

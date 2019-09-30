@@ -6,6 +6,7 @@ import { Observable,throwError } from 'rxjs';
 import {catchError, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
 import { AuthService } from '../auth/auth.service';
+// import { DialogService } from 'dialog-service';
 
 @Injectable()
 
@@ -59,9 +60,18 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     private handleAuthError(error: HttpErrorResponse): Observable<any>{
-        // if (error.status === 200 && error.error.text === "Authorization failed" && this.authService.isLoggedIn) {
-            // this.authService.isLoggedIn = false;
-            // let disposable = this.dialogService.addDialog(ConfirmComponent, {
+        if (error.status === 200 && error.error.text === "Authorization failed" && this.authService.isLoggedIn) {
+            this.authService.isLoggedIn = false;
+            // this.dialogService.withAlert (
+            //     'Session Expired',
+            //     {
+            //         content: 'it seems your session has expired, kindly login again to continue.',
+            //         acceptButton: 'OK'
+            //     }
+            // ).subscribe(() => {
+            //     this.authService.logout();
+            // });
+            // let disposable = this.dialogService.addAlert(ConfirmComponent, {
             //     title:'Session Expired!', 
             //     message:'Your login Session has been expired please login again'})
             //     .subscribe((isConfirmed)=>{
@@ -73,7 +83,7 @@ export class AuthInterceptor implements HttpInterceptor {
             //             this.authService.logout();
             //         }
             // });
-        // }
+        }
         return throwError(error);
     }
    
