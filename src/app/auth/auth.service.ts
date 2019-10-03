@@ -77,7 +77,7 @@ export class AuthService {
       console.log(client);
       console.log(access_token);
       if (user['body']['data'] && user['body']['status'] == true) {
-        localStorage.setItem('currentUser', JSON.stringify(user['body']['data']));
+        localStorage.setItem('currentUser', JSON.stringify(user['body']['data']['data']));
         localStorage.setItem('client',client);
         localStorage.setItem('access_token',access_token);
         this.isLoggedIn = true;
