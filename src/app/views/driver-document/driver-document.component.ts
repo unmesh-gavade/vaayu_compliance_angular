@@ -120,7 +120,6 @@ export class DriverDocumentComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-console.log('in submit');
    var values = this.form.value;
     // stop here if form is invalid
     if (this.form.invalid) {

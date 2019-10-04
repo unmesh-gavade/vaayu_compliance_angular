@@ -1,5 +1,5 @@
 <div class="container-fluid pt-4">
-  <form [formGroup]="editVehicleDocumentForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editVehicleDocumentForm">
     <div class="card-group">
       <div class="card">
 
@@ -12,7 +12,7 @@
                   <button type="button" class="btn btn-outline-info nav_bt_move_click" (change)="!isEditModeOn"
                     (click)="onEdit()">{{valueOfButton}}</button>
                   <button type="submit" class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ"
-                    *ngIf="isEditModeOn" (click)='sumbitVehicle()'>Save</button>
+                    *ngIf="isEditModeOn" (click)='onSubmit()'>Save</button>
                   <a (click)="backToPersonal(this.resource_id)"
                     class="btn btn-primary nav_bt_move_click nav_bt_move_click_activ" *ngIf="!isEditModeOn">Back</a>
 
