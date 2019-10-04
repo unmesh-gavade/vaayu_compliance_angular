@@ -89,13 +89,11 @@ export class VehiclePersonalComponent implements OnInit {
     this.vehiclePostData = { user };
 
     this.apiService.getVehicleDetails(this.vehiclePostData).subscribe(details => {
-      console.log(JSON.stringify(details))
       if (details['success'] == true) {
 
         this.vehicleDetails = details['data']['user_detail'];
         
         this.pdfsDocs = details['data']['doc_list'];
-        //console.log('vehicle data = ' + JSON.stringify(this.pdfsDocs));
         this.pdfs = this.pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
         this.form.patchValue({
           plate_number: this.vehicleDetails[0]['plate_number'],
@@ -129,7 +127,6 @@ export class VehiclePersonalComponent implements OnInit {
     this.isEditModeOn = !this.isEditModeOn;
     if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
     else { this.valueOfButton = "Edit" }
-    console.log(this.isEditModeOn);
     return;
   }
   ShowImage(path) {
@@ -143,8 +140,6 @@ export class VehiclePersonalComponent implements OnInit {
     var values = this.form.value;
 
     if (this.form.invalid) {
-      console.log('form is invalid')
-      console.log(this.form.controls)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -164,14 +159,10 @@ export class VehiclePersonalComponent implements OnInit {
       "rejectedDdoc": rejectedDocsId,
       "comment": 'test'
     };
-    console.log('approvedDocsId Docs '+approvedDocsId);
-    console.log('rejectedDocsId Docs '+rejectedDocsId);
     var data = { formData: this.form.value, document };
     this.vehicleUpdateData = { user, data };
-    console.log(JSON.stringify(this.vehicleUpdateData));
     // update vehicle personal details
     this.apiService.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
-      console.log(res);
       if (res['success'] === true) {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
@@ -195,7 +186,6 @@ export class VehiclePersonalComponent implements OnInit {
 
 
   pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
     this.selectedPage = index;
   }
 
@@ -203,14 +193,12 @@ export class VehiclePersonalComponent implements OnInit {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   onNextButtonClick() {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   check_if_doc_is_pdf(docUrl) {
@@ -224,7 +212,6 @@ export class VehiclePersonalComponent implements OnInit {
   
 
   print(arg) {
-    console.log(JSON.stringify(arg));
   }
 
   getFormattedDate(date) {

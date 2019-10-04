@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
   }
   public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
   onToolbarMenuToggle(){
-    console.log('toggle', this.commonService.isMenuOpen);
     this.commonService.toggleMenu();
   }
   selectToday() {

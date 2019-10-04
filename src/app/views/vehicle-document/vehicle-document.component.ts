@@ -93,7 +93,6 @@ export class VehicleDocumentComponent implements OnInit {
     this.vehiclePostData = { user };
 
     this.service.getVehicleDetails(this.vehiclePostData).subscribe(details => {
-      console.log(JSON.stringify(details));
       if (details['success'] == true) {
         this.vehicleDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
@@ -126,15 +125,11 @@ export class VehicleDocumentComponent implements OnInit {
   getBAListing() {
     this.service.getBaList().subscribe(res => {
       this.baList = res['data']['list'];
-      // console.log('getBaList  = '+ JSON.stringify(this.baList))
     });
   }
 
   getSiteList() {
-    this.service.getSiteList({
-      'Content-Type': 'application/json',
-    }).subscribe(res => {
-      console.log('sitelist'+JSON.stringify(res));
+    this.service.getSiteList().subscribe(res => {
       this.siteList = res['data']['list'];
     });
   }
@@ -146,7 +141,6 @@ export class VehicleDocumentComponent implements OnInit {
     this.isEditModeOn = !this.isEditModeOn;
     if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
     else { this.valueOfButton = "Edit" }
-    console.log(this.isEditModeOn);
     return;
   }
   ShowImage(path) {
@@ -164,8 +158,6 @@ export class VehicleDocumentComponent implements OnInit {
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
       if (this.editVehicleDocumentForm)
-      console.log('form is invalid')
-      console.log(this.editVehicleDocumentForm.controls)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -192,8 +184,6 @@ export class VehicleDocumentComponent implements OnInit {
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
-    console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
@@ -202,12 +192,9 @@ export class VehicleDocumentComponent implements OnInit {
   
     var data = { formData: this.editVehicleDocumentForm.value, document };
     this.vehicleUpdateData = { user, data };
-    console.log(JSON.stringify(this.vehicleUpdateData));
     // update vehicle documents details
     this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
-      console.log(JSON.stringify(res));
       if (res['success'] == true) {
-        console.log(this.isEditModeOn);
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -224,7 +211,6 @@ export class VehicleDocumentComponent implements OnInit {
 
   }
   pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
     this.selectedPage = index;
   }
 
@@ -232,14 +218,12 @@ export class VehicleDocumentComponent implements OnInit {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   onNextButtonClick(e) {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }
-    console.log('page number = ' + this.selectedPage);
     
   }
   sumbitVehicle() {
@@ -269,7 +253,6 @@ export class VehicleDocumentComponent implements OnInit {
     return true;
   }
   backToPersonal(resource_id) {
-    console.log(resource_id);
     this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles',
     'is_renewal': this.is_renewal }]);
   }

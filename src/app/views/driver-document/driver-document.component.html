@@ -1,5 +1,5 @@
 <div class="container-fluid pt-4">
-  <form [formGroup]="form" >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="card-group">
       <div class="card">
 
@@ -39,7 +39,7 @@
                   <option value='no'>NO</option>
                 </select>
                 <div *ngIf="submitted && f.verified_by_police.errors">
-                  <div *ngIf="f.verified_by_police.errors.required" class="error_class">Licence Type is required</div>
+                  <div *ngIf="f.verified_by_police.errors.required" class="error_class">Verified By Police is required</div>
                 </div>
               </div>
             </div>

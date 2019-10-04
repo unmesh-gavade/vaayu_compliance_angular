@@ -78,7 +78,6 @@ export class DriverPersonalComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
-      console.log(details);
       if (details['success'] == true) {
         
         this.driverDetails = details['data']['user_detail'];
@@ -129,8 +128,6 @@ export class DriverPersonalComponent implements OnInit {
     var values = this.form.value;
     // stop here if form is invalid
     if (this.form.invalid) {
-      console.log('form is invalid')
-      console.log(this.form.controls)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -157,8 +154,6 @@ export class DriverPersonalComponent implements OnInit {
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
-    console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
@@ -166,11 +161,8 @@ export class DriverPersonalComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
-    console.log(JSON.stringify(this.driverUpdateData));
     this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-      console.log(res);
       if (res['success'] == true) {
-        console.log(this.isEditModeOn);
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -189,11 +181,9 @@ export class DriverPersonalComponent implements OnInit {
   saveDocsStatus(resource_id) {
     //this.validateDocuments();
     this.onSubmit();
-    // console.log(resource_id);
     
   }
   pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
     this.selectedPage = index;
   }
 
@@ -201,14 +191,12 @@ export class DriverPersonalComponent implements OnInit {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   onNextButtonClick(e) {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
   validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')
