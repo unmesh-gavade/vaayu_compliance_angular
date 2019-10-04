@@ -82,12 +82,10 @@ export class DriverBusinessComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
-      // console.log(JSON.stringify(details));
       if (details['success'] == true) {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
-        console.log(details);
   
         this.form.patchValue({
           licence_number: this.driverDetails[0]['licence_number'],
@@ -134,8 +132,6 @@ export class DriverBusinessComponent implements OnInit {
     var values = this.form.value;
     // stop here if form is invalid
     if (this.form.invalid) {
-      console.log('form is invalid')
-      console.log(this.form.controls)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -148,8 +144,6 @@ export class DriverBusinessComponent implements OnInit {
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
-    console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
@@ -157,13 +151,9 @@ export class DriverBusinessComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
-    console.log(this.driverUpdateData);
     // update driver business details
     this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       if (res['success'] == true) {
-        console.log(res);
-        console.log('onUpdate');
-        console.log(this.isEditModeOn);
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -180,19 +170,16 @@ export class DriverBusinessComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
-    // this.validateDocuments();
     this.onSubmit();
     
   }
  
   backToPersonal(resource_id) {
-    console.log(resource_id);
     this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers',
     'is_renewal': this.is_renewal }]);
   }
   validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')
-    console.log(array);
     let docsName = '';
     array.map(i => {
       docsName += i.doc_display_name + "- ";
@@ -205,7 +192,6 @@ export class DriverBusinessComponent implements OnInit {
   }
 
   pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
     this.selectedPage = index;
   }
 
@@ -213,14 +199,12 @@ export class DriverBusinessComponent implements OnInit {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   onNextButtonClick() {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
   check_if_doc_is_pdf() {
     if (this.pdfs.length > this.selectedPage) {

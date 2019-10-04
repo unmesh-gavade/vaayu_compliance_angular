@@ -1,5 +1,5 @@
 <div class="container-fluid pt-4">
-  <form [formGroup]="editVehicleDocumentForm" >
+  <form [formGroup]="editVehicleDocumentForm" (ngSubmit)="onSubmit()">
     <div class="card-group">
       <div class="card">
 
@@ -306,7 +306,7 @@
             <div class="row">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <ul class="pdf_box">
-                  <li class="tit_ver pdf_li activepdf">
+                  <li class="tit_ver pdf_li activepdf" *ngIf="pdfs.length > 0">
                     <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
                     {{pdfs[selectedPage].doc_display_name}}
                   </li>

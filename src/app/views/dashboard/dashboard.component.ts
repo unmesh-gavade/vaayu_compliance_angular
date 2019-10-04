@@ -48,14 +48,12 @@ export class DashboardComponent implements OnInit {
   getBAListing() {
     this.dashboardService.getBaList().subscribe(res => {
       this.baList = res['data']['list'];
-      console.log('getDashboardRenewalList  = '+ JSON.stringify(this.baList))
     });
   }
 
   getDashboardTats() {
     this.dashboardService.getDashboardTats().subscribe(tats => {
       this.tatList = <[]>tats['data']['tat_list'];
-      console.log('getDashboardTats'+ JSON.stringify(tats));
       this.req_status_list = this.tatList.filter((item:{name:String}) => 
                           item.name === 'new_request'
                             || item.name === 'qc_pending'
@@ -76,8 +74,6 @@ export class DashboardComponent implements OnInit {
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
     this.toHide_verify_button = this.dashboardService.toHide_verify_button;
-    console.log(this.tat_type);
-    console.log(this.resource_type);
     var data = {
       "resource_type": this.resource_type,
       "search_by_tat": this.tat_type,
@@ -89,14 +85,11 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.getDashboardList(data).subscribe(res => {
       this.dashboardList = res['data']['filterData'];
-      console.log(JSON.stringify(this.dashboardList));
     })
 
   };
 
   onVerifyClick(resource_id, resource_type) {
-    console.log(resource_id);
-    //alert(resource_type);
     if (resource_type == 'drivers') {
       this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': resource_type, 
       'is_renewal': this.dashboardService.is_renewal }]);
@@ -108,7 +101,6 @@ export class DashboardComponent implements OnInit {
 
   };
   onToolbarMenuToggle() {
-    console.log('toggle', this.commonService.isMenuOpen);
     this.commonService.toggleMenu();
   }
   search_bt(query) {
@@ -151,7 +143,6 @@ export class DashboardComponent implements OnInit {
         "record_per_page": 10
       }).subscribe(res => {
         this.dashboardList = res['data']['listitems'];
-        console.log('getDashboardRenewalList  = '+ JSON.stringify(this.baList))
       }, error => {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
       })

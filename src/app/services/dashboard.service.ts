@@ -21,22 +21,17 @@ export class DashboardService {
    
   getDashboardList(data) {
     this.is_renewal = 0;
-    console.log('url : '+this.baseUrl + 'dashboardFilter');
-    console.log('body'+JSON.stringify(data));
     return this.http.post(this.baseUrl + 'dashboardFilter', data);
   }
   getBaList() {
-    console.log('url : '+this.baseUrl + 'getAllBaList');
     return this.http.post(this.baseUrl + 'getAllBaList','');
   }
   getDashboardTats() {
-    console.log('url : '+this.baseUrl + 'getDashboardTatList');
     return this.http.post(this.baseUrl + 'getDashboardTatList','')
   }
 
   getDashboardRenewalList(data) {
     this.is_renewal = 1;
-    console.log('url : '+this.baseUrl + 'getDashboardRenewalList');
-    return this.http.post('http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com/induction/docdetails',data)
+    return this.http.post(this.baseUrl + 'docdetails',data)
   }
 }

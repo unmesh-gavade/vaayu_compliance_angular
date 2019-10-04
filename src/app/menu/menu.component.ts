@@ -17,7 +17,6 @@ export class MenuComponent implements OnInit {
 
 
   onToolbarMenuToggle(){
-    console.log('toggle', this.commonService.isMenuOpen);
     this.commonService.toggleMenu();
   }
 

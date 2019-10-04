@@ -58,7 +58,7 @@ export class DriverDocumentComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      verified_by_police: ['', ''],
+      verified_by_police: ['', Validators.required],
       police_verification_vailidty: ['', Validators.required],
       date_of_police_verification: ['', Validators.required],
       criminal_offence: ['', Validators.required],
@@ -77,7 +77,6 @@ export class DriverDocumentComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
-      console.log(details);
       if (details['success'] == true) {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
@@ -121,12 +120,11 @@ export class DriverDocumentComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-
+console.log('in submit');
    var values = this.form.value;
     // stop here if form is invalid
     if (this.form.invalid) {
-      console.log('form is invalid')
-      console.log(this.form.controls)
+      alert('invalid');
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -139,8 +137,6 @@ export class DriverDocumentComponent implements OnInit {
     };
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    console.log('approvedDocsId = ' + JSON.stringify(approvedDocsId));
-    console.log('rejectedDocsId = '+JSON.stringify(rejectedDocsId));
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
@@ -148,11 +144,9 @@ export class DriverDocumentComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
-    console.log(this.driverUpdateData);
     // update driver Documents details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       if (res['success'] == true) {
-        console.log(this.isEditModeOn);
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -160,7 +154,6 @@ export class DriverDocumentComponent implements OnInit {
         this.router.navigate(['/dashboard']);      
       }
       else {
-        console.log(res);
         this.toastr.error('Error', res['errors']);
       }
     }, errorResponse => {
@@ -168,22 +161,14 @@ export class DriverDocumentComponent implements OnInit {
     });
   }
   backToPersonal(resource_id) {
-    console.log(resource_id);
     this.router.navigate(['/driver-business', { 'resource_id': resource_id, 'resource_type': 'drivers',
     'is_renewal': this.is_renewal }]);
   }
-  // saveDocsStatus(resource_id)
-  // {
-  //   this.validateDocuments();
-  //   this.onSubmit();
-  //   this.router.navigate(['/driver-document' ,{'resource_id':resource_id,'resource_type':'drivers' }]);      
-  // }
   
   sumbitDriver() {
     
     if (this.validateDocuments()) {
       this.onSubmit();
-      this.router.navigate(['/dashboard']);
     }
   }
   validateDocuments() {
@@ -214,7 +199,6 @@ export class DriverDocumentComponent implements OnInit {
   }
 
   pageNumberButtonClicked(index) {
-    console.log('page number = ' + index);
     this.selectedPage = index;
   }
 
@@ -222,14 +206,12 @@ export class DriverDocumentComponent implements OnInit {
     if (this.selectedPage > 0) {
       this.selectedPage = this.selectedPage - 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
 
   onNextButtonClick() {
     if (this.selectedPage < this.pdfs.length - 1) {
       this.selectedPage = this.selectedPage + 1;
     }
-    console.log('page number = ' + this.selectedPage);
   }
   check_if_doc_is_pdf() {
     if (this.pdfs.length > this.selectedPage) {
