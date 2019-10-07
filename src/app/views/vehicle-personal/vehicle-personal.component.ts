@@ -89,12 +89,28 @@ export class VehiclePersonalComponent implements OnInit {
     this.vehiclePostData = { user };
 
     this.apiService.getVehicleDetails(this.vehiclePostData).subscribe(details => {
+      console.log(details);
       if (details['success'] == true) {
 
         this.vehicleDetails = details['data']['user_detail'];
         
         this.pdfsDocs = details['data']['doc_list'];
         this.pdfs = this.pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
+
+        let make_year_date = this.vehicleDetails[0]['make_year'];
+        let registration_date = this.vehicleDetails[0]['registration_date'];
+        let insurance_date = this.vehicleDetails[0]['insurance_date'];
+        let puc_validity_date = this.vehicleDetails[0]['puc_validity_date'];
+        let fitness_validity_date = this.vehicleDetails[0]['fitness_validity_date'];
+        let permit_validity_date = this.vehicleDetails[0]['permit_validity_date'];
+
+        console.log(make_year_date);
+        console.log(registration_date);
+        console.log(insurance_date);
+        console.log(puc_validity_date);
+        console.log(fitness_validity_date);
+        console.log(permit_validity_date);
+
         this.form.patchValue({
           plate_number: this.vehicleDetails[0]['plate_number'],
           category: this.vehicleDetails[0]['category'],
@@ -102,12 +118,12 @@ export class VehiclePersonalComponent implements OnInit {
           seats: this.vehicleDetails[0]['seats'],
           colour: this.vehicleDetails[0]['colour'],
 
-          make_year: new Date(this.vehicleDetails[0]['make_year']),
-          registration_date: new Date(this.vehicleDetails[0]['registration_date']),
-          insurance_date: new Date(this.vehicleDetails[0]['insurance_date']),
-          puc_validity_date: new Date(this.vehicleDetails[0]['puc_validity_date']),
-          fitness_validity_date: new Date(this.vehicleDetails[0]['fitness_validity_date']),
-          permit_validity_date: new Date(this.vehicleDetails[0]['permit_validity_date']),
+          make_year: make_year_date == null ? null :  new Date(make_year_date),
+          registration_date: registration_date == null ? null :  new Date(registration_date),
+          insurance_date: insurance_date == null ? null : new Date(insurance_date),
+          puc_validity_date: puc_validity_date == null ? null : new Date(puc_validity_date),
+          fitness_validity_date: fitness_validity_date == null ? null : new Date(fitness_validity_date),
+          permit_validity_date: permit_validity_date == null ? null : new Date(permit_validity_date),
           ac: this.vehicleDetails[0]['ac'],
           fuel_type: this.vehicleDetails[0]['fuel_type'],
           // induction_status: this.vehicleDetails[0]['induction_status']
