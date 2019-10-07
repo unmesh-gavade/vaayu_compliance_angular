@@ -150,6 +150,7 @@ export class DashboardComponent implements OnInit {
         "start_page_index": 0,
         "record_per_page": 10
       }).subscribe(res => {
+        console.log(res);
         this.dashboardList = res['data']['listitems'];
       }, error => {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);

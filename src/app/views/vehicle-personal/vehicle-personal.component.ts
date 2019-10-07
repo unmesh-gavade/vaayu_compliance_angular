@@ -218,7 +218,7 @@ export class VehiclePersonalComponent implements OnInit {
   }
 
   check_if_doc_is_pdf(docUrl) {
-    if (docUrl.includes('.pdf')) {
+    if (docUrl && docUrl.includes('.pdf')) {
       return true;
     } else {
       return false;

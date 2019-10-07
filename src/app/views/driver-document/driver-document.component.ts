@@ -40,6 +40,7 @@ export class DriverDocumentComponent implements OnInit {
   bgc_date_model: Date
   medically_certified_date_model: Date
   is_renewal = 0;
+  nevigateToDash = false;
 
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -67,7 +68,7 @@ export class DriverDocumentComponent implements OnInit {
       medically_certified_date: ['', Validators.required],
       sexual_policy: ['', Validators.required],
       induction_status: [''],
-      comment: [null, Validators.required],
+      comment: ['',''],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -78,20 +79,27 @@ export class DriverDocumentComponent implements OnInit {
     this.driverPostData = { user };
     this.Driver.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null);
 
+        let police_verification_vailidty = this.driverDetails[0]['police_verification_vailidty'];
+        let date_of_police_verification = this.driverDetails[0]['date_of_police_verification'];
+        let bgc_date = this.driverDetails[0]['bgc_date'];
+        let medically_certified_date = this.driverDetails[0]['medically_certified_date'];
+
         this.form.patchValue({
           verified_by_police: this.driverDetails[0]['verified_by_police'],
-          police_verification_vailidty:new Date(this.driverDetails[0]['police_verification_vailidty']),
-          date_of_police_verification: new Date(this.driverDetails[0]['date_of_police_verification']) ,
+          police_verification_vailidty:police_verification_vailidty == null ? null :  new Date(police_verification_vailidty),
+          date_of_police_verification: date_of_police_verification == null ? null :  new Date(date_of_police_verification),
           criminal_offence: this.driverDetails[0]['criminal_offence'],
-          bgc_date: new Date(this.driverDetails[0]['bgc_date']) ,
+          bgc_date: bgc_date == null ? null :  new Date(bgc_date),
           bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
-          medically_certified_date: new Date(this.driverDetails[0]['medically_certified_date']) ,
+          medically_certified_date:medically_certified_date == null ? null :  new Date(medically_certified_date),
           sexual_policy: this.driverDetails[0]['sexual_policy'],
-          induction_status: this.driverDetails[0]['induction_status']
+          induction_status: this.driverDetails[0]['induction_status'],
+          comment: this.driverDetails[0]['comment']
         });
       }
       else {
@@ -121,9 +129,9 @@ export class DriverDocumentComponent implements OnInit {
 
     this.submitted = true;
    var values = this.form.value;
+   console.log(values);
     // stop here if form is invalid
     if (this.form.invalid) {
-      alert('invalid');
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -150,7 +158,9 @@ export class DriverDocumentComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Driver Documents submitted successfully');
-        this.router.navigate(['/dashboard']);      
+        if(this.nevigateToDash){
+          this.router.navigate(['/dashboard']);
+        }
       }
       else {
         this.toastr.error('Error', res['errors']);
@@ -165,8 +175,8 @@ export class DriverDocumentComponent implements OnInit {
   }
   
   sumbitDriver() {
-    
     if (this.validateDocuments()) {
+      this.nevigateToDash = true;
       this.onSubmit();
     }
   }
@@ -176,7 +186,7 @@ export class DriverDocumentComponent implements OnInit {
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && this.form.controls.comment.invalid) {
+    } else if (rejected.length > 0 && (this.form.controls.comment.value == '' || this.form.controls.comment.value == null)) {
       this.toastr.error('Error', 'Select Rejection Reason');
       this.form.patchValue({
         induction_status: 'Rejected'
@@ -190,8 +200,8 @@ export class DriverDocumentComponent implements OnInit {
     return true;
   }
   getFormattedDate(date) {
-    if (Object.prototype.toString.call(date) === "[object Date]") {
-    //if (date === 0 || date === '0000-00-00') {
+    //if (Object.prototype.toString.call(date) === "[object Date]") {
+      if (date === null || date === 0 || date === '0000-00-00') {
       return null;
     }
     return date;

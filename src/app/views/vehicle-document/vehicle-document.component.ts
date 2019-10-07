@@ -43,6 +43,7 @@ export class VehicleDocumentComponent implements OnInit {
   last_service_date_model: Date;
   is_renewal = 0;
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
+  nevigateToDash = false;
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -76,7 +77,7 @@ export class VehicleDocumentComponent implements OnInit {
       gps_provider_id: ['', Validators.required],
       site_id: ['', Validators.required],
       induction_status: [''],
-      comment: [null, Validators.required],
+      comment: ['', ''],
     });
     this.fetchVehicleData();
     this.getBAListing();
@@ -94,24 +95,34 @@ export class VehicleDocumentComponent implements OnInit {
 
     this.service.getVehicleDetails(this.vehiclePostData).subscribe(details => {
       if (details['success'] == true) {
+        console.log(details);
         this.vehicleDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null);
+console.log(this.pdfs);
+        let road_tax_validity_date = this.vehicleDetails[0]['road_tax_validity_date'];
+        let last_service_date = this.vehicleDetails[0]['last_service_date'];
+        let registration_date = this.vehicleDetails[0]['registration_date'];
 
+        console.log(road_tax_validity_date);
+        console.log(last_service_date);
+        console.log(registration_date);
+        
         this.editVehicleDocumentForm.patchValue({
           business_associate_id: this.vehicleDetails[0]['business_associate_id'],
           business_area_id: this.vehicleDetails[0]['business_area_id'],
-          road_tax_validity_date: new Date(this.vehicleDetails[0]['road_tax_validity_date']),
-          last_service_date: this.vehicleDetails[0]['last_service_date'],
+          road_tax_validity_date:road_tax_validity_date == null ? null :  new Date(road_tax_validity_date),
+          last_service_date: last_service_date == null ? null :  new Date(last_service_date),
           last_service_km: this.vehicleDetails[0]['last_service_km'],
           km_at_induction: this.vehicleDetails[0]['km_at_induction'],
           permit_type: this.vehicleDetails[0]['permit_type'],
-          registration_date: new Date(this.vehicleDetails[0]['registration_date']),
+          registration_date: registration_date == null ? null :  new Date(registration_date),
           status: this.vehicleDetails[0]['status'],
           device_id: this.vehicleDetails[0]['device_id'],
           gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
           site_id: this.vehicleDetails[0]['site_id'],
-          induction_status: this.vehicleDetails[0]['induction_status']
+          induction_status: this.vehicleDetails[0]['induction_status'],
+          comment: this.vehicleDetails[0]['comment']
         });
       }
       else {
@@ -157,6 +168,7 @@ export class VehicleDocumentComponent implements OnInit {
     
     // stop here if form is invalid
     if (this.editVehicleDocumentForm.invalid) {
+      console.log(values);
       if (this.editVehicleDocumentForm)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
@@ -187,7 +199,7 @@ export class VehicleDocumentComponent implements OnInit {
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
+      "comment": this.editVehicleDocumentForm.controls.comment.value
     };
   
     var data = { formData: this.editVehicleDocumentForm.value, document };
@@ -195,11 +207,16 @@ export class VehicleDocumentComponent implements OnInit {
     // update vehicle documents details
     this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       if (res['success'] == true) {
+        alert('succes in update')
+       this.nevigateToDash= true;
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Vehicle Details submitted successfully');
-        this.router.navigate(['/dashboard']);      
+        alert(this.nevigateToDash);
+        if(this.nevigateToDash){
+        this.router.navigate(['/dashboard']);
+      }
       }
       else {
         this.toastr.error('Error', res['message']);
@@ -226,20 +243,28 @@ export class VehicleDocumentComponent implements OnInit {
     }
     
   }
+  check_if_doc_is_pdf(docUrl) {
+    if (docUrl && docUrl.includes('.pdf')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   sumbitVehicle() {
+    this.nevigateToDash = true;
     if (this.validateDocuments()) {
       this.onSubmit();
-      this.router.navigate(['/dashboard']);
+      
     }
   }
   validateDocuments() {
     
-    let array = this.pdfs.filter(i => i.status === 'none')
-    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+    let array = this.pdfs.filter(i => i.status === 'none');
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected');
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && this.editVehicleDocumentForm.controls.comment.invalid) {
+    } else if (rejected.length > 0 && (this.editVehicleDocumentForm.controls.comment.value == '' || this.editVehicleDocumentForm.controls.comment.value == null)) {
       this.toastr.error('Error', 'Select Rejection Reason');
       this.editVehicleDocumentForm.patchValue({
         induction_status: 'Rejected'
@@ -258,6 +283,7 @@ export class VehicleDocumentComponent implements OnInit {
   }
 
   getFormattedDate(date) {
+    //if (Object.prototype.toString.call(date) === "[object Date]") {
     if (date === null || date === 0 || date === '0000-00-00') {
       return null;
     }

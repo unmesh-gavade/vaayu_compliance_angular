@@ -79,15 +79,18 @@ export class DriverPersonalComponent implements OnInit {
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
-        
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'personal');
+
+        let date_of_birth = this.driverDetails[0]['date_of_birth'];
+
         this.form.patchValue({
           driver_name: this.driverDetails[0]['driver_name'],
           father_spouse_name: this.driverDetails[0]['father_spouse_name'],
           gender: this.driverDetails[0]['gender'],
-          date_of_birth: new Date(this.driverDetails[0]['date_of_birth']),
+          date_of_birth:  date_of_birth == null ? null :  new Date(date_of_birth),
           marital_status: this.driverDetails[0]['marital_status'],
           aadhaar_mobile_number: this.driverDetails[0]['aadhaar_mobile_number'],
           aadhar_number: this.driverDetails[0]['aadhar_number'],
@@ -126,8 +129,10 @@ export class DriverPersonalComponent implements OnInit {
     this.submitted = true;
 
     var values = this.form.value;
+    console.log(values);
     // stop here if form is invalid
     if (this.form.invalid) {
+     
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
@@ -212,8 +217,8 @@ export class DriverPersonalComponent implements OnInit {
   }
 
   getFormattedDate(date) {
-    if (Object.prototype.toString.call(date) === "[object Date]") {
-   // if (date === 0 || date === '0000-00-00') {
+   // if (Object.prototype.toString.call(date) === "[object Date]") {
+      if (date === null || date === 0 || date === '0000-00-00') {
       return null;
     }
     return date;

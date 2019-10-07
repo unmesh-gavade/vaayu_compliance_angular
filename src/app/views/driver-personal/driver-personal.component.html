@@ -51,12 +51,12 @@
               <label for="lblgender" class="col-sm-5 col-form-label">Gender *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
-                <select name="account" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
-                  id="gender" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>Male </option>
-                  <option>Female</option>
+                <select name="gender" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
+                  [attr.disabled]="isEditModeOn ? null : '' ">
+                  
+                  <option value="Male">Male </option>
+                  <option value="Female">Female</option>
                 </select>
-
                 <div *ngIf="submitted && f.gender.errors">
                   <div *ngIf="f.gender.errors.required" class="error_class">Gender is required</div>
                 </div>
@@ -78,7 +78,7 @@
                         #DateOfBirth="ngbDatepicker">
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="DateOfBirth.toggle()"
-                          type="button"></button>
+                        [attr.disabled]="isEditModeOn ? null : '' "  type="button"></button>
                       </div>
                     </div>
                   </div>
@@ -92,9 +92,9 @@
             <div class="form-group row">
               <label for="lblmarital_status" class="col-sm-5 col-form-label">Marital Status *</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="marital_status" id="marital_status" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' "> -->
-                <select name="account" class="form-control dropdown dropdown_custom indrop"
+                <select name="marital_status" class="form-control dropdown dropdown_custom indrop"
                   formControlName="marital_status" id="marital_status" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value="none">Select</option>
                   <option value='Married'>Married</option>
                   <option value='Single'>Unmarried</option>
                 </select>
@@ -182,17 +182,17 @@
               </div>
             </div> -->
             <div class="form-group row">
-              <label for="lblqualification" class="col-sm-5 col-form-label">Qualification</label>
+              <label for="lblqualification" class="col-sm-5 col-form-label">Qualification *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="Terms_Of_Service" id="permanent_address" placeholder="Permanent Address" [attr.disabled]="isEditModeOn ? null : '' "> -->
 
                 <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="qualification" id="qualification"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>8th</option>
-                  <option>10th </option>
-                  <option>12th </option>
-                  <option>Graduate </option>
+                  <option value="8th">8th</option>
+                  <option value="10th">10th </option>
+                  <option value="12th">12th </option>
+                  <option value="Graduate">Graduate </option>
                 </select>
 
                 <div *ngIf="submitted && f.qualification.errors">
@@ -220,7 +220,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body position-relative">
+      <div class="card-body position-relative" style="height:490px;overflow: auto;">
         <div class="pdf_zoom">
           <button ion-button (click)="incrementZoom(-0.1)">
             -
@@ -261,10 +261,10 @@
               </ul>
               <div>
                 <!-- <button type="button" class="btn btn-outline-danger click_reject pdf_preview">PREVIEW</button> -->
-                <button type="button" class="btn btn-outline-danger click_reject pdf_reject"
+                <button  type="button"  *ngIf="pdfs.length > 0" class="btn btn-outline-danger click_reject pdf_reject"
                   (click)="pdfs[selectedPage].status = 'Rejected'">REJECT</button>
-                <button type="submit" class="btn btn-success click_reject click_reject_activ pdf_approve"
-                  (click)="pdfs[selectedPage].status = 'Approved'" *ngIf="!isDataENtry">APPROVE</button>
+                <button type="submit"  class="btn btn-success click_reject click_reject_activ pdf_approve"
+                  (click)="pdfs[selectedPage].status = 'Approved'" *ngIf="pdfs.length > 0 && !isDataENtry">APPROVE</button>
               </div>
             </div>
             <div class="col-sm-4">

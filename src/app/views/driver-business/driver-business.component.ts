@@ -83,18 +83,25 @@ export class DriverBusinessComponent implements OnInit {
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
   
+        let date_of_registration = this.driverDetails[0]['date_of_registration'];
+        let licence_validity = this.driverDetails[0]['licence_validity'];
+        let badge_issue_date = this.driverDetails[0]['badge_issue_date'];
+        let badge_expire_date = this.driverDetails[0]['badge_expire_date'];
+
+
         this.form.patchValue({
           licence_number: this.driverDetails[0]['licence_number'],
           licence_type: this.driverDetails[0]['licence_type'],
-          licence_validity: new Date(this.driverDetails[0]['licence_validity']),
-          date_of_registration: new Date(this.driverDetails[0]['date_of_registration']),
+          licence_validity:  licence_validity == null ? null :  new Date(licence_validity),
+          date_of_registration:  date_of_registration == null ? null :  new Date(date_of_registration),
           badge_number: this.driverDetails[0]['badge_number'],
-          badge_issue_date: new Date(this.driverDetails[0]['badge_issue_date']),
-          badge_expire_date: new Date(this.driverDetails[0]['badge_expire_date']),
+          badge_issue_date:  badge_issue_date == null ? null :  new Date(badge_issue_date),
+          badge_expire_date:  badge_expire_date == null ? null :  new Date(badge_expire_date),
           bank_name: this.driverDetails[0]['bank_name'],
           bank_no: this.driverDetails[0]['bank_no'],
           ifsc_code: this.driverDetails[0]['ifsc_code'],
@@ -218,8 +225,8 @@ export class DriverBusinessComponent implements OnInit {
   }
 
   getFormattedDate(date) {
-    if (Object.prototype.toString.call(date) === "[object Date]") {
-   // if (date === '0' || date === '0000-00-00') 
+   // if (Object.prototype.toString.call(date) === "[object Date]") {
+      if (date === null || date === 0 || date === '0000-00-00') {
     {
       return null;
       
