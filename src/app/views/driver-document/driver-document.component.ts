@@ -68,7 +68,7 @@ export class DriverDocumentComponent implements OnInit {
       medically_certified_date: ['', Validators.required],
       sexual_policy: ['', Validators.required],
       induction_status: [''],
-      comment: [null, Validators.required],
+      comment: ['',''],
     });
     var user = {
       "resource_id": + this.resource_id,
@@ -98,7 +98,8 @@ export class DriverDocumentComponent implements OnInit {
           bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
           medically_certified_date:medically_certified_date == null ? null :  new Date(medically_certified_date),
           sexual_policy: this.driverDetails[0]['sexual_policy'],
-          induction_status: this.driverDetails[0]['induction_status']
+          induction_status: this.driverDetails[0]['induction_status'],
+          comment: this.driverDetails[0]['comment']
         });
       }
       else {
@@ -128,6 +129,7 @@ export class DriverDocumentComponent implements OnInit {
 
     this.submitted = true;
    var values = this.form.value;
+   console.log(values);
     // stop here if form is invalid
     if (this.form.invalid) {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
@@ -152,11 +154,13 @@ export class DriverDocumentComponent implements OnInit {
     // update driver Documents details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       if (res['success'] == true) {
-        this.nevigateToDash = true;
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Driver Documents submitted successfully');
+        if(this.nevigateToDash){
+          this.router.navigate(['/dashboard']);
+        }
       }
       else {
         this.toastr.error('Error', res['errors']);
@@ -171,12 +175,9 @@ export class DriverDocumentComponent implements OnInit {
   }
   
   sumbitDriver() {
-    
     if (this.validateDocuments()) {
+      this.nevigateToDash = true;
       this.onSubmit();
-      if(this.nevigateToDash){
-        this.router.navigate(['/dashboard']);
-      }
     }
   }
   validateDocuments() {
@@ -185,7 +186,7 @@ export class DriverDocumentComponent implements OnInit {
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && this.form.controls.comment.invalid) {
+    } else if (rejected.length > 0 && (this.form.controls.comment.value == '' || this.form.controls.comment.value == null)) {
       this.toastr.error('Error', 'Select Rejection Reason');
       this.form.patchValue({
         induction_status: 'Rejected'

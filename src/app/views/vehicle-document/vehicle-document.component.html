@@ -197,8 +197,8 @@
                 <!-- <input type="text" class="form-control" formControlName="status" id="status" placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="status" id="status"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>YES </option>
-                  <option>NO </option>
+                  <option value="YES">YES </option>
+                  <option value="NO">NO </option>
 
 
                 </select>
@@ -362,11 +362,11 @@
               formControlName="comment" placeholder="Select Rejection Reason">
 
               <!-- <option>Select Rejection Reason</option> -->
-              <option [ngValue]="null">Select Rejection Reason</option>
-              <option>Blur Document</option>
-              <option>Wrong Document</option>
-              <option>Incorrect Data</option>
-              <option>Separated link</option>
+              <option value="null">Select Rejection Reason</option>
+              <option value="Blur Document">Blur Document</option>
+              <option value="Wrong Document">Wrong Document</option>
+              <option value="Incorrect Data">Incorrect Data</option>
+              <option value="Separated link">Separated link</option>
             </select>
             <!-- <div class="btn-group " dropdown [dropup]="isDropup">
               <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle  "

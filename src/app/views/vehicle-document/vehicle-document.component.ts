@@ -121,7 +121,8 @@ console.log(this.pdfs);
           device_id: this.vehicleDetails[0]['device_id'],
           gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
           site_id: this.vehicleDetails[0]['site_id'],
-          induction_status: this.vehicleDetails[0]['induction_status']
+          induction_status: this.vehicleDetails[0]['induction_status'],
+          comment: this.vehicleDetails[0]['comment']
         });
       }
       else {
@@ -198,7 +199,7 @@ console.log(this.pdfs);
     let document = {
       "approvedDoc": approvedDocsId,
       "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
+      "comment": this.editVehicleDocumentForm.controls.comment.value
     };
   
     var data = { formData: this.editVehicleDocumentForm.value, document };
@@ -206,11 +207,16 @@ console.log(this.pdfs);
     // update vehicle documents details
     this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       if (res['success'] == true) {
+        alert('succes in update')
        this.nevigateToDash= true;
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Vehicle Details submitted successfully');
+        alert(this.nevigateToDash);
+        if(this.nevigateToDash){
+        this.router.navigate(['/dashboard']);
+      }
       }
       else {
         this.toastr.error('Error', res['message']);
@@ -245,24 +251,20 @@ console.log(this.pdfs);
     }
   }
   sumbitVehicle() {
+    this.nevigateToDash = true;
     if (this.validateDocuments()) {
       this.onSubmit();
-      if(this.nevigateToDash){
-        this.router.navigate(['/dashboard']);
-      }
+      
     }
   }
   validateDocuments() {
     
     let array = this.pdfs.filter(i => i.status === 'none');
     let rejected = this.pdfs.filter(i => i.status === 'Rejected');
-    alert(this.editVehicleDocumentForm.controls.comment.value == null);
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && this.editVehicleDocumentForm.controls.comment.value == null) {
-      
-      console.log(this.editVehicleDocumentForm.controls.comment.value == null);
+    } else if (rejected.length > 0 && (this.editVehicleDocumentForm.controls.comment.value == '' || this.editVehicleDocumentForm.controls.comment.value == null)) {
       this.toastr.error('Error', 'Select Rejection Reason');
       this.editVehicleDocumentForm.patchValue({
         induction_status: 'Rejected'

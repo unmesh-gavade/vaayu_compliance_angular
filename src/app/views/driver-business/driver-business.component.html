@@ -51,9 +51,10 @@
                 <!-- <input type="text" class="form-control" formControlName="licence_number"  id="licence_number" placeholder="Licence Number *" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="licence_type" class="form-control dropdown dropdown_custom indrop"
                   formControlName="licence_type" id="licence_type" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option selected>LMV </option>
-                  <option>HMV</option>
-                  <option>MGV</option>
+                  <option value="LMV">LMV </option>
+                  <option value="HMV">HMV</option>
+                  <option value="MGV">MGV</option>
+                  <option value="HPMV/HTV">HPMV/HTV</option>
                 </select>
                 <div *ngIf="submitted && f.licence_type.errors">
                   <div *ngIf="f.licence_type.errors.required" class="error_class">Licence Type is required</div>

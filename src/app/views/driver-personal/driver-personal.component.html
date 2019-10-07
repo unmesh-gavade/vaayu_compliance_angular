@@ -51,12 +51,12 @@
               <label for="lblgender" class="col-sm-5 col-form-label">Gender *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
-                <select name="account" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
-                  id="gender" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>Male </option>
-                  <option>Female</option>
+                <select name="gender" class="form-control dropdown dropdown_custom indrop" formControlName="gender"
+                  [attr.disabled]="isEditModeOn ? null : '' ">
+                  
+                  <option value="Male">Male </option>
+                  <option value="Female">Female</option>
                 </select>
-
                 <div *ngIf="submitted && f.gender.errors">
                   <div *ngIf="f.gender.errors.required" class="error_class">Gender is required</div>
                 </div>
@@ -94,6 +94,7 @@
               <div class="col-sm-6">
                 <select name="marital_status" class="form-control dropdown dropdown_custom indrop"
                   formControlName="marital_status" id="marital_status" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value="none">Select</option>
                   <option value='Married'>Married</option>
                   <option value='Single'>Unmarried</option>
                 </select>
@@ -188,10 +189,10 @@
                 <!-- <input type="text" class="form-control" formControlName="gender" id="gender" placeholder="Gender" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="qualification" id="qualification"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>8th</option>
-                  <option>10th </option>
-                  <option>12th </option>
-                  <option>Graduate </option>
+                  <option value="8th">8th</option>
+                  <option value="10th">10th </option>
+                  <option value="12th">12th </option>
+                  <option value="Graduate">Graduate </option>
                 </select>
 
                 <div *ngIf="submitted && f.qualification.errors">

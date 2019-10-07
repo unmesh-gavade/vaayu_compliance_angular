@@ -83,6 +83,7 @@ export class DriverBusinessComponent implements OnInit {
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
       if (details['success'] == true) {
+        console.log(details);
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');

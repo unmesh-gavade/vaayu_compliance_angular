@@ -43,15 +43,15 @@
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="category" id="category"
                 placeholder="Vehicle Category *" [attr.disabled]="isEditModeOn ? null : '' "> -->
-                <select name="account" formControlName="category" id="category"
+                <select name="category" formControlName="category" id="category"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>SEDAN </option>
-                  <option>PREMIUM SEDAN </option>
-                  <option>HATCHBACK </option>
-                  <option>SUV </option>
-                  <option>PREMIUM SUV </option>
-                  <option>MINI BUS </option>
-                  <option>BUS</option>
+                  <option value="SEDAN">SEDAN </option>
+                  <option value="PREMIUM SEDAN">PREMIUM SEDAN </option>
+                  <option value="HATCHBACK">HATCHBACK </option>
+                  <option value="SUV">SUV </option>
+                  <option value="PREMIUM SUV">PREMIUM SUV </option>
+                  <option value="MINI BUS">MINI BUS </option>
+                  <option value="BUS">BUS</option>
                 </select>
                 <div *ngIf="submitted && f.category.errors">
                   <div *ngIf="f.category.errors.required" class="error_class">Vehicle Category is required</div>
@@ -85,13 +85,13 @@
                 [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="colour" id="colour"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option>WHITE </option>
-                  <option>BLACK </option>
-                  <option>RED </option>
-                  <option>BLUE </option>
-                  <option>SILVER </option>
-                  <option>YELLOW </option>
-                  <option>BROWN</option>
+                  <option value="WHITE">WHITE </option>
+                  <option value="BLACK">BLACK </option>
+                  <option value="RED">RED </option>
+                  <option value="BLUE">BLUE </option>
+                  <option value="SILVER">SILVER </option>
+                  <option value="YELLOW">YELLOW </option>
+                  <option value="BROWN">BROWN</option>
                   <option>OTHERS</option>
                 </select>
 
