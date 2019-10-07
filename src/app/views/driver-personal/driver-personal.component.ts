@@ -47,7 +47,7 @@ export class DriverPersonalComponent implements OnInit {
     //this.authService.checkLogin();
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    if (this.userRole == 'Admin') { this.isDataENtry = true }
     else { this.isDataENtry = false };
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
