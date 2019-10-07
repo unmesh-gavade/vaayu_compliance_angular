@@ -57,7 +57,8 @@
                       [(ngModel)]="police_verification_vailidty_model"
                       value="{{getFormattedDate(police_verification_vailidty_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="test.toggle()" type="button"></button>
+                      <button class="btn btn-outline-secondary calendar" (click)="test.toggle()" 
+                      [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -84,7 +85,7 @@
                       value="{{getFormattedDate(date_of_police_verification_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="date_of_police_verification.toggle()"
-                        type="button"></button>
+                      [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -123,7 +124,7 @@
                       value="{{getFormattedDate(bgc_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="bgc_date.toggle()"
-                        type="button"></button>
+                      [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -157,7 +158,7 @@
                       value="{{getFormattedDate(medically_certified_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="medically_certified_date.toggle()"
-                        type="button"></button>
+                      [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -199,7 +200,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body position-relative">
+        <div class="card-body position-relative" style="height:490px;overflow: auto;">
           <div class="pdf_zoom">
             <button ion-button (click)="incrementZoom(-0.1)">
               -
