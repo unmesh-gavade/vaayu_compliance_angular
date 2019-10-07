@@ -93,12 +93,10 @@ export class DashboardComponent implements OnInit {
     if (resource_type == 'drivers') {
       this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': resource_type, 
       'is_renewal': this.dashboardService.is_renewal }]);
-    }
-    else {
+    } else {
       this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': resource_type,
       'is_renewal': this.dashboardService.is_renewal }]);
     }
-
   };
   onToolbarMenuToggle() {
     this.commonService.toggleMenu();
@@ -129,11 +127,21 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.toHide_verify_button = true;
     }
     //alert(this.tat_type);
-    this.fetchListing();
+    console.log(this.dashboardService.is_renewal );
+    if (this.dashboardService.is_renewal == 1) {
+      this.getDashboardRenewalList(true);
+    } else {
+      this.fetchListing();
+    }
+    
   }
 
   getDashboardRenewalList (isRenewalBlock) {
+    this.resource_type = this.dashboardService.resource_type;
+    this.tat_type = this.dashboardService.tat_type;
+    this.toHide_verify_button = this.dashboardService.toHide_verify_button;
     if (isRenewalBlock) {
+      this.dashboardService.is_renewal = 1;
       this.dashboardService.getDashboardRenewalList({
         "resourcetype": this.resource_type,
         "search_by_tat": this.tat_type,
