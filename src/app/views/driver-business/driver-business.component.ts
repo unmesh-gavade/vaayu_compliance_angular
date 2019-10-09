@@ -225,13 +225,11 @@ export class DriverBusinessComponent implements OnInit {
   }
 
   getFormattedDate(date) {
-   // if (Object.prototype.toString.call(date) === "[object Date]") {
+    //if (Object.prototype.toString.call(date) === "[object Date]") {
       if (date === null || date === 0 || date === '0000-00-00') {
-    {
       return null;
-      
     }
     return date;
   }
-}
+
 }
