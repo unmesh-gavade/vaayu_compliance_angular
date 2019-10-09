@@ -74,6 +74,12 @@ export class DashboardComponent implements OnInit {
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
     this.toHide_verify_button = this.dashboardService.toHide_verify_button;
+
+    if (this.dashboardService.is_renewal == 1) {
+      this.getDashboardRenewalList(true);
+      return;
+    }
+
     var data = {
       "resource_type": this.resource_type,
       "search_by_tat": this.tat_type,
@@ -128,11 +134,8 @@ export class DashboardComponent implements OnInit {
     }
     //alert(this.tat_type);
     console.log(this.dashboardService.is_renewal );
-    if (this.dashboardService.is_renewal == 1) {
-      this.getDashboardRenewalList(true);
-    } else {
-      this.fetchListing();
-    }
+    
+    this.fetchListing();
     
   }
 
