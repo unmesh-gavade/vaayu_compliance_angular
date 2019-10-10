@@ -35,8 +35,8 @@
                 <select name="verified_by_police" class="form-control dropdown dropdown_custom indrop"
                   formControlName="verified_by_police" id="verified_by_police"
                   [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option value='yes'>YES </option>
-                  <option value='no'>NO</option>
+                  <option value='1'>YES </option>
+                  <option value='0'>NO</option>
                 </select>
                 <div *ngIf="submitted && f.verified_by_police.errors">
                   <div *ngIf="f.verified_by_police.errors.required" class="error_class">Verified By Police is required</div>
@@ -103,8 +103,8 @@
 
                 <select name="criminal_offence" class="form-control dropdown dropdown_custom indrop"
                   formControlName="criminal_offence" id="criminal_offence" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option value='yes'>YES</option>
-                  <option value='no'>NO</option>
+                  <option value='1'>YES</option>
+                  <option value='0'>NO</option>
                 </select>
 
                 <div *ngIf="submitted && f.criminal_offence.errors">

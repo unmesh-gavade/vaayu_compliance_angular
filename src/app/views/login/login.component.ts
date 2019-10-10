@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { AppConst } from 'src/app/const/appConst';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +56,8 @@ export class LoginComponent implements OnInit {
           this.loginError = 'Username or password is incorrect.';
         }
       },
-      error => this.error = error
-    );
+      errorResponse => {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      });
   }
 }
