@@ -5,6 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { ConstantService } from '../services/constant.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { DialogService } from '../../libs/ng2-bootstrap-modal';
+import { ConfirmComponent } from '../views/confirm-component/confirm.component';
 
 import * as CryptoJS from 'crypto-js';
 
@@ -21,7 +23,7 @@ export class AuthService {
   public isLoggedIn = false;
   public isAuthorise = false;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, public ConstService: ConstantService, private router: Router) {
+  constructor(private http: HttpClient, private toastr: ToastrService, public ConstService: ConstantService, private router: Router,private dialogService:DialogService) {
     this.serverUrl = ConstService.loginUrl;
   }
   checkLogin() {
@@ -72,6 +74,7 @@ export class AuthService {
       observe: 'response'
   })
   .pipe(map(user => {
+    console.log(user);
       let client = user.headers.get('client');
       let access_token = user.headers.get('access_token');
       console.log(client);
@@ -87,18 +90,6 @@ export class AuthService {
   }),
   catchError(this.handleError)
   );
-    // return this.http.post<any>(`${this.serverUrl}/signin`, dataLogin,options)
-    //   .pipe(map(user => {
-    //     if (user['data'] && user.status == true) {
-    //       localStorage.setItem('currentUser', JSON.stringify(user['data']));
-    //       this.isLoggedIn = true;
-    //      //const token = user.headers.get('client');
-    //     } else {
-    //       this.toastr.error('Error', 'Invalid login credentials. Please try again.');
-    //     }
-    //   }),
-    //     catchError(this.handleError)
-    //   );
   }
 
   getAuthUser() {
@@ -128,13 +119,29 @@ export class AuthService {
       return false;
     }
   }
+  logoutWithPop()
+  {
+    let disposable = this.dialogService.addDialog(ConfirmComponent, {
+      title: 'Logout!',
+      message: 'Are you sure you want to logout?'
+    })
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          disposable.unsubscribe();
+          this.logout();
+        } else {
+          // disposable.unsubscribe();
+          // this.logout();
+        }
+      });  
+  }
   logout() {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('client');
-    localStorage.removeItem('access_token');
-    this.isLoggedIn = false;
-    this.isAuthorise = false;
-    this.router.navigate(['/login']);
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('client');
+      localStorage.removeItem('access_token');
+      this.isLoggedIn = false;
+      this.isAuthorise = false;
+      this.router.navigate(['/login']);
   }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

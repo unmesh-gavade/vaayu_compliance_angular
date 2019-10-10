@@ -55,7 +55,7 @@ export class VehicleDocumentComponent implements OnInit {
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'Admin') { this.isDataENtry = true }
+    if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");

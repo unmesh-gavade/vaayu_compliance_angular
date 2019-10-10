@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { BootstrapModalModule } from '../libs/ng2-bootstrap-modal';
+import { ConfirmComponent } from './views/confirm-component/confirm.component';
 import { AppComponent } from './app.component';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
@@ -53,7 +55,8 @@ const APP_CONTAINERS = [
     HeaderComponent,
     LoginComponent,
     DefaultLayoutComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    ConfirmComponent 
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ const APP_CONTAINERS = [
       preventDuplicates: true,
     }),
     BsDatepickerModule.forRoot(),
+    BootstrapModalModule.forRoot({container:document.body}),
     // MatDialogServiceModule,
   ],
   providers: [
@@ -81,6 +85,9 @@ const APP_CONTAINERS = [
       useClass: AuthInterceptor, 
       multi: true 
     }
+],
+entryComponents:[
+  ConfirmComponent,
 ],
   bootstrap: [AppComponent]
 })
