@@ -204,7 +204,7 @@ export class DriverDocumentComponent implements OnInit {
     }
     else {
       this.form.patchValue({
-        induction_status: 'Approved'
+        induction_status: 'Inducted'
       });
     }
     return true;

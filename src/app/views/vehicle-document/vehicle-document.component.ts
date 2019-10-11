@@ -276,7 +276,7 @@ console.log(this.pdfs);
     }
     else {
       this.editVehicleDocumentForm.patchValue({
-        induction_status: 'Approved'
+        induction_status: 'Inducted'
       });
     }
     return true;
