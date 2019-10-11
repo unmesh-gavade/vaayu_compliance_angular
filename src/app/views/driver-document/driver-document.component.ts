@@ -54,6 +54,7 @@ export class DriverDocumentComponent implements OnInit {
     else { this.isDataENtry = false };
 
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    console.log('is renew ' + this.is_renewal);
     if (!this.is_renewal) {
       this.is_renewal = 0;
     }
@@ -70,6 +71,7 @@ export class DriverDocumentComponent implements OnInit {
       induction_status: [''],
       comment: ['',''],
     });
+    
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
@@ -142,6 +144,8 @@ export class DriverDocumentComponent implements OnInit {
       "os_type": 'web',
       is_renew: Number(this.is_renewal),
     };
+    console.log(this.pdfs.filter(i => i.status === 'Approved'));
+
     let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
     let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
     let document = {
@@ -151,6 +155,7 @@ export class DriverDocumentComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
+    console.log(this.driverUpdateData);
     // update driver Documents details
     this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       if (res['success'] == true) {
@@ -186,13 +191,18 @@ export class DriverDocumentComponent implements OnInit {
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && (this.form.controls.comment.value == '' || this.form.controls.comment.value == null)) {
-      this.toastr.error('Error', 'Select Rejection Reason');
+    } 
+     if (rejected.length > 0) {
       this.form.patchValue({
         induction_status: 'Rejected'
       });
-      return false;
-    } else {
+      if (this.form.controls.comment.value == 'null') {
+        this.toastr.error('Error', 'Select Rejection Reason');
+        return false;
+      }
+      return true;
+    }
+    else {
       this.form.patchValue({
         induction_status: 'Approved'
       });

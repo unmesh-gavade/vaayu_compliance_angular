@@ -91,6 +91,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.getDashboardList(data).subscribe(res => {
       this.dashboardList = res['data']['filterData'];
+      console.log(this.dashboardList);
     })
 
   };
@@ -142,6 +143,7 @@ export class DashboardComponent implements OnInit {
   getDashboardRenewalList (isRenewalBlock) {
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
+    this.tat_type = 'renewal_document'
     this.toHide_verify_button = this.dashboardService.toHide_verify_button;
     if (isRenewalBlock) {
       this.dashboardService.is_renewal = 1;

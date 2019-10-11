@@ -94,9 +94,12 @@
               <div class="col-sm-6">
                 <select name="marital_status" class="form-control dropdown dropdown_custom indrop"
                   formControlName="marital_status" id="marital_status" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option value="none">Select</option>
+                  <option value='none'>Select</option>
                   <option value='Married'>Married</option>
-                  <option value='Single'>Unmarried</option>
+                  <option value='Single'>Single</option>
+                  <option value='Widowed'>Widowed</option>
+                  <option value='Divorced'>Divorced</option>
+                  <option value='N/A'>N/A</option>
                 </select>
                 <div *ngIf="submitted && f.marital_status.errors">
                   <div *ngIf="f.marital_status.errors.required" class="error_class"> Marital Status is required</div>
@@ -128,12 +131,24 @@
             <div class="form-group row">
               <label for="lblblood_group" class="col-sm-5 col-form-label">Blood Group *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="blood_group" id="blood_group"
-                  placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' ">
+                <!-- <input type="text" class="form-control" formControlName="blood_group" id="blood_group"
+                  placeholder="Blood Group" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  <select name="blood_group" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="blood_group" id="blood_group" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value='A+'>A+</option>
+                  <option value='A-'>A-</option>
+                  <option value='B+'>B+</option>
+                  <option value='B-'>B-</option>
+                  <option value='O+'>O+</option>
+                  <option value='O-'>O-</option>
+                  <option value='AB+'>AB+</option>
+                  <option value='AB-'>AB-</option>
+                </select>
                 <div *ngIf="submitted && f.blood_group.errors">
                   <div *ngIf="f.blood_group.errors.required" class="error_class">Blood Group is required</div>
                 </div>
               </div>
+
             </div>
             <div class="form-group row">
               <label for="lbllocal_address" class="col-sm-5 col-form-label">Present Address *</label>

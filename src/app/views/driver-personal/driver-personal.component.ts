@@ -52,6 +52,7 @@ export class DriverPersonalComponent implements OnInit {
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
+    console.log('is renew ' + this.is_renewal);
     if (!this.is_renewal) {
       this.is_renewal = 0;
     }

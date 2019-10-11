@@ -258,19 +258,23 @@ console.log(this.pdfs);
     }
   }
   validateDocuments() {
-    
-    let array = this.pdfs.filter(i => i.status === 'none');
-    let rejected = this.pdfs.filter(i => i.status === 'Rejected');
+    let array = this.pdfs.filter(i => i.status === 'none')
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
     if (array.length > 0) {
       this.toastr.error('Error', 'Please approve or reject all documents: ');
       return false;
-    } else if (rejected.length > 0 && (this.editVehicleDocumentForm.controls.comment.value == '' || this.editVehicleDocumentForm.controls.comment.value == null)) {
-      this.toastr.error('Error', 'Select Rejection Reason');
+    } 
+     if (rejected.length > 0) {
       this.editVehicleDocumentForm.patchValue({
         induction_status: 'Rejected'
       });
-      return false;
-    } else {
+      if (this.editVehicleDocumentForm.controls.comment.value == 'null') {
+        this.toastr.error('Error', 'Select Rejection Reason');
+        return false;
+      }
+      return true;
+    }
+    else {
       this.editVehicleDocumentForm.patchValue({
         induction_status: 'Approved'
       });

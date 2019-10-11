@@ -62,14 +62,14 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 d-flex">
+      <!-- <div class="col-md-4 d-flex">
         <div class="col-md-12 d-flex align-items-end justify-content-end">
 
           <button type="button" class="btn bt_blue text-white"><span><img
                 src="./assets/images/Filter.png"></span>Filter</button>
 
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="container-fluid p-0 mt-4">
@@ -214,7 +214,7 @@
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.rc_book_no}}</td>
                     <td>{{item.model}}</td>
-                    <td>{{item.registeredby}}</td>
+                    <td>{{item.registeredby === null ? item.registeredby:'UMAR SAYYED'}}</td>
                     <td><span>{{item.induction_status}}</span></td>
                     <td *ngIf="!toShowExpiry()">{{getFormatterDate(item.date_of_registration) | date: serverDateFormat }}</td>
                     <td *ngIf="toShowExpiry()">{{getFormatterDate(item.expiry_date) | date: serverDateFormat}}</td>

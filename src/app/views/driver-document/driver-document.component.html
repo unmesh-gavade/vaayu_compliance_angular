@@ -172,8 +172,14 @@
             <div class="form-group row">
               <label for="lblsexual_policy" class="col-sm-5 col-form-label">Sexual Harrassment Policy *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="sexual_policy" id="sexual_policy"
-                  placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' ">
+                <!-- <input type="text" class="form-control" formControlName="sexual_policy" id="sexual_policy"
+                  placeholder="Sexual Harrassment Policy *" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  <select name="sexual_policy" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="sexual_policy" id="sexual_policy" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value='none'>Select</option>
+                  <option value='signed'>signed</option>
+                  <option value='not-signed'>not-signed</option>
+                </select>
                 <div *ngIf="submitted && f.sexual_policy.errors">
                   <div *ngIf="f.sexual_policy.errors.required" class="error_class">Sexual Harrassment Policy is required
                   </div>
