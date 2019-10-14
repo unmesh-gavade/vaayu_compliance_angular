@@ -40,7 +40,7 @@
                 <div class=" mr-auto count-text align-self-center "
                  [ngClass]="{'btn bt_blue text-white pl-4 pr-4': tat.name === 'renewal_document'}"
                  (click)="tat.name === 'renewal_document' ? getDashboardRenewalList(true) : null"
-                 >{{tat.name.split('_').join(' ').toUpperCase()}}</div>
+                 >{{tat.name === 'non_complient' ? 'NON COMPLIANT' : tat.name.split('_').join(' ').toUpperCase()}}</div>
                 <div class="count-number "><span>Vehicle</span>{{tat.vehicle}}</div>
 
               </div>
