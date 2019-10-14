@@ -370,7 +370,8 @@
               [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
               >
             </pdf-viewer>
-            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  [ngClass]="{'d-none': check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"
+            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  
+            [ngClass]="{'d-none': check_if_doc_is_pdf()}"
             class="pdf_view" style="width: 100%;">
             <!-- <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"
             [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  

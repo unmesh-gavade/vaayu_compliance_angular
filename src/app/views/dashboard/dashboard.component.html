@@ -195,7 +195,7 @@
                 <thead>
                   <!-- vehicles heading -->
                   <tr>
-                    <th>Name</th>
+                    <th>Number</th>
                     <th>Business Associate</th>
                     <th>RC Number</th>
                     <th>Type</th>
@@ -210,7 +210,7 @@
                   <!-- for vehicles -->
                   <tr
                     *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage:  currentPage}">
-                    <td>{{item.driver_name }} </td>
+                    <td>{{item.plate_number }} </td>
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.rc_book_no}}</td>
                     <td>{{item.model}}</td>

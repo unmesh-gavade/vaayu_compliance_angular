@@ -298,13 +298,13 @@
                             'approved':pdfs[selectedPage].status === 'Approved',
                             'rejected':pdfs[selectedPage].status === 'Rejected'
                             }"></span>
-               <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
-                [zoom]="zoom" [show-all]="true" 
-                [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
-                >
-              </pdf-viewer>
-              <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " 
-               [ngClass]="{'d-none': check_if_doc_is_pdf()}"
+                <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
+                  [zoom]="zoom" [show-all]="true"
+                  [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
+                  >
+                </pdf-viewer>
+                <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  
+                [ngClass]="{'d-none': check_if_doc_is_pdf()}"
                 class="pdf_view" style="width: 100%;">
               <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->
             </li>
