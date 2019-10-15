@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
       "search_by_tat": this.tat_type,
       "search_by_name": '',
       "start_page_index": 0,
-      "record_per_page": 10
+      "record_per_page": 100
     }
 
 

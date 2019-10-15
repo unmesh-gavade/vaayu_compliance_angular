@@ -207,13 +207,10 @@ console.log(this.pdfs);
     // update vehicle documents details
     this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       if (res['success'] == true) {
-        alert('succes in update')
-       this.nevigateToDash= true;
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         this.toastr.success('Success', 'Vehicle Details submitted successfully');
-        alert(this.nevigateToDash);
         if(this.nevigateToDash){
         this.router.navigate(['/dashboard']);
       }
@@ -251,8 +248,8 @@ console.log(this.pdfs);
     }
   }
   sumbitVehicle() {
-    this.nevigateToDash = true;
     if (this.validateDocuments()) {
+      this.nevigateToDash = true;
       this.onSubmit();
       
     }
