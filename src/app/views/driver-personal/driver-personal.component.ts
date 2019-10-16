@@ -40,6 +40,7 @@ export class DriverPersonalComponent implements OnInit {
   date_of_birth_model: Date
 
   is_renewal = 0;
+  is_next = false;
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -172,7 +173,9 @@ export class DriverPersonalComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Driver Personal Details updated successfully')
+        if(!this.is_next){
+          this.toastr.success('Success', 'Driver Personal Details updated successfully')
+        }
         this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
         'is_renewal': this.is_renewal }]);
       }
@@ -186,6 +189,7 @@ export class DriverPersonalComponent implements OnInit {
   }
   saveDocsStatus(resource_id) {
     //this.validateDocuments();
+    this.is_next= true;
     this.onSubmit();
     
   }

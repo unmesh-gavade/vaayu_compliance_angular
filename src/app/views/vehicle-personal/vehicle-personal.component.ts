@@ -46,6 +46,7 @@ export class VehiclePersonalComponent implements OnInit {
 
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
   is_renewal = 0;
+  is_next=false;
 
   constructor(private formBuilder: FormBuilder, public apiService: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -183,7 +184,9 @@ export class VehiclePersonalComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+        if(!this.is_next){
+          this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+        }
         this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
         'is_renewal': this.is_renewal }]);
       }
@@ -196,6 +199,7 @@ export class VehiclePersonalComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
+    this.is_next= true;
     this.onSubmit();
     //this.router.navigate(['/vehicle-document', { 'resource_id': resource_id, 'resource_type': 'vehicles' }]);
   }
@@ -217,11 +221,14 @@ export class VehiclePersonalComponent implements OnInit {
     }
   }
 
-  check_if_doc_is_pdf(docUrl) {
-    if (docUrl && docUrl.includes('.pdf')) {
-      return true;
-    } else {
-      return false;
+  check_if_doc_is_pdf() {
+    if (this.pdfs.length > this.selectedPage) {
+      let docUrl = this.pdfs[this.selectedPage].doc_url
+      if (docUrl && docUrl.includes('.pdf')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
