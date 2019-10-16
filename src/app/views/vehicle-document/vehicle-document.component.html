@@ -208,20 +208,30 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lbldevice_id" class="col-sm-5 col-form-label">GPS Device ID</label>
+              <label for="lbldevice_id" class="col-sm-5 col-form-label">GPS Device ID *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="device_id" id="device_id"
-                  placeholder="GPS Device ID" [attr.disabled]="isEditModeOn ? null : '' ">
+                  placeholder="GPS Device ID *" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.device_id.errors">
                   <div *ngIf="f.device_id.errors.required" class="error_class">GPS Device ID is required</div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblgps_provider_id" class="col-sm-5 col-form-label">GPS Provider</label>
+              <label for="lblgps_provider_id" class="col-sm-5 col-form-label">GPS Provider *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
-                  placeholder="GPS Provider'" [attr.disabled]="isEditModeOn ? null : '' ">
+                <!-- <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
+                  placeholder="GPS Provider *" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  <select name="gps_provider_id" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="gps_provider_id" id="gps_provider_id" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value="1">ARYA OMNITALK </option>
+                  <option value="2">AUTOCOP</option>
+                  <option value="3">FALCON AVL SYSTEM</option>
+                  <option value="4">MAP MY INDIA</option>' ''
+                  <option value="5">MOVE IN SYNC</option>
+                  <option value="6">NIVAATA</option>
+
+                </select>
                 <div *ngIf="submitted && f.gps_provider_id.errors">
                   <div *ngIf="f.gps_provider_id.errors.required" class="error_class">GPS Provider is required</div>
                 </div>
