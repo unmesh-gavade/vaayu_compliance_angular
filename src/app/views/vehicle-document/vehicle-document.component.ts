@@ -240,11 +240,14 @@ console.log(this.pdfs);
     }
     
   }
-  check_if_doc_is_pdf(docUrl) {
-    if (docUrl && docUrl.includes('.pdf')) {
-      return true;
-    } else {
-      return false;
+  check_if_doc_is_pdf() {
+    if (this.pdfs.length > this.selectedPage) {
+      let docUrl = this.pdfs[this.selectedPage].doc_url
+      if (docUrl && docUrl.includes('.pdf')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
   sumbitVehicle() {

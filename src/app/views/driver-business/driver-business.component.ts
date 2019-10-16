@@ -41,6 +41,7 @@ export class DriverBusinessComponent implements OnInit {
   badge_issue_date_model: Date
   badge_expiry_date_model: Date
   is_renewal = 0;
+  is_next = false;
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -164,7 +165,9 @@ export class DriverBusinessComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
+        if(!this.is_next){
         this.toastr.success('Success', 'Driver Business Details updated successfully');
+        }
         this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
         'is_renewal': this.is_renewal }]);
       }
@@ -177,6 +180,7 @@ export class DriverBusinessComponent implements OnInit {
 
   }
   saveDocsStatus(resource_id) {
+    this.is_next = true;
     this.onSubmit();
     
   }

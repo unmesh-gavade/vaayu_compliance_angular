@@ -300,7 +300,7 @@
                             }"></span>
                 <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
                   [zoom]="zoom" [show-all]="true"
-                  [ngClass]="{'d-none': !check_if_doc_is_pdf(pdfs[selectedPage].doc_url)}"  
+                  [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
                   >
                 </pdf-viewer>
                 <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  
