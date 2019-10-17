@@ -74,11 +74,11 @@ export class DashboardComponent implements OnInit {
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
     this.toHide_verify_button = this.dashboardService.toHide_verify_button;
-
-    if (this.dashboardService.is_renewal == 1) {
-      this.getDashboardRenewalList(true);
-      return;
-    }
+    this.dashboardService.is_renewal = 0;
+    // if (this.dashboardService.is_renewal == 1) {
+    //   this.getDashboardRenewalList(true);
+    //   return;
+    // }
 
     var data = {
       "resource_type": this.resource_type,
@@ -115,15 +115,23 @@ export class DashboardComponent implements OnInit {
   selectDriver() {
     this.dashboardService.isDriverSelected = true;
     this.dashboardService.resource_type = 'drivers';
-    this.fetchListing();
+    if (this.dashboardService.is_renewal == 1) {
+      this.getDashboardRenewalList(true);
+    } else {
+      this.fetchListing();
+    }
 
   }
   selectVehicle() {
     this.dashboardService.isDriverSelected = false;
     this.dashboardService.resource_type = 'vehicles';
-    this.fetchListing();
-
+    if (this.dashboardService.is_renewal == 1) {
+      this.getDashboardRenewalList(true);
+    } else {
+      this.fetchListing();
+    }
   }
+  
   getTatType(tatType, resource_type) {
     this.dashboardService.tat_type = tatType;
     this.dashboardService.resource_type = resource_type;
@@ -155,7 +163,7 @@ export class DashboardComponent implements OnInit {
         "start_page_index": 0,
         "record_per_page": 10
       }).subscribe(res => {
-        console.log(res);
+        console.log('getDashboardRenewalList', res);
         this.dashboardList = res['data']['listitems'];
       }, error => {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);

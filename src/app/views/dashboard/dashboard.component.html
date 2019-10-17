@@ -38,7 +38,7 @@
               </div>
               <div class="d-flex countbx">
                 <div class=" mr-auto count-text align-self-center "
-                 [ngClass]="{'btn bt_blue text-white pl-4 pr-4': tat.name === 'renewal_document'}"
+                 [ngClass]="{'btn bt_blue text-white pl-4 pr-4': tat.name === 'renewal_document', 'disabled': this.dashboardService.is_renewal === 0 }"
                  (click)="tat.name === 'renewal_document' ? getDashboardRenewalList(true) : null"
                  >{{tat.name === 'non_complient' ? 'NON COMPLIANT' : tat.name.split('_').join(' ').toUpperCase()}}</div>
                 <div class="count-number "><span>Vehicle</span>{{tat.vehicle}}</div>
@@ -195,9 +195,8 @@
                 <thead>
                   <!-- vehicles heading -->
                   <tr>
-                    <th>Number</th>
+                    <th>Registration No.</th>
                     <th>Business Associate</th>
-                    <th>RC Number</th>
                     <th>Type</th>
                     <th>Registered by</th>
                     <th>Status</th>
@@ -212,7 +211,6 @@
                     *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage:  currentPage}">
                     <td>{{item.plate_number }} </td>
                     <td>{{item.ba_legel_name}}</td>
-                    <td>{{item.rc_book_no}}</td>
                     <td>{{item.model}}</td>
                     <td>{{item.registeredby === null ? item.registeredby:'UMAR SAYYED'}}</td>
                     <td><span>{{item.induction_status}}</span></td>
