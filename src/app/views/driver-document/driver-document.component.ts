@@ -70,6 +70,7 @@ export class DriverDocumentComponent implements OnInit {
       sexual_policy: ['', Validators.required],
       induction_status: [''],
       comment: ['',''],
+      
     });
     
     var user = {
@@ -101,7 +102,8 @@ export class DriverDocumentComponent implements OnInit {
           medically_certified_date:medically_certified_date == null ? null :  new Date(medically_certified_date),
           sexual_policy: this.driverDetails[0]['sexual_policy'],
           induction_status: this.driverDetails[0]['induction_status'],
-          comment: this.driverDetails[0]['comment']
+          comment: this.driverDetails[0]['comment'],
+          
         });
       }
       else {

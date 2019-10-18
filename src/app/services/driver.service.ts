@@ -19,5 +19,8 @@ export class DriverService {
    updateDriverDetails(data){
     return this.http.post(this.baseUrl +'saveDetails',data)
   }
+  getSiteList() {
+    return this.http.post('http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com/getAllSiteList', '');
+  }
 
 }

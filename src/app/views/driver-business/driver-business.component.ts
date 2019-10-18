@@ -42,6 +42,11 @@ export class DriverBusinessComponent implements OnInit {
   badge_expiry_date_model: Date
   is_renewal = 0;
   is_next = false;
+  siteList = [];
+  timeStart = {hour: 13, minute: 30};
+  timeEnd = {hour: 13, minute: 30};
+  public newTime:string='13:30';
+
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -74,7 +79,11 @@ export class DriverBusinessComponent implements OnInit {
       bank_no: ['', Validators.required],
       ifsc_code: ['', Validators.required],
       induction_status: ['', ''],
+      site_id: ['', Validators.required],
+      shift_start_time:['',''],
+      shift_end_time:['','']
     });
+    this.getSiteList();
     var user = {
       "resource_id": + this.resource_id,
       "resource_type": this.resource_type,
@@ -106,7 +115,10 @@ export class DriverBusinessComponent implements OnInit {
           bank_name: this.driverDetails[0]['bank_name'],
           bank_no: this.driverDetails[0]['bank_no'],
           ifsc_code: this.driverDetails[0]['ifsc_code'],
-          induction_status: this.driverDetails[0]['induction_status']
+          induction_status: this.driverDetails[0]['induction_status'],
+          site_id: this.driverDetails[0]['site_id'],
+          shift_start_time: this.driverDetails[0]['shift_start_time'],
+          shift_end_time: this.driverDetails[0]['shift_end_time'],
         });
       }
       else {
@@ -159,6 +171,7 @@ export class DriverBusinessComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.driverUpdateData = { user, data };
+    console.log(this.driverUpdateData);
     // update driver business details
     this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
       if (res['success'] == true) {
@@ -235,5 +248,15 @@ export class DriverBusinessComponent implements OnInit {
     }
     return date;
   }
-
+  getSiteList() {
+    this.driverService.getSiteList().subscribe(res => {
+      this.siteList = res['data']['list'];
+      console.log(this.siteList);
+    });
+  }
+  onTimeChange(value:{hour:string,minute:string})
+  {
+     console.log(value)
+     this.newTime=`${value.hour}:${value.minute}`;
+  }
 }
