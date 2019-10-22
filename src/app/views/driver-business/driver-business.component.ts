@@ -102,7 +102,10 @@ export class DriverBusinessComponent implements OnInit {
         let licence_validity = this.driverDetails[0]['licence_validity'];
         let badge_issue_date = this.driverDetails[0]['badge_issue_date'];
         let badge_expire_date = this.driverDetails[0]['badge_expire_date'];
-
+        let shift_start_time= this.driverDetails[0]['shift_start_time']  ;
+        let shift_end_time = this.driverDetails[0]['shift_end_time'];
+        let splitStartTime= shift_start_time == null ? null: shift_start_time.split(':').map(parseFloat);
+        let splitEndTime= shift_end_time== null ? null : shift_end_time.split(':').map(parseFloat);
 
         this.form.patchValue({
           licence_number: this.driverDetails[0]['licence_number'],
@@ -117,9 +120,10 @@ export class DriverBusinessComponent implements OnInit {
           ifsc_code: this.driverDetails[0]['ifsc_code'],
           induction_status: this.driverDetails[0]['induction_status'],
           site_id: this.driverDetails[0]['site_id'],
-          shift_start_time: this.driverDetails[0]['shift_start_time'],
-          shift_end_time: this.driverDetails[0]['shift_end_time'],
+          shift_start_time: shift_start_time == null ? this.timeStart : { hour:splitStartTime[0] , minute : splitStartTime[1] } ,
+          shift_end_time: shift_end_time == null ? this.timeEnd : { hour:splitEndTime[0] , minute : splitEndTime[1] } , 
         });
+        console.log(this.form.value);
       }
       else {
         this.toastr.error('Error', 'Something Went Wrong.');
@@ -150,6 +154,12 @@ export class DriverBusinessComponent implements OnInit {
     this.submitted = true;
 
     var values = this.form.value;
+    let shift_start_time = this.form.controls.shift_start_time.value;
+    let shift_end_time = this.form.controls.shift_end_time.value; 
+     
+    this.form.controls.shift_start_time.setValue(`${shift_start_time.hour}:${shift_start_time.minute}`);
+    this.form.controls.shift_end_time.setValue(`${shift_end_time.hour}:${shift_end_time.minute}`);
+
     // stop here if form is invalid
     if (this.form.invalid) {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
@@ -251,12 +261,6 @@ export class DriverBusinessComponent implements OnInit {
   getSiteList() {
     this.driverService.getSiteList().subscribe(res => {
       this.siteList = res['data']['list'];
-      console.log(this.siteList);
     });
-  }
-  onTimeChange(value:{hour:string,minute:string})
-  {
-     console.log(value)
-     this.newTime=`${value.hour}:${value.minute}`;
   }
 }
