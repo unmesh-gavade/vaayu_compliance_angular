@@ -32,8 +32,8 @@
             <div class="form-group row">
               <label for="lblOwnership" class="col-sm-5 col-form-label">Ownership</label>
               <div class="col-sm-6">
-                <div class="align-self-center Ownership ">
-                  <div class="btn-group btn-group-toggle d-flex " data-toggle="buttons">
+                <div class="align-self-center Ownership">
+                  <div class="btn-group btn-group-toggle d-flex "  [attr.data-toggle]="isEditModeOn ? 'buttons':  null">
                     <label class="btn btn-secondary active justify-content-center">
                       <input type="radio" name="options" id="option1" autocomplete="off" checked> BA
                     </label>
@@ -89,6 +89,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" class="form-control date_form_control" formControlName="road_tax_validity_date"
                       id="road_tax_validity_date" placeholder="Road Tax validity Date *" name="dp" ngbDatepicker
+                      autocomplete="off"
                       [disabled]="isEditModeOn?false:true"
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="road_tax_validity_date_model"
                       value="{{getFormattedDate(road_tax_validity_date_model)|date: serverDateFormat}}"
@@ -115,6 +116,7 @@
                     <input type="text" class="form-control date_form_control" formControlName="last_service_date"
                       id="last_service_date" placeholder="Last Service Date *" name="dp" ngbDatepicker
                       [disabled]="isEditModeOn?false:true"
+                      autocomplete="off"
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="last_service_date_model"
                       value="{{getFormattedDate(last_service_date_model)|date: serverDateFormat}}"
                       >
@@ -175,6 +177,7 @@
                     <input type="text" class="form-control date_form_control" formControlName="registration_date"
                       id="registration_date" placeholder="Date of Induction *" #registration_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true"
+                      autocomplete="off"
                       ngbDatepicker [(ngModel)]="registration_date_model"
                       value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
                       >
@@ -359,7 +362,7 @@
       <div class="row ">
         <div class="col-md-12 d-flex align-items-center">
           <div class="col-sm-6">
-            <span>Rejected Documents</span>
+            <span>Rejected/UnActioned Documents</span>
             <ul style="line-height: 280%" class="p-0 pdf_box pdf_rejected_list">
               <li style="margin-right: 12px; text-align:center !important;" class="pdf_li" *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0"
                 [ngClass]="{'btn btn-secondary active justify-content-center':item.status !== 'Approved'}" [class.d-none]="item.status === 'Approved'">{{item.doc_display_name}}
