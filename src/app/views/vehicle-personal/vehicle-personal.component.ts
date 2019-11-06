@@ -37,6 +37,7 @@ export class VehiclePersonalComponent implements OnInit {
   selectedPage = 0;
   pdfsDocs: any[] = [];
 
+  make_year_model: Date
   manufacturing_date_model: Date
   registration_date_model: Date
   insurance_date_model: Date
@@ -70,7 +71,7 @@ export class VehiclePersonalComponent implements OnInit {
       model: ['', Validators.required],
       seats: ['', Validators.required],
       colour: ['', Validators.required],
-      make_year: ['', Validators.required],
+      make: ['', Validators.required],
       registration_date: ['', Validators.required],
       insurance_date: ['', Validators.required],
       puc_validity_date: ['', Validators.required],
@@ -98,7 +99,7 @@ export class VehiclePersonalComponent implements OnInit {
         this.pdfsDocs = details['data']['doc_list'];
         this.pdfs = this.pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
 
-        let make_year_date = this.vehicleDetails[0]['make_year'];
+        let make_year_date = this.vehicleDetails[0]['make'];
         let registration_date = this.vehicleDetails[0]['registration_date'];
         let insurance_date = this.vehicleDetails[0]['insurance_date'];
         let puc_validity_date = this.vehicleDetails[0]['puc_validity_date'];
@@ -119,7 +120,7 @@ export class VehiclePersonalComponent implements OnInit {
           seats: this.vehicleDetails[0]['seats'],
           colour: this.vehicleDetails[0]['colour'],
 
-          make_year: make_year_date == null ? null :  new Date(make_year_date),
+          make: make_year_date == null ? null :  new Date(make_year_date),
           registration_date: registration_date == null ? null :  new Date(registration_date),
           insurance_date: insurance_date == null ? null : new Date(insurance_date),
           puc_validity_date: puc_validity_date == null ? null : new Date(puc_validity_date),
@@ -178,6 +179,7 @@ export class VehiclePersonalComponent implements OnInit {
     };
     var data = { formData: this.form.value, document };
     this.vehicleUpdateData = { user, data };
+    console.log('vehicle personal post data', this.vehicleUpdateData)
     // update vehicle personal details
     this.apiService.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
       if (res['success'] === true) {

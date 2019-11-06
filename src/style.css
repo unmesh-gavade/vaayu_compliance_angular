@@ -1,8 +1,9 @@
 @charset "UTF-8";
 /* You can add global styles to this file, and also import other style files */
 h1 {
-  font-size: 2.4rem;
-  margin-bottom: 30px; }
+  font-size: 2.4em;
+  margin-bottom: 30px; 
+}
 
 .bg-blue {
   background-color: #007EDB; }
@@ -14100,5 +14101,8 @@ select.form-control.fill_drop option {
 
 /*verification end*/
 /*e*/
-
+.Ownership .btn-secondary:not([disabled]):not(.disabled):active, .Ownership .btn-secondary:not([disabled]):not(.disabled).active, .Ownership .show > .btn-secondary.dropdown-toggle
+{
+  background-color: #51af2b !important;
+}
 /*# sourceMappingURL=style.css.map */
