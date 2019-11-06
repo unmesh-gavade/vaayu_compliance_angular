@@ -55,7 +55,7 @@ export class VehicleDocumentComponent implements OnInit {
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    if ('data_entry' == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
@@ -204,9 +204,12 @@ console.log(this.pdfs);
   
     var data = { formData: this.editVehicleDocumentForm.value, document };
     this.vehicleUpdateData = { user, data };
+    console.log(this.vehicleUpdateData);
     // update vehicle documents details
     this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      console.log(res);
       if (res['success'] == true) {
+        console.log('saved data');
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
@@ -251,7 +254,29 @@ console.log(this.pdfs);
     }
   }
   sumbitVehicle() {
-    if (this.validateDocuments()) {
+    if(this.isDataENtry){
+      console.log(this.isDataENtry);
+      let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+      if(rejected.length > 0){
+        if (this.editVehicleDocumentForm.controls.comment.value == 'null') {
+          this.toastr.error('Error', 'Select Rejection Reason');
+          return false;
+        }
+        else
+        {
+         alert('in sumbit of driver');
+          this.onSubmit();
+          this.nevigateToDash = true;
+        }
+        
+      }
+      else
+      {
+        this.nevigateToDash = true;
+      }
+
+    }
+    else if (this.validateDocuments()) {
       this.nevigateToDash = true;
       this.onSubmit();
       

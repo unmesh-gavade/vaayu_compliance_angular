@@ -179,7 +179,7 @@
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.licence_number}}</td>
                     <td>{{item.gender}}</td>
-                    <td>{{item.registeredby === null ? item.registeredby:'UMAR SAYYED'}}</td>
+                    <td>{{item.registeredby === null ? item.registeredby:'NA'}}</td>
                     <td><span>{{item.induction_status}}</span></td>
                     <td *ngIf="!toShowExpiry()">{{getFormatterDate(item.date_of_registration) | date: serverDateFormat }}</td>
                     <td *ngIf="toShowExpiry()">{{getFormatterDate(item.expiry_date) | date: serverDateFormat}}</td>
@@ -212,7 +212,7 @@
                     <td>{{item.plate_number }} </td>
                     <td>{{item.ba_legel_name}}</td>
                     <td>{{item.model}}</td>
-                    <td>{{item.registeredby === null ? item.registeredby:'UMAR SAYYED'}}</td>
+                    <td>{{item.registeredby === null ? item.registeredby:'NA'}}</td>
                     <td><span>{{item.induction_status}}</span></td>
                     <td *ngIf="!toShowExpiry()">{{getFormatterDate(item.date_of_registration) | date: serverDateFormat }}</td>
                     <td *ngIf="toShowExpiry()">{{getFormatterDate(item.expiry_date) | date: serverDateFormat}}</td>

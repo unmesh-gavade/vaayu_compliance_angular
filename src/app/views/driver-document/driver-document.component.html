@@ -274,8 +274,8 @@
             <ul style="line-height: 280%" class="p-0 pdf_box pdf_rejected_list">
               <li style="margin-right: 12px; text-align:center !important;" class="pdf_li"
                 *ngFor="let item of pdfs; let index = index" [class.activepdf]="index === 0"
-                [ngClass]="{'btn btn-secondary active justify-content-center':item.status !== 'Approved'}"
-                [class.d-none]="item.status === 'Approved'">{{item.doc_display_name}}
+                [ngClass]="{'btn btn-secondary active justify-content-center':item.status === 'Rejected'}"
+                [class.d-none]="item.status === 'Approved' || item.status === 'none'">{{item.doc_display_name}}
               </li>
             </ul>
 
