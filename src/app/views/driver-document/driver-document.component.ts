@@ -50,7 +50,7 @@ export class DriverDocumentComponent implements OnInit {
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if ('data_entry' == 'data_entry') { this.isDataENtry = true }
+    if (this.userRole == 'data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");
@@ -185,15 +185,16 @@ export class DriverDocumentComponent implements OnInit {
     if(this.isDataENtry){
       console.log(this.isDataENtry);
       let rejected = this.pdfs.filter(i => i.status === 'Rejected')
-      alert(rejected.length);
       if(rejected.length > 0){
-        alert(this.form.controls.comment.value == 'null');
         if (this.form.controls.comment.value == 'null') {
           this.toastr.error('Error', 'Select Rejection Reason');
           return false;
         }
         else
         {
+          this.form.patchValue({
+            induction_status: 'Rejected'
+          });
           this.onSubmit();
           this.nevigateToDash = true;
         }
