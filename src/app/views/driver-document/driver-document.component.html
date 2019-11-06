@@ -137,8 +137,13 @@
             <div class="form-group row">
               <label for="lblbgc_agency_id" class="col-sm-5 col-form-label">BGC Agency</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="bgc_agency_id" id="bgc_agency_id"
-                  placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' ">
+                <!-- <input type="text" class="form-control" formControlName="bgc_agency_id" id="bgc_agency_id"
+                  placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  <select name="bgc_agency_id" class="form-control dropdown dropdown_custom indrop"
+                  formControlName="bgc_agency_id" id="bgc_agency_id" [attr.disabled]="isEditModeOn ? null : '' ">
+                  <option value='1'>MLL</option>
+                </select>
+
 
                 <div *ngIf="submitted && f.bgc_agency_id.errors">
                   <div *ngIf="f.bgc_agency_id.errors.required" class="error_class">BGC Date is required is required
