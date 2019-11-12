@@ -11,7 +11,7 @@ import { AppConst } from 'src/app/const/appConst';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  
+
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
@@ -29,17 +29,19 @@ export class LoginComponent implements OnInit {
      //let EmailPattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'
 
     this.loginForm = this.formBuilder.group({
-      username: ['9000297298', Validators.required],
-      password: ['012345', Validators.required]
+      // username: ['qc-n3wnormal-com', Validators.required],
+      // password: ['password3', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
-   
+
   }
   get username() { return this.loginForm.controls.username; }
   get password() { return this.loginForm.controls.password; }
 
   onSubmit() {
     this.submitted = true;
-    
+
     if (this.loginForm.invalid) {
         return;
     }
