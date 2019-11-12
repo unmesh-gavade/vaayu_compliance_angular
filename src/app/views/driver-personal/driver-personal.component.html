@@ -110,7 +110,7 @@
             <div class="form-group row">
               <label for="lblaadhaar_mobile_number" class="col-sm-5 col-form-label">Contact Number *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="aadhaar_mobile_number"
+                <input type="number" class="form-control" formControlName="aadhaar_mobile_number"
                   id="aadhaar_mobile_number" placeholder="Contact Number *" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.aadhaar_mobile_number.errors">
                   <div *ngIf="f.aadhaar_mobile_number.errors.required" class="error_class">Contact Number is required
@@ -252,12 +252,12 @@
                           'approved':pdfs[selectedPage].status === 'Approved',
                           'rejected':pdfs[selectedPage].status === 'Rejected'
                           }"></span>
-             <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
+             <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}}?{{CurentDateTime}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true" 
               [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
               >
             </pdf-viewer>
-            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " 
+            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}}?{{CurentDateTime}} " 
              [ngClass]="{'d-none': check_if_doc_is_pdf()}"
               class="pdf_view" style="width: 100%;">
             <!-- <embed src="./assets/images/myfile.pdf" style="width: 100%;height:400px;" /> -->

@@ -34,7 +34,7 @@ export class DriverBusinessComponent implements OnInit {
   userRole: String;
   isDataENtry = false;
   selectedPage = 0
-
+  CurentDateTime =new Date().toISOString();
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
   licence_expiry_date_model: Date
   induction_date_model: Date
@@ -59,7 +59,7 @@ export class DriverBusinessComponent implements OnInit {
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    if (this.userRole == 'qc_data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
 
     this.is_renewal = <number><unknown>this.route.snapshot.paramMap.get("is_renewal");

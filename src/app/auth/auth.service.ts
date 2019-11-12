@@ -48,16 +48,6 @@ export class AuthService {
     // var newusername = username.substr(0, username.indexOf('@'));
     // var encryptedData =  this.encryptPassword(password);
 
-    // var dataLogin = {
-    //   "username": '9000297298',
-    //   "password": '012345',
-    //   "app": 'driver'
-    // };
-    var dataLogin = {
-      "username":username ,
-      "password": password,
-      "app": 'driver'
-    };
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       observe: 'response'
@@ -67,7 +57,7 @@ export class AuthService {
     return this.http.post<any>(`${this.serverUrl}/signin`, {
       'username': username,
       'password': password,
-      'app':'driver'
+      'app':'web'
   }, {
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
@@ -80,9 +70,9 @@ export class AuthService {
       console.log(client);
       console.log(access_token);
       if (user['body']['data'] && user['body']['status'] == true) {
-        localStorage.setItem('currentUser', JSON.stringify(user['body']['data']['data']));
-        localStorage.setItem('client',client);
-        localStorage.setItem('access_token',access_token);
+        sessionStorage.setItem('currentUser', JSON.stringify(user['body']['data']['data']));
+        sessionStorage.setItem('client',client);
+        sessionStorage.setItem('access_token',access_token);
         this.isLoggedIn = true;
       } else {
         this.toastr.error('Error', 'Invalid login credentials. Please try again.');
@@ -93,7 +83,7 @@ export class AuthService {
   }
 
   getAuthUser() {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser) {
       return JSON.parse(currentUser);
     } else {
@@ -102,7 +92,7 @@ export class AuthService {
   }
 
   getAppToken() {
-    const appToken = localStorage.getItem('access_token');
+    const appToken = sessionStorage.getItem('access_token');
     if (appToken) {
       // let tokenData = JSON.parse(appToken)
       return appToken;
@@ -111,7 +101,7 @@ export class AuthService {
     }
   }
   getClientToken() {
-    const client = localStorage.getItem('client');
+    const client = sessionStorage.getItem('client');
     if (client) {
       // let tokenData = JSON.parse(client)
       return client;
@@ -136,9 +126,9 @@ export class AuthService {
       });  
   }
   logout() {
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('client');
-      localStorage.removeItem('access_token');
+    sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('client');
+    sessionStorage.removeItem('access_token');
       this.isLoggedIn = false;
       this.isAuthorise = false;
       this.router.navigate(['/login']);

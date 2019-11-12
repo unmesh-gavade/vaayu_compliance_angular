@@ -14106,3 +14106,10 @@ select.form-control.fill_drop option {
   background-color: #51af2b !important;
 }
 /*# sourceMappingURL=style.css.map */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

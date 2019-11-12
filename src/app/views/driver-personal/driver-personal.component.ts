@@ -34,7 +34,7 @@ export class DriverPersonalComponent implements OnInit {
   userRole: String;
   isDataENtry = false;
   selectedPage = 0;
-
+  CurentDateTime =new Date().toISOString();
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
 
   date_of_birth_model: Date
@@ -48,7 +48,7 @@ export class DriverPersonalComponent implements OnInit {
     this.authService.checkLogin();
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    if (this.userRole == 'qc_data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
@@ -80,6 +80,7 @@ export class DriverPersonalComponent implements OnInit {
     }
     this.driverPostData = { user };
     this.driverService.getDriverDetails(this.driverPostData).subscribe(details => {
+      console.log(details);
       if (details['success'] == true) {
         console.log(details);
         this.driverDetails = details['data']['user_detail'];

@@ -106,8 +106,6 @@
               <div class="col-sm-6 mb-0">
                 <!-- <input type="text" class="form-control" formControlName="make_year" id="make_year"
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> 
-              
-               
               -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
@@ -132,30 +130,30 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblregistration_date" class="col-sm-5 col-form-label">Registration Date *</label>
-              <div class="col-sm-6 mb-0">
-                <!-- <input type="text" class="form-control" formControlName="registration_date" id="fuel_type"
-                placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
-                <div class="form-group form-group-custom">
-                  <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
-                      [(ngModel)]="registration_date_model" name="dp" ngbDatepicker #registration_date="ngbDatepicker"
-                      formControlName="registration_date" id="registration_date"
-                      autocomplete="off"
-                      value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
-                      [disabled]="isEditModeOn?false:true">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="registration_date.toggle()"
-                        [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
+                <label for="lblregistration_date" class="col-sm-5 col-form-label">Registration Date *</label>
+                <div class="col-sm-6 mb-0">
+                  <!-- <input type="text" class="form-control" formControlName="registration_date" id="fuel_type"
+                  placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                  <div class="form-group form-group-custom">
+                    <div class="input-group input-group-custom">
+                      <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
+                        [(ngModel)]="registration_date_model" name="dp" ngbDatepicker #registration_date="ngbDatepicker"
+                        formControlName="registration_date" 
+                        autocomplete="off"
+                        value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
+                        [disabled]="isEditModeOn?false:true" id="registration_date">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="registration_date.toggle()"
+                          [attr.disabled]="isEditModeOn ? null : '' " type="button"></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="submitted && f.registration_date.errors">
+                    <div *ngIf="f.registration_date.errors.required" class="error_class">Registration Date is required
                     </div>
                   </div>
                 </div>
-                <div *ngIf="submitted && f.registration_date.errors">
-                  <div *ngIf="f.registration_date.errors.required" class="error_class">Registration Date is required
-                  </div>
-                </div>
               </div>
-            </div>
 
 
             <div class="form-group row">
@@ -371,12 +369,12 @@
                   'approved':pdfs[selectedPage].status === 'Approved',
                   'rejected':pdfs[selectedPage].status === 'Rejected'
                   }"></span>
-            <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} " [original-size]="false" class="pdf_view"
+            <pdf-viewer src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}}?{{CurentDateTime}} " [original-size]="false" class="pdf_view"
               [zoom]="zoom" [show-all]="true"
               [ngClass]="{'d-none': !check_if_doc_is_pdf()}"  
               >
             </pdf-viewer>
-            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}} "  
+            <img src="https://{{pdfs.length > 0 ? pdfs[selectedPage].doc_url : null}}?{{CurentDateTime}} "  
             [ngClass]="{'d-none': check_if_doc_is_pdf()}"
             class="pdf_view" style="width: 100%;">
             <!-- <pdf-viewer src="{{'https://'+pdfs[selectedPage].doc_url}}" [original-size]="false" class="pdf_view" [zoom]="zoom" [show-all]="true"

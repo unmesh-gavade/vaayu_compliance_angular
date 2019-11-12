@@ -44,7 +44,7 @@ export class VehiclePersonalComponent implements OnInit {
   puc_date_model: Date
   fitness_date_model: Date
   permit_date_model: Date
-
+  CurentDateTime =new Date().toISOString();
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
   is_renewal = 0;
   is_next=false;
@@ -55,7 +55,7 @@ export class VehiclePersonalComponent implements OnInit {
     this.authService.checkLogin();
     const currentUser = this.authService.getAuthUser();
     this.userRole = currentUser.role;
-    if (this.userRole == 'data_entry') { this.isDataENtry = true }
+    if (this.userRole == 'qc_data_entry') { this.isDataENtry = true }
     else { this.isDataENtry = false };
     this.resource_id = this.route.snapshot.paramMap.get("resource_id");
     this.resource_type = this.route.snapshot.paramMap.get("resource_type");
@@ -158,6 +158,7 @@ export class VehiclePersonalComponent implements OnInit {
     var values = this.form.value;
 
     if (this.form.invalid) {
+      console.log(this.form.value);
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
