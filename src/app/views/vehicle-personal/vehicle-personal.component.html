@@ -109,7 +109,7 @@
               -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="make" id="make_year"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="make" id="make_year"
                       placeholder="Manufacture Date *" name="dp" ngbDatepicker #make_year="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="make_year_model" 
@@ -136,7 +136,7 @@
                   placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                   <div class="form-group form-group-custom">
                     <div class="input-group input-group-custom">
-                      <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
+                      <input type="text" readonly class="form-control date_form_control" placeholder="Registration Date *"
                         [(ngModel)]="registration_date_model" name="dp" ngbDatepicker #registration_date="ngbDatepicker"
                         formControlName="registration_date" 
                         autocomplete="off"
@@ -163,7 +163,7 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" placeholder="Registration Date *"
+                    <input type="text" readonly class="form-control date_form_control" placeholder="Registration Date *"
                       [(ngModel)]="insurance_date_model"
                       autocomplete="off"
                       value="{{getFormattedDate(insurance_date_model)|date: serverDateFormat}}" name="dp" ngbDatepicker
@@ -189,7 +189,7 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="puc_validity_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="puc_validity_date"
                     autocomplete="off"
                       [(ngModel)]="puc_date_model" value="{{getFormattedDate(puc_date_model)|date: serverDateFormat}}"
                       [disabled]="isEditModeOn?false:true" id="puc_validity_date" placeholder="PUC Validity Date  *"
@@ -216,7 +216,7 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" [(ngModel)]="fitness_date_model"
+                    <input type="text" readonly class="form-control date_form_control" [(ngModel)]="fitness_date_model"
                     autocomplete="off"
                       value="{{getFormattedDate(fitness_date_model)|date: serverDateFormat}}"
                       placeholder="Fitness Certificate Validity Date *" name="dp" ngbDatepicker
@@ -244,7 +244,7 @@
                 placeholder="Type Of Fuel" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" [(ngModel)]="permit_date_model"
+                    <input type="text" readonly class="form-control date_form_control" [(ngModel)]="permit_date_model"
                       value="{{getFormattedDate(permit_date_model)|date: serverDateFormat}}"
                       placeholder="Commercial Permit Validity Date *" name="dp" ngbDatepicker
                       autocomplete="off"

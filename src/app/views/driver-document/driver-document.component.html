@@ -50,7 +50,7 @@
 
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control"
+                    <input type="text" readonly class="form-control date_form_control"
                       formControlName="police_verification_vailidty" id="police_verification_vailidty"
                       placeholder="Police Verification Validity *" name="police_verification_vailidty" ngbDatepicker
                       #test="ngbDatepicker" [disabled]="isEditModeOn?false:true"
@@ -77,7 +77,7 @@
                -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control"
+                    <input type="text" readonly readonly class="form-control date_form_control"
                       formControlName="date_of_police_verification" id="date_of_police_verification"
                       placeholder="Date Of Police Verification *" name="dp" ngbDatepicker
                       #date_of_police_verification="ngbDatepicker" [disabled]="isEditModeOn?false:true"
@@ -118,7 +118,7 @@
               <div class="col-sm-6">
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="bgc_date" id="bgc_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="bgc_date" id="bgc_date"
                       placeholder="bgc date Date *" name="dp" ngbDatepicker #bgc_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true" [(ngModel)]="bgc_date_model"
                       value="{{getFormattedDate(bgc_date_model)|date: serverDateFormat}}">
@@ -156,7 +156,7 @@
               <div class="col-sm-6">
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="medically_certified_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="medically_certified_date"
                       id="medically_certified_date" placeholder="bgc date Date *" name="dp" ngbDatepicker
                       #medically_certified_date="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="medically_certified_date_model"

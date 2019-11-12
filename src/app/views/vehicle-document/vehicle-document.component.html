@@ -87,7 +87,7 @@
                 <!-- <input type="text" class="form-control" formControlName="road_tax_validity_date" id="road_tax_validity_date" placeholder="Business Area *" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="road_tax_validity_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="road_tax_validity_date"
                       id="road_tax_validity_date" placeholder="Road Tax validity Date *" name="dp" ngbDatepicker
                       autocomplete="off"
                       [disabled]="isEditModeOn?false:true"
@@ -113,7 +113,7 @@
                 <!-- <input type="text" class="form-control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="last_service_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="last_service_date"
                       id="last_service_date" placeholder="Last Service Date *" name="dp" ngbDatepicker
                       [disabled]="isEditModeOn?false:true"
                       autocomplete="off"
@@ -174,7 +174,7 @@
 
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="registration_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="registration_date"
                       id="registration_date" placeholder="Date of Induction *" #registration_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true"
                       autocomplete="off"

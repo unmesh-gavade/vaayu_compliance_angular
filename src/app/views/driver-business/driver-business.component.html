@@ -76,7 +76,7 @@
                 <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="licence_validity"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="licence_validity"
                       placeholder="Licence Expiry Date *" name="dp" ngbDatepicker #licence_validity="ngbDatepicker"
                       id="licence_validity" 
                       [disabled]="isEditModeOn?false:true" [(ngModel)]="licence_expiry_date_model"
@@ -100,7 +100,7 @@
                 <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="date_of_registration"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="date_of_registration"
                       placeholder="Date Of Induction *" name="dp" ngbDatepicker #date_of_registration="ngbDatepicker"
                       id="date_of_registration" [disabled]="isEditModeOn?false:true" [(ngModel)]="induction_date_model"
                       value="{{getFormattedDate(induction_date_model)|date: serverDateFormat}}">
@@ -133,7 +133,7 @@
                 <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="badge_issue_date"
+                    <input type="text" readonly class="form-control date_form_control" formControlName="badge_issue_date"
                       id="badge_issue_date" placeholder="Badge Issue Date *" name="dp" ngbDatepicker
                       #badge_issue_date="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="badge_issue_date_model"
@@ -155,7 +155,7 @@
                 <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" class="form-control date_form_control" formControlName="badge_expire_date"
+                    <input type="text"  readonly class="form-control date_form_control" formControlName="badge_expire_date"
                       placeholder="Badge Expiry Date *" name="dp" ngbDatepicker #badge_expire_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true" [(ngModel)]="badge_expiry_date_model"
                       value="{{getFormattedDate(badge_expiry_date_model)|date: serverDateFormat}}">
