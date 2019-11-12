@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
      //let EmailPattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'
 
     this.loginForm = this.formBuilder.group({
-      username: ['9000297298', Validators.required],
-      password: ['012345', Validators.required]
+      // username: ['qc-n3wnormal-com', Validators.required],
+      // password: ['password3', Validators.required]
     });
    
   }
