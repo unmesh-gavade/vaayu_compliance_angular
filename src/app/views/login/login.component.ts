@@ -11,7 +11,7 @@ import { AppConst } from 'src/app/const/appConst';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-  
+
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
@@ -31,15 +31,17 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       // username: ['qc-n3wnormal-com', Validators.required],
       // password: ['password3', Validators.required]
+      username: ['qc-n3wnormal-com', Validators.required],
+      password: ['password3', Validators.required]
     });
-   
+
   }
   get username() { return this.loginForm.controls.username; }
   get password() { return this.loginForm.controls.password; }
 
   onSubmit() {
     this.submitted = true;
-    
+
     if (this.loginForm.invalid) {
         return;
     }
