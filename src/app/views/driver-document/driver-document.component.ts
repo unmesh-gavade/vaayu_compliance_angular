@@ -60,15 +60,15 @@ export class DriverDocumentComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      verified_by_police: ['', Validators.required],
-      police_verification_vailidty: ['', Validators.required],
-      date_of_police_verification: ['', Validators.required],
-      criminal_offence: ['', Validators.required],
-      bgc_date: ['', Validators.required],
-      bgc_agency_id: ['', Validators.required],
-      medically_certified_date: ['', Validators.required],
-      sexual_policy: ['', Validators.required],
-      induction_status: [''],
+      verified_by_police: ['', ''],
+      police_verification_vailidty: ['', ''],
+      date_of_police_verification: ['', ''],
+      criminal_offence: ['', ''],
+      bgc_date: ['', ''],
+      bgc_agency_id: ['',''],
+      medically_certified_date: ['',''],
+      sexual_policy: ['',Validators.required],
+      induction_status: ['',''],
       comment: ['',''],
       
     });

@@ -38,9 +38,9 @@
                   <option value='1'>YES </option>
                   <option value='0'>NO</option>
                 </select>
-                <div *ngIf="submitted && f.verified_by_police.errors">
+                <!-- <div *ngIf="submitted && f.verified_by_police.errors">
                   <div *ngIf="f.verified_by_police.errors.required" class="error_class">Verified By Police is required</div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="form-group row">
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group row">
               <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification
-                *</label>
+                </label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
                -->
@@ -90,14 +90,14 @@
                   </div>
                 </div>
 
-                <div *ngIf="submitted && f.date_of_police_verification.errors">
+                <!-- <div *ngIf="submitted && f.date_of_police_verification.errors">
                   <div *ngIf="f.date_of_police_verification.errors.required" class="error_class">Date Of Police
                     Verification is required</div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblcriminal_offence" class="col-sm-5 col-form-label">Criminal Offense *</label>
+              <label for="lblcriminal_offence" class="col-sm-5 col-form-label">Criminal Offense </label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="criminal_offence" id="criminal_offence" placeholder="Criminal Offense" [attr.disabled]="isEditModeOn ? null : '' "> -->
 
@@ -107,9 +107,9 @@
                   <option value='0'>NO</option>
                 </select>
 
-                <div *ngIf="submitted && f.criminal_offence.errors">
+                <!-- <div *ngIf="submitted && f.criminal_offence.errors">
                   <div *ngIf="f.criminal_offence.errors.required" class="error_class">Criminal Offense is required</div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -146,7 +146,7 @@
 
 
                 <div *ngIf="submitted && f.bgc_agency_id.errors">
-                  <div *ngIf="f.bgc_agency_id.errors.required" class="error_class">BGC Date is required is required
+                  <div *ngIf="f.bgc_agency_id.errors.required" class="error_class">BGC Agency is required
                   </div>
                 </div>
               </div>
