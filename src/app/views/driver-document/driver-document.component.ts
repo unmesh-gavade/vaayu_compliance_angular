@@ -145,6 +145,7 @@ export class DriverDocumentComponent implements OnInit {
       "resource_type": this.resource_type,
       "os_type": 'web',
       is_renew: Number(this.is_renewal),
+      is_final:true
     };
     console.log(this.pdfs.filter(i => i.status === 'Approved'));
 

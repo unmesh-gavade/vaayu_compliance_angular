@@ -14113,3 +14113,6 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0; 
 }
+.textCenter{
+  text-align: center
+}
