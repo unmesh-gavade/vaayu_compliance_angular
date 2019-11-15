@@ -155,11 +155,11 @@ export class DriverBusinessComponent implements OnInit {
 
     var values = this.form.value;
     let shift_start_time = this.form.controls.shift_start_time.value;
-    let shift_end_time = this.form.controls.shift_end_time.value; 
-     
-    this.form.controls.shift_start_time.setValue(`${shift_start_time.hour}:${shift_start_time.minute}`);
-    this.form.controls.shift_end_time.setValue(`${shift_end_time.hour}:${shift_end_time.minute}`);
-
+    let shift_end_time = this.form.controls.shift_end_time.value;
+    
+    this.form.controls.shift_start_time.setValue((moment(shift_start_time).format('HH:mm')) == 'Invalid date' ? '00:00': (moment(shift_start_time).format('HH:mm')) );
+    this.form.controls.shift_end_time.setValue((moment(shift_end_time).format('HH:mm'))== 'Invalid date' ? '00:00': (moment(shift_end_time).format('HH:mm')) );
+    
     // stop here if form is invalid
     if (this.form.invalid) {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
