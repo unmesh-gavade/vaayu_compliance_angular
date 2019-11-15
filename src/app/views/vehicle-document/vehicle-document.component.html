@@ -135,7 +135,7 @@
             <div class="form-group row">
               <label for="lbllast_service_km" class="col-sm-5 col-form-label">Last Service KM</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="last_service_km" id="last_service_km"
+                <input type="number" class="form-control" formControlName="last_service_km" id="last_service_km"
                   placeholder="Last Service KM" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.last_service_km.errors">
                   <div *ngIf="f.last_service_km.errors.required" class="error_class">Last Service KM is required</div>
@@ -145,7 +145,7 @@
             <div class="form-group row">
               <label for="lblkm_at_induction" class="col-sm-5 col-form-label">KM at the time of Induction</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="km_at_induction" id="km_at_induction"
+                <input type="number" class="form-control" formControlName="km_at_induction" id="km_at_induction"
                   placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.km_at_induction.errors">
                   <div *ngIf="f.km_at_induction.errors.required" class="error_class">KM at the time of Induction is
