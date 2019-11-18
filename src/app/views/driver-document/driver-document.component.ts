@@ -199,11 +199,11 @@ export class DriverDocumentComponent implements OnInit {
           this.nevigateToDash = true;
           this.onSubmit();
         }
-        
       }
       else
       {
-        this.router.navigate(['/dashboard']);
+        this.nevigateToDash = true;
+        this.onSubmit();
       }
 
     }

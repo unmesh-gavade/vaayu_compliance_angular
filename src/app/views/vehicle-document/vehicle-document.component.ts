@@ -275,7 +275,8 @@ console.log(this.pdfs);
       }
       else
       {
-        this.router.navigate(['/dashboard']);
+        this.nevigateToDash = true;
+        this.onSubmit();
       }
 
     }
