@@ -269,14 +269,13 @@ console.log(this.pdfs);
           this.editVehicleDocumentForm.patchValue({
             induction_status: 'Rejected'
           });
-          this.onSubmit();
           this.nevigateToDash = true;
+          this.onSubmit();
         }
-        
       }
       else
       {
-        this.nevigateToDash = true;
+        this.router.navigate(['/dashboard']);
       }
 
     }
