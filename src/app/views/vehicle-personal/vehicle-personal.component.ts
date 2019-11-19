@@ -100,7 +100,7 @@ export class VehiclePersonalComponent implements OnInit {
         this.pdfs = this.pdfsDocs.filter(item => item.doc_url != null && item.doc_type === 'business');
 
         let make_year_date = this.vehicleDetails[0]['make'];
-        let registration_date = this.vehicleDetails[0]['registration_date'];
+        let registration_date = this.vehicleDetails[0]['date_of_registration'];
         let insurance_date = this.vehicleDetails[0]['insurance_date'];
         let puc_validity_date = this.vehicleDetails[0]['puc_validity_date'];
         let fitness_validity_date = this.vehicleDetails[0]['fitness_validity_date'];

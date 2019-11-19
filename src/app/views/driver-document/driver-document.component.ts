@@ -196,14 +196,14 @@ export class DriverDocumentComponent implements OnInit {
           this.form.patchValue({
             induction_status: 'Rejected'
           });
-          this.onSubmit();
           this.nevigateToDash = true;
+          this.onSubmit();
         }
-        
       }
       else
       {
         this.nevigateToDash = true;
+        this.onSubmit();
       }
 
     }
