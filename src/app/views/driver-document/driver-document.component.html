@@ -54,7 +54,7 @@
                       formControlName="police_verification_vailidty" id="police_verification_vailidty"
                       placeholder="Police Verification Validity *" name="police_verification_vailidty" ngbDatepicker
                       #test="ngbDatepicker" [disabled]="isEditModeOn?false:true"
-                      [(ngModel)]="police_verification_vailidty_model"
+                      [(ngModel)]="police_verification_vailidty_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(police_verification_vailidty_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="test.toggle()" 
@@ -81,7 +81,7 @@
                       formControlName="date_of_police_verification" id="date_of_police_verification"
                       placeholder="Date Of Police Verification *" name="dp" ngbDatepicker
                       #date_of_police_verification="ngbDatepicker" [disabled]="isEditModeOn?false:true"
-                      [(ngModel)]="date_of_police_verification_model"
+                      [(ngModel)]="date_of_police_verification_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(date_of_police_verification_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="date_of_police_verification.toggle()"
@@ -120,7 +120,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="bgc_date" id="bgc_date"
                       placeholder="bgc date Date *" name="dp" ngbDatepicker #bgc_date="ngbDatepicker"
-                      [disabled]="isEditModeOn?false:true" [(ngModel)]="bgc_date_model"
+                      [disabled]="isEditModeOn?false:true" [(ngModel)]="bgc_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(bgc_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="bgc_date.toggle()"
@@ -159,7 +159,7 @@
                     <input type="text" readonly class="form-control date_form_control" formControlName="medically_certified_date"
                       id="medically_certified_date" placeholder="bgc date Date *" name="dp" ngbDatepicker
                       #medically_certified_date="ngbDatepicker" [disabled]="isEditModeOn?false:true"
-                      [(ngModel)]="medically_certified_date_model"
+                      [(ngModel)]="medically_certified_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(medically_certified_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="medically_certified_date.toggle()"

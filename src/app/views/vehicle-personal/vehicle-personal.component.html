@@ -113,7 +113,7 @@
                       placeholder="Manufacture Date *" name="dp" ngbDatepicker #make_year="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="make_year_model" 
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       value="{{getFormattedDate(make_year_model)|date: serverDateFormat}}"
                       >
                     <div class="input-group-append">
@@ -139,7 +139,7 @@
                       <input type="text" readonly class="form-control date_form_control" placeholder="Registration Date *"
                         [(ngModel)]="registration_date_model" name="dp" ngbDatepicker #registration_date="ngbDatepicker"
                         formControlName="registration_date" 
-                        autocomplete="off"
+                        autocomplete="off" [placement]="'bottom-left'"
                         value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
                         [disabled]="isEditModeOn?false:true" id="registration_date">
                       <div class="input-group-append">
@@ -165,7 +165,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" placeholder="Registration Date *"
                       [(ngModel)]="insurance_date_model"
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       value="{{getFormattedDate(insurance_date_model)|date: serverDateFormat}}" name="dp" ngbDatepicker
                       #insurance_date="ngbDatepicker" formControlName="insurance_date"
                       [disabled]="isEditModeOn?false:true" id="insurance_date">
@@ -190,7 +190,7 @@
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="puc_validity_date"
-                    autocomplete="off"
+                    autocomplete="off" [placement]="'bottom-left'"
                       [(ngModel)]="puc_date_model" value="{{getFormattedDate(puc_date_model)|date: serverDateFormat}}"
                       [disabled]="isEditModeOn?false:true" id="puc_validity_date" placeholder="PUC Validity Date  *"
                       name="dp" ngbDatepicker #puc_validity_date="ngbDatepicker">
@@ -217,7 +217,7 @@
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" [(ngModel)]="fitness_date_model"
-                    autocomplete="off"
+                    autocomplete="off" [placement]="'bottom-left'"
                       value="{{getFormattedDate(fitness_date_model)|date: serverDateFormat}}"
                       placeholder="Fitness Certificate Validity Date *" name="dp" ngbDatepicker
                       [disabled]="isEditModeOn?false:true" #fitness_validity_date="ngbDatepicker"
@@ -247,7 +247,7 @@
                     <input type="text" readonly class="form-control date_form_control" [(ngModel)]="permit_date_model"
                       value="{{getFormattedDate(permit_date_model)|date: serverDateFormat}}"
                       placeholder="Commercial Permit Validity Date *" name="dp" ngbDatepicker
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       [disabled]="isEditModeOn?false:true" #permit_validity_date="ngbDatepicker"
                       formControlName="permit_validity_date" id="permit_validity_date">
                     <div class="input-group-append">

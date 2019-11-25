@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             //const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/dashboard';
             //this.router.navigate([redirect]);
             this.router.navigate(['/dashboard']);
-            this.toastr.success('Success', 'Login success');
+            this.toastr.success('Success', 'Logged In Successfully');
          //});
         } else {
           this.toastr.error('Error','Username or password is incorrect.');

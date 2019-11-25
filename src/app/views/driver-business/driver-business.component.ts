@@ -154,53 +154,23 @@ export class DriverBusinessComponent implements OnInit {
     this.submitted = true;
 
     var values = this.form.value;
-    let shift_start_time = this.form.controls.shift_start_time.value;
-    let shift_end_time = this.form.controls.shift_end_time.value;
-    
-    this.form.controls.shift_start_time.setValue((moment(shift_start_time).format('HH:mm')) == 'Invalid date' ? '00:00': (moment(shift_start_time).format('HH:mm')) );
-    this.form.controls.shift_end_time.setValue((moment(shift_end_time).format('HH:mm'))== 'Invalid date' ? '00:00': (moment(shift_end_time).format('HH:mm')) );
-    
-    // stop here if form is invalid
+
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+    if(rejected.length > 0){
+     this.saveDetails();
+    }
+   else{
     if (this.form.invalid) {
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
-    var user = {
-      "session_id": 3403,
-      "resource_id": +this.resource_id,
-      "resource_type": this.resource_type,
-      "os_type": 'web',
-      is_renew: Number(this.is_renewal),
-    };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    let document = {
-      "approvedDoc": approvedDocsId,
-      "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
-    };
-    var data = { formData: this.form.value, document };
-    this.driverUpdateData = { user, data };
-    console.log(this.driverUpdateData);
-    // update driver business details
-    this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-      if (res['success'] == true) {
-        this.isEditModeOn = false;
-        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
-        else { this.valueOfButton = "Edit" }
-        if(!this.is_next){
-        this.toastr.success('Success', 'Driver Business Details updated successfully');
-        }
-        this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
-        'is_renewal': this.is_renewal }]);
-      }
-      else {
-        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-      }
-    }, errorResponse => {
-      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-    });
+    else
+    {
+       this.saveDetails() ;
+    }
+   }   
 
+   
   }
   saveDocsStatus(resource_id) {
     this.is_next = true;
@@ -262,5 +232,49 @@ export class DriverBusinessComponent implements OnInit {
     this.driverService.getSiteList().subscribe(res => {
       this.siteList = res['data']['list'];
     });
+  }
+  saveDetails(){
+    let shift_start_time = this.form.controls.shift_start_time.value ;
+    let shift_end_time = this.form.controls.shift_end_time.value;
+    
+    this.form.controls.shift_start_time.setValue((moment(shift_start_time).format('HH:mm')) == 'Invalid date' ? '00:00': (moment(shift_start_time).format('HH:mm')) );
+    this.form.controls.shift_end_time.setValue((moment(shift_end_time).format('HH:mm'))== 'Invalid date' ? '00:00': (moment(shift_end_time).format('HH:mm')) );
+    
+    var user = {
+      "session_id": 3403,
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
+    };
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
+    let document = {
+      "approvedDoc": approvedDocsId,
+      "rejectedDdoc": rejectedDocsId,
+      "comment": 'test'
+    };
+    var data = { formData: this.form.value, document };
+    this.driverUpdateData = { user, data };
+    console.log(this.driverUpdateData);
+    // update driver business details
+    this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        if(!this.is_next){
+        this.toastr.success('Success', 'Driver Business Details updated successfully');
+        }
+        this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+        'is_renewal': this.is_renewal }]);
+      }
+      else {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+    });
+
   }
 }

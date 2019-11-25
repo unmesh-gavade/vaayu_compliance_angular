@@ -1,0 +1,56 @@
+[1mdiff --git a/src/app/views/driver-personal/driver-personal.component.ts b/src/app/views/driver-personal/driver-personal.component.ts[m
+[1mindex 26d9497..f494481 100644[m
+[1m--- a/src/app/views/driver-personal/driver-personal.component.ts[m
+[1m+++ b/src/app/views/driver-personal/driver-personal.component.ts[m
+[36m@@ -8,6 +8,7 @@[m [mimport { Router, ActivatedRoute } from "@angular/router";[m
+ import { AuthService } from '../../auth/auth.service';[m
+ import { AppConst } from 'src/app/const/appConst';[m
+ import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';[m
+[32m+[m[32mimport { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';[m
+ [m
+ [m
+ @Component({[m
+[36m@@ -132,27 +133,19 @@[m [mexport class DriverPersonalComponent implements OnInit {[m
+     this.submitted = true;[m
+ [m
+     var values = this.form.value;[m
+[31m-    console.log(values);[m
+[32m+[m[32m    this.form.patchValue({[m
+[32m+[m[32m      date_of_birth: moment(values.date_of_birth).format("YYYY-MM-DD"),[m
+[32m+[m[32m    });[m
+[32m+[m[32m    console.log(this.form.controls.date_of_birth.value);[m
+     // stop here if form is invalid[m
+     if (this.form.invalid) {[m
+[31m-     [m
+[32m+[m[32m     console.log(this.form.value);[m
+       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);[m
+       return;[m
+     }[m
+[31m-    // this.form.patchValue({[m
+[31m-    //   driver_name: values.driver_name,[m
+[31m-    //   father_spouse_name: values.father_spouse_name,[m
+[31m-    //   date_of_birth: moment(values.date_of_birth).format("YYYY-MM-DD"),[m
+[31m-    //   gender: values.gender,[m
+[31m-    //   aadhaar_mobile_number: values.aadhaar_mobile_number,[m
+[31m-    //   aadhar_number: values.aadhar_number,[m
+[31m-    //   marital_status: values.marital_status,[m
+[31m-    //   blood_group: values.blood_group,[m
+[31m-    //   local_address: values.local_address,[m
+[31m-    //   permanent_address: values.permanent_address,[m
+[31m-    //   qualification: values.qualification,[m
+[31m-    //   induction_status: values.induction_status[m
+[31m-    // });[m
+[32m+[m[32m    this.form.patchValue({[m
+[32m+[m[32m      date_of_birth: moment(values.date_of_birth).format("YYYY-MM-DD"),[m
+[32m+[m[32m    });[m
+     var user = {[m
+       "session_id": 3403,[m
+       "resource_id": +this.resource_id,[m
+[36m@@ -169,6 +162,7 @@[m [mexport class DriverPersonalComponent implements OnInit {[m
+     };[m
+     var data = { formData: this.form.value, document };[m
+     this.driverUpdateData = { user, data };[m
+[32m+[m[32m    console.log(this.driverUpdateData);[m
+     this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {[m
+       if (res['success'] == true) {[m
+         this.isEditModeOn = false;[m

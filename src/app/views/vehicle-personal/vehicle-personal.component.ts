@@ -157,49 +157,20 @@ export class VehiclePersonalComponent implements OnInit {
     this.submitted = true;
     var values = this.form.value;
 
-    if (this.form.invalid) {
-      console.log(this.form.value);
-      this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
-      return;
-    }
-
-    var user = {
-      "session_id": 3403,
-      "resource_id": +this.resource_id,
-      "resource_type": this.resource_type,
-      "os_type": 'web',
-      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
-    };
-    
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    let document = {
-      "approvedDoc": approvedDocsId,
-      "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
-    };
-    var data = { formData: this.form.value, document };
-    this.vehicleUpdateData = { user, data };
-    console.log('vehicle personal post data', this.vehicleUpdateData)
-    // update vehicle personal details
-    this.apiService.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
-      if (res['success'] === true) {
-        this.isEditModeOn = false;
-        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
-        else { this.valueOfButton = "Edit" }
-        if(!this.is_next){
-          this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
-        }
-        this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
-        'is_renewal': this.is_renewal }]);
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+      if(rejected.length > 0){
+       this.saveDetails();
       }
-      else {
-        this.toastr.error('Error', res['message']);
+     else{
+      if (this.form.invalid) {
+        this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
+        return;
       }
-    }, errorResponse => {
-      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-    });
-
+      else
+      {
+         this.saveDetails() ;
+      }
+     }  
   }
   saveDocsStatus(resource_id) {
     this.is_next= true;
@@ -247,5 +218,44 @@ export class VehiclePersonalComponent implements OnInit {
     return date;
   }
 
+  saveDetails()
+  {
+    var user = {
+      "session_id": 3403,
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
+    };
+    
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
+    let document = {
+      "approvedDoc": approvedDocsId,
+      "rejectedDdoc": rejectedDocsId,
+      "comment": 'test'
+    };
+    var data = { formData: this.form.value, document };
+    this.vehicleUpdateData = { user, data };
+    console.log('vehicle personal post data', this.vehicleUpdateData)
+    // update vehicle personal details
+    this.apiService.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      if (res['success'] === true) {
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        if(!this.is_next){
+          this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+        }
+        this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
+        'is_renewal': this.is_renewal }]);
+      }
+      else {
+        this.toastr.error('Error', res['message']);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+    });
 
+  }
 }

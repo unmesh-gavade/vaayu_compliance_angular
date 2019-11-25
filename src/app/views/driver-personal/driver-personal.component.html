@@ -73,7 +73,7 @@
                       <input type="text" readonly class="form-control date_form_control" formControlName="date_of_birth"
                         id="date_of_birth" placeholder="Date Of Birth *" name="dp" ngbDatepicker
                         [disabled]="isEditModeOn?false:true"
-                        [(ngModel)]="date_of_birth_model" 
+                        [(ngModel)]="date_of_birth_model" [placement]="'bottom-left'"
                         value="{{getFormattedDate(date_of_birth_model)|date: serverDateFormat}}"
                         #DateOfBirth="ngbDatepicker">
                       <div class="input-group-append">

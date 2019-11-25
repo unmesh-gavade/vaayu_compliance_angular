@@ -86,6 +86,7 @@ export class DriverDocumentComponent implements OnInit {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null);
+        console.log(this.pdfs);
 
         let police_verification_vailidty = this.driverDetails[0]['police_verification_vailidty'];
         let date_of_police_verification = this.driverDetails[0]['date_of_police_verification'];
@@ -134,48 +135,22 @@ export class DriverDocumentComponent implements OnInit {
     this.submitted = true;
    var values = this.form.value;
    console.log(values);
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
-      return;
-    }
-    var user = {
-      "session_id": 3403,
-      "resource_id": +this.resource_id,
-      "resource_type": this.resource_type,
-      "os_type": 'web',
-      is_renew: Number(this.is_renewal),
-      is_final:true
-    };
-    console.log(this.pdfs.filter(i => i.status === 'Approved'));
+   let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+   if(rejected.length > 0){
+    this.saveDetails();
+   }
+  else{
+   if (this.form.invalid) {
+     this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
+     return;
+   }
+   else
+   {
+      this.saveDetails() ;
+   }
+  }   
 
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    let document = {
-      "approvedDoc": approvedDocsId,
-      "rejectedDdoc": rejectedDocsId,
-      "comment": this.form.controls.comment.value
-    };
-    var data = { formData: this.form.value, document };
-    this.driverUpdateData = { user, data };
-    console.log(this.driverUpdateData);
-    // update driver Documents details
-    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-      if (res['success'] == true) {
-        this.isEditModeOn = false;
-        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
-        else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Driver Documents submitted successfully');
-        if(this.nevigateToDash){
-          this.router.navigate(['/dashboard']);
-        }
-      }
-      else {
-        this.toastr.error('Error', res['errors']);
-      }
-    }, errorResponse => {
-      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-    });
+   
   }
   backToPersonal(resource_id) {
     this.router.navigate(['/driver-business', { 'resource_id': resource_id, 'resource_type': 'drivers',
@@ -220,10 +195,12 @@ export class DriverDocumentComponent implements OnInit {
       return false;
     } 
      if (rejected.length > 0) {
+       
       this.form.patchValue({
         induction_status: 'Rejected'
       });
       if (this.form.controls.comment.value == 'null') {
+        alert(this.form.controls.comment.value);
         this.toastr.error('Error', 'Select Rejection Reason');
         return false;
       }
@@ -269,5 +246,44 @@ export class DriverDocumentComponent implements OnInit {
       }
     }
   }
+  saveDetails()
+  {
+    var user = {
+      "session_id": 3403,
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal),
+      is_final:true
+    };
+    console.log(this.pdfs.filter(i => i.status === 'Approved'));
 
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
+    let document = {
+      "approvedDoc": approvedDocsId,
+      "rejectedDdoc": rejectedDocsId,
+      "comment": this.form.controls.comment.value
+    };
+    var data = { formData: this.form.value, document };
+    this.driverUpdateData = { user, data };
+    console.log(this.driverUpdateData);
+    // update driver Documents details
+    this.Driver.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        this.toastr.success('Success', 'Driver Documents submitted successfully');
+        if(this.nevigateToDash){
+          this.router.navigate(['/dashboard']);
+        }
+      }
+      else {
+        this.toastr.error('Error', res['errors']);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+    });
+  }
 }

@@ -165,69 +165,22 @@ console.log(this.pdfs);
     this.submitted = true;
 
     var values = this.editVehicleDocumentForm.value;
-   
-    
-    // stop here if form is invalid
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+    if(rejected.length > 0){
+     this.saveDetails();
+    }
+   else{
     if (this.editVehicleDocumentForm.invalid) {
-      console.log(values);
-      if (this.editVehicleDocumentForm)
       this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
       return;
     }
-    // this.editVehicleDocumentForm.patchValue({
-    //   business_associate_id: values.business_associate_id,
-    //   business_area_id: values.business_area_id,
-    //   road_tax_validity_date: values.road_tax_validity_date,
-    //   last_service_date: values.last_service_date,
-    //   last_service_km: values.last_service_km,
-    //   km_at_induction: values.km_at_induction,
-    //   permit_type: values.permit_type,
-    //   registration_date: values.registration_date,
-    //   status: values.status,
-    //   device_id: values.device_id,
-    //   gps_provider_id: values.gps_provider_id,
-    //   site_id: values.site_id
-    // });
-    var user = {
-      "session_id": 3403,
-      "resource_id": +this.resource_id,
-      "resource_type": this.resource_type,
-      "os_type": 'web',
-      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
-      is_final:true
-    };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    let document = {
-      "approvedDoc": approvedDocsId,
-      "rejectedDdoc": rejectedDocsId,
-      "comment": this.editVehicleDocumentForm.controls.comment.value
-    };
-  
-    var data = { formData: this.editVehicleDocumentForm.value, document };
-    this.vehicleUpdateData = { user, data };
-    console.log(this.vehicleUpdateData);
-    // update vehicle documents details
-    this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
-      console.log(res);
-      if (res['success'] == true) {
-        console.log('saved data');
-        this.isEditModeOn = false;
-        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
-        else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Vehicle Details submitted successfully');
-        if(this.nevigateToDash){
-        this.router.navigate(['/dashboard']);
-      }
-      }
-      else {
-        this.toastr.error('Error', res['message']);
-      }
-    }, errorResponse => {
-      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
-    });
-
-
+    else
+    {
+       this.saveDetails() ;
+    }
+   } 
+    
+   
   }
   pageNumberButtonClicked(index) {
     this.selectedPage = index;
@@ -260,9 +213,12 @@ console.log(this.pdfs);
       console.log(this.isDataENtry);
       let rejected = this.pdfs.filter(i => i.status === 'Rejected')
       if(rejected.length > 0){
+        alert(rejected.length);
+        alert(this.editVehicleDocumentForm.controls.comment.value);
         if (this.editVehicleDocumentForm.controls.comment.value == 'null') {
+          alert('in reason selection');
           this.toastr.error('Error', 'Select Rejection Reason');
-          return false;
+          return;
         }
         else
         {
@@ -321,5 +277,62 @@ console.log(this.pdfs);
       return null;
     }
     return date;
+  }
+  saveDetails(){
+    
+    // this.editVehicleDocumentForm.patchValue({
+    //   business_associate_id: values.business_associate_id,
+    //   business_area_id: values.business_area_id,
+    //   road_tax_validity_date: values.road_tax_validity_date,
+    //   last_service_date: values.last_service_date,
+    //   last_service_km: values.last_service_km,
+    //   km_at_induction: values.km_at_induction,
+    //   permit_type: values.permit_type,
+    //   registration_date: values.registration_date,
+    //   status: values.status,
+    //   device_id: values.device_id,
+    //   gps_provider_id: values.gps_provider_id,
+    //   site_id: values.site_id
+    // });
+    var user = {
+      "session_id": 3403,
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal), // renewal - 1 ,  normal - 0
+      is_final:true
+    };
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
+    let document = {
+      "approvedDoc": approvedDocsId,
+      "rejectedDdoc": rejectedDocsId,
+      "comment": this.editVehicleDocumentForm.controls.comment.value
+    };
+  
+    var data = { formData: this.editVehicleDocumentForm.value, document };
+    this.vehicleUpdateData = { user, data };
+    console.log(this.vehicleUpdateData);
+    // update vehicle documents details
+    this.service.updateVehicleDetails(this.vehicleUpdateData).subscribe(res => {
+      console.log(res);
+      if (res['success'] == true) {
+        console.log('saved data');
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        this.toastr.success('Success', 'Vehicle Details submitted successfully');
+        if(this.nevigateToDash){
+        this.router.navigate(['/dashboard']);
+      }
+      }
+      else {
+        this.toastr.error('Error', res['message']);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
+    });
+
+
   }
 }

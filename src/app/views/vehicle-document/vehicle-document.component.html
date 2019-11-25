@@ -89,7 +89,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="road_tax_validity_date"
                       id="road_tax_validity_date" placeholder="Road Tax validity Date *" name="dp" ngbDatepicker
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       [disabled]="isEditModeOn?false:true"
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="road_tax_validity_date_model"
                       value="{{getFormattedDate(road_tax_validity_date_model)|date: serverDateFormat}}"
@@ -116,7 +116,7 @@
                     <input type="text" readonly class="form-control date_form_control" formControlName="last_service_date"
                       id="last_service_date" placeholder="Last Service Date *" name="dp" ngbDatepicker
                       [disabled]="isEditModeOn?false:true"
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       #RoadTaxvalidityDate="ngbDatepicker" [(ngModel)]="last_service_date_model"
                       value="{{getFormattedDate(last_service_date_model)|date: serverDateFormat}}"
                       >
@@ -177,7 +177,7 @@
                     <input type="text" readonly class="form-control date_form_control" formControlName="registration_date"
                       id="registration_date" placeholder="Date of Induction *" #registration_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true"
-                      autocomplete="off"
+                      autocomplete="off" [placement]="'bottom-left'"
                       ngbDatepicker [(ngModel)]="registration_date_model"
                       value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
                       >
@@ -194,10 +194,9 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="lblstatus" class="col-sm-5 col-form-label">Active</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="status" id="status" placeholder="KM at the time of Induction" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <select name="account" formControlName="status" id="status"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
                   <option value="YES">YES </option>
@@ -209,7 +208,7 @@
                   <div *ngIf="f.status.errors.required" class="error_class">Active is required</div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="form-group row">
               <label for="lbldevice_id" class="col-sm-5 col-form-label">GPS Device ID *</label>
               <div class="col-sm-6">

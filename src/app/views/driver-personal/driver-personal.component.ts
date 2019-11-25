@@ -134,11 +134,21 @@ export class DriverPersonalComponent implements OnInit {
     var values = this.form.value;
     console.log(values);
     // stop here if form is invalid
-    if (this.form.invalid) {
-     
-      this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
-      return;
-    }
+    let rejected = this.pdfs.filter(i => i.status === 'Rejected')
+      if(rejected.length > 0){
+       this.saveDetails();
+      }
+     else{
+      if (this.form.invalid) {
+        this.toastr.error('Error', AppConst.FILL_MANDATORY_FIELDS);
+        return;
+      }
+      else
+      {
+         this.saveDetails() ;
+      }
+     }   
+    
     // this.form.patchValue({
     //   driver_name: values.driver_name,
     //   father_spouse_name: values.father_spouse_name,
@@ -153,39 +163,7 @@ export class DriverPersonalComponent implements OnInit {
     //   qualification: values.qualification,
     //   induction_status: values.induction_status
     // });
-    var user = {
-      "session_id": 3403,
-      "resource_id": +this.resource_id,
-      "resource_type": this.resource_type,
-      "os_type": 'web',
-      is_renew: Number(this.is_renewal)
-    };
-    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
-    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
-    let document = {
-      "approvedDoc": approvedDocsId,
-      "rejectedDdoc": rejectedDocsId,
-      "comment": 'test'
-    };
-    var data = { formData: this.form.value, document };
-    this.driverUpdateData = { user, data };
-    this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
-      if (res['success'] == true) {
-        this.isEditModeOn = false;
-        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
-        else { this.valueOfButton = "Edit" }
-        if(!this.is_next){
-          this.toastr.success('Success', 'Driver Personal Details updated successfully')
-        }
-        this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
-        'is_renewal': this.is_renewal }]);
-      }
-      else {
-        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
-      }
-    }, errorResponse => {
-      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
-    });
+    
 
   }
   saveDocsStatus(resource_id) {
@@ -240,5 +218,41 @@ export class DriverPersonalComponent implements OnInit {
         return false;
       }
     }
+  }
+  saveDetails()
+  {
+    var user = {
+      "session_id": 3403,
+      "resource_id": +this.resource_id,
+      "resource_type": this.resource_type,
+      "os_type": 'web',
+      is_renew: Number(this.is_renewal)
+    };
+    let approvedDocsId = this.pdfs.filter(i => i.status === 'Approved').map(item => item.id).join(",");
+    let rejectedDocsId = this.pdfs.filter(i => i.status === 'Rejected').map(item => item.id).join(",");
+    let document = {
+      "approvedDoc": approvedDocsId,
+      "rejectedDdoc": rejectedDocsId,
+      "comment": 'test'
+    };
+    var data = { formData: this.form.value, document };
+    this.driverUpdateData = { user, data };
+    this.driverService.updateDriverDetails(this.driverUpdateData).subscribe(res => {
+      if (res['success'] == true) {
+        this.isEditModeOn = false;
+        if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
+        else { this.valueOfButton = "Edit" }
+        if(!this.is_next){
+          this.toastr.success('Success', 'Driver Personal Details updated successfully')
+        }
+        this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
+        'is_renewal': this.is_renewal }]);
+      }
+      else {
+        this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
+      }
+    }, errorResponse => {
+      this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
+    });
   }
 }

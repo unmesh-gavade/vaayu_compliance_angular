@@ -79,7 +79,7 @@
                     <input type="text" readonly class="form-control date_form_control" formControlName="licence_validity"
                       placeholder="Licence Expiry Date *" name="dp" ngbDatepicker #licence_validity="ngbDatepicker"
                       id="licence_validity" 
-                      [disabled]="isEditModeOn?false:true" [(ngModel)]="licence_expiry_date_model"
+                      [disabled]="isEditModeOn?false:true" [(ngModel)]="licence_expiry_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(licence_expiry_date_model)|date: serverDateFormat}}"
                       >
                     <div class="input-group-append">
@@ -102,7 +102,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="date_of_registration"
                       placeholder="Date Of Induction *" name="dp" ngbDatepicker #date_of_registration="ngbDatepicker"
-                      id="date_of_registration" [disabled]="isEditModeOn?false:true" [(ngModel)]="induction_date_model"
+                      id="date_of_registration" [disabled]="isEditModeOn?false:true" [(ngModel)]="induction_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(induction_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="date_of_registration.toggle()"
@@ -136,7 +136,7 @@
                     <input type="text" readonly class="form-control date_form_control" formControlName="badge_issue_date"
                       id="badge_issue_date" placeholder="Badge Issue Date *" name="dp" ngbDatepicker
                       #badge_issue_date="ngbDatepicker" [disabled]="isEditModeOn?false:true"
-                      [(ngModel)]="badge_issue_date_model"
+                      [(ngModel)]="badge_issue_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(badge_issue_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="badge_issue_date.toggle()"
@@ -157,7 +157,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text"  readonly class="form-control date_form_control" formControlName="badge_expire_date"
                       placeholder="Badge Expiry Date *" name="dp" ngbDatepicker #badge_expire_date="ngbDatepicker"
-                      [disabled]="isEditModeOn?false:true" [(ngModel)]="badge_expiry_date_model"
+                      [disabled]="isEditModeOn?false:true" [(ngModel)]="badge_expiry_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(badge_expiry_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="badge_expire_date.toggle()"
@@ -184,7 +184,7 @@
             <div class="form-group row">
               <label for="lblbank_no" class="col-sm-5 col-form-label">Bank Account No *</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" formControlName="bank_no" id="bank_no" placeholder="Bank Name"
+                <input type="text" class="form-control" formControlName="bank_no" id="bank_no" placeholder="Bank Account No"
                   [attr.disabled]="isEditModeOn ? null : '' ">
                 <div *ngIf="submitted && f.bank_no.errors">
                   <div *ngIf="f.bank_no.errors.required" class="error_class">Bank Account No is required</div>
