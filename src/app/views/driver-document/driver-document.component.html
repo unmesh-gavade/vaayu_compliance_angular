@@ -52,7 +52,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control"
                       formControlName="police_verification_vailidty" id="police_verification_vailidty"
-                      placeholder="Police Verification Validity *" name="police_verification_vailidty" ngbDatepicker
+                      placeholder="Police Verification Validity " name="police_verification_vailidty" ngbDatepicker
                       #test="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="police_verification_vailidty_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(police_verification_vailidty_model)|date: serverDateFormat}}">
@@ -79,7 +79,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly readonly class="form-control date_form_control"
                       formControlName="date_of_police_verification" id="date_of_police_verification"
-                      placeholder="Date Of Police Verification *" name="dp" ngbDatepicker
+                      placeholder="Date Of Police Verification " name="dp" ngbDatepicker
                       #date_of_police_verification="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="date_of_police_verification_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(date_of_police_verification_model)|date: serverDateFormat}}">
@@ -214,6 +214,7 @@
           </div>
         </div>
         <div class="card-body position-relative" style="height:490px;overflow: auto;">
+          <p class="tit_verDocName">{{pdfs[selectedPage].doc_display_name}}</p>
           <div class="pdf_zoom">
             <button ion-button (click)="incrementZoom(-0.1)">
               -
@@ -245,7 +246,7 @@
               <ul class="pdf_box">
                 <li class="tit_ver pdf_li activepdf" *ngIf="pdfs.length > 0">
                   <label for="lblDocumentName" class="sr-only tit_ver">registration certificate</label>
-                  {{pdfs[selectedPage].doc_display_name}}
+                  <!-- {{pdfs[selectedPage].doc_display_name}} -->
                 </li>
               </ul>
               <div>
