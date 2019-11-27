@@ -223,13 +223,13 @@
           <div class="form-group row">
             <label for="lblsexual_policy" class="col-sm-5 col-form-label">Shift Start Time </label>
             <div class="col-sm-6">
-                <ngb-timepicker [(ngModel)]="shift_start_time" formControlName="shift_start_time"  ></ngb-timepicker>
+                <ngb-timepicker [(ngModel)]="shift_start_time" formControlName="shift_start_time" readonly-input="true"  ></ngb-timepicker>
               </div>
             </div>
             <div class="form-group row">
               <label for="lblsexual_policy" class="col-sm-5 col-form-label">Shift End Time </label>
               <div class="col-sm-6">
-                  <ngb-timepicker [(ngModel)]="shift_end_time"  formControlName="shift_end_time" ></ngb-timepicker>
+                  <ngb-timepicker [(ngModel)]="shift_end_time"  formControlName="shift_end_time" readonly-input="true"  ></ngb-timepicker>
                 </div>
               </div>  
           </div>
@@ -253,7 +253,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body position-relative" style="height:490px;overflow: auto;">
+      <div class="card-body position-relative" style="height:490px;overflow: auto;"  *ngIf="pdfs.length > 0">
         <p class="tit_verDocName">{{pdfs[selectedPage].doc_display_name}}</p>
         <div class="pdf_zoom">
           <button ion-button (click)="incrementZoom(-0.1)">

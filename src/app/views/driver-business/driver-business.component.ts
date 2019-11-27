@@ -46,6 +46,7 @@ export class DriverBusinessComponent implements OnInit {
   timeStart = {hour: 13, minute: 30};
   timeEnd = {hour: 13, minute: 30};
   public newTime:string='13:30';
+  is_back = false;
 
 
   constructor(private formBuilder: FormBuilder, public driverService: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
@@ -179,8 +180,10 @@ export class DriverBusinessComponent implements OnInit {
   }
  
   backToPersonal(resource_id) {
-    this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers',
-    'is_renewal': this.is_renewal }]);
+    this.is_back = true;
+    this.saveDetails();
+    // this.router.navigate(['/driver-personal', { 'resource_id': resource_id, 'resource_type': 'drivers',
+    // 'is_renewal': this.is_renewal }]);
   }
   validateDocuments() {
     let array = this.pdfs.filter(i => i.status === 'none')
@@ -263,11 +266,25 @@ export class DriverBusinessComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        if(!this.is_next){
-        this.toastr.success('Success', 'Driver Business Details updated successfully');
+        if(this.is_next)
+        {
+          this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+         'is_renewal': this.is_renewal }]);   
         }
-        this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
-        'is_renewal': this.is_renewal }]);
+        else if(this.is_back)
+        {
+          this.router.navigate(['/driver-personal', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+          'is_renewal': this.is_renewal }]);
+        }
+        else
+        {
+          this.toastr.success('Success', 'Driver business details updated successfully');
+        }
+        // if(!this.is_next){
+        // this.toastr.success('Success', 'Driver Business Details updated successfully');
+        // }
+        // this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+        // 'is_renewal': this.is_renewal }]);
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);

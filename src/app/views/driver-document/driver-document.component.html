@@ -119,7 +119,7 @@
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="bgc_date" id="bgc_date"
-                      placeholder="bgc date Date *" name="dp" ngbDatepicker #bgc_date="ngbDatepicker"
+                      placeholder="bgc date Date " name="dp" ngbDatepicker #bgc_date="ngbDatepicker"
                       [disabled]="isEditModeOn?false:true" [(ngModel)]="bgc_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(bgc_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
@@ -157,7 +157,7 @@
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="medically_certified_date"
-                      id="medically_certified_date" placeholder="bgc date Date *" name="dp" ngbDatepicker
+                      id="medically_certified_date" placeholder="Medical Certificate Date " name="dp" ngbDatepicker
                       #medically_certified_date="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="medically_certified_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(medically_certified_date_model)|date: serverDateFormat}}">
@@ -213,7 +213,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body position-relative" style="height:490px;overflow: auto;">
+        <div class="card-body position-relative" style="height:490px;overflow: auto;"  *ngIf="pdfs.length > 0">
           <p class="tit_verDocName">{{pdfs[selectedPage].doc_display_name}}</p>
           <div class="pdf_zoom">
             <button ion-button (click)="incrementZoom(-0.1)">

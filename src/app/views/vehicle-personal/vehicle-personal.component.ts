@@ -245,7 +245,7 @@ export class VehiclePersonalComponent implements OnInit {
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
         if(!this.is_next){
-          this.toastr.success('Success', 'Vehicle Personal Details updated successfully');
+          this.toastr.success('Success', 'Vehicle personal details updated successfully');
         }
         this.router.navigate(['/vehicle-document', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
         'is_renewal': this.is_renewal }]);
