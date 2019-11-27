@@ -281,8 +281,8 @@
                   (click)="pdfs[selectedPage].status = 'Rejected'">REJECT</button>
                 <button type="submit"  class="btn btn-success click_reject click_reject_activ pdf_approve"
                   (click)="pdfs[selectedPage].status = 'Approved'" *ngIf="pdfs.length > 0 && !isDataENtry">APPROVE</button>
-                  <button type="submit"  class="btn btn-outline-info click_reject "
-                  (click)="pdfs[selectedPage].status = 'none'" *ngIf="pdfs.length > 0">NONE</button>
+                  <!-- <button type="submit"  class="btn btn-outline-info click_reject "
+                  (click)="pdfs[selectedPage].status = 'none'" *ngIf="pdfs.length > 0">NONE</button> -->
               </div>
             </div>
             <div class="col-sm-4">
