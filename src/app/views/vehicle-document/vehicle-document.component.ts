@@ -45,6 +45,7 @@ export class VehicleDocumentComponent implements OnInit {
   CurentDateTime =new Date().toISOString();
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
   nevigateToDash = false;
+  is_back= false;
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -267,8 +268,9 @@ console.log(this.pdfs);
     return true;
   }
   backToPersonal(resource_id) {
-    this.router.navigate(['/vehicle-personal', { 'resource_id': resource_id, 'resource_type': 'vehicles',
-    'is_renewal': this.is_renewal }]);
+    this.is_back = true;
+    this.saveDetails();
+    
   }
 
   getFormattedDate(date) {
@@ -321,10 +323,19 @@ console.log(this.pdfs);
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Vehicle Details submitted successfully');
+        
         if(this.nevigateToDash){
         this.router.navigate(['/dashboard']);
-      }
+        }
+        else if(this.is_back)
+        {
+          this.router.navigate(['/vehicle-personal', { 'resource_id': this.resource_id, 'resource_type': 'vehicles',
+          'is_renewal': this.is_renewal }]);
+        }
+        else
+        {
+          this.toastr.success('Success', 'Vehicle details submitted successfully');
+        }
       }
       else {
         this.toastr.error('Error', res['message']);
@@ -332,7 +343,5 @@ console.log(this.pdfs);
     }, errorResponse => {
       this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG)
     });
-
-
   }
 }

@@ -242,11 +242,18 @@ export class DriverPersonalComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        if(!this.is_next){
-          this.toastr.success('Success', 'Driver Personal Details updated successfully')
+        if(this.is_next){
+          this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 'is_renewal': this.is_renewal }]);
         }
-        this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
-        'is_renewal': this.is_renewal }]);
+        else 
+        {
+          this.toastr.success('Success', 'Driver personal details updated successfully')
+        }
+        // if(!this.is_next){
+        //   this.toastr.success('Success', 'Driver Personal Details updated successfully')
+        // }
+        // this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers', 
+        // 'is_renewal': this.is_renewal }]);
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);

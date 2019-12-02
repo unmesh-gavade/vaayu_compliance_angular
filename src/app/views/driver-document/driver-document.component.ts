@@ -41,6 +41,7 @@ export class DriverDocumentComponent implements OnInit {
   medically_certified_date_model: Date
   is_renewal = 0;
   nevigateToDash = false;
+  is_back= false;
 
   constructor(private formBuilder: FormBuilder, public Driver: DriverService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -153,8 +154,8 @@ export class DriverDocumentComponent implements OnInit {
    
   }
   backToPersonal(resource_id) {
-    this.router.navigate(['/driver-business', { 'resource_id': resource_id, 'resource_type': 'drivers',
-    'is_renewal': this.is_renewal }]);
+    this.is_back = true;
+    this.saveDetails();
   }
   
   sumbitDriver() {
@@ -274,9 +275,19 @@ export class DriverDocumentComponent implements OnInit {
         this.isEditModeOn = false;
         if (this.isEditModeOn) { this.valueOfButton = "Cancel" }
         else { this.valueOfButton = "Edit" }
-        this.toastr.success('Success', 'Driver Documents submitted successfully');
+        
         if(this.nevigateToDash){
+          this.toastr.success('Success', 'Driver documents submitted successfully');
           this.router.navigate(['/dashboard']);
+        }
+        else if(this.is_back)
+        {
+          this.router.navigate(['/driver-business', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+          'is_renewal': this.is_renewal }]);
+        }
+        else
+        {
+          this.toastr.success('Success', 'Driver documents submitted successfully');
         }
       }
       else {

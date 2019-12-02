@@ -4,7 +4,7 @@
     
 
     <div class="compliance_welcom_box">
-            <h6> <i class="icon-home photo-DashBoard"></i>DashBoard</h6> 
+            <h6> <i class="icon-home photo-DashBoard"></i>Dashboard</h6> 
       <!-- <div class="mt-3">
         <div class="form-group row">
 
@@ -173,9 +173,9 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="dashboardList.length > 0; else noRecordTemp">
                   <!-- for drivers -->
-                  <tr
+                  <tr 
                     *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
                     <td>{{item.driver_name}}</td>
                     <td>{{item.ba_legel_name}}</td>
@@ -190,8 +190,13 @@
                         class="btn bt_blue text-white pl-4 pr-4"
                         [hidden]="toHide_verify_button">VERIFY</button></td>
                   </tr>
+                  
                 </tbody>
-
+                <ng-template #noRecordTemp>
+                  <tbody>
+                    <tr><td></td><td></td><td></td><td> <span class="noRecords">No Records Found</span></td></tr></tbody>  
+                </ng-template>
+               
               </table>
 
               <table class="table textCenter" *ngIf="resource_type === 'vehicles'">
@@ -209,7 +214,7 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="dashboardList.length > 0; else noRecordTemp">
                   <!-- for vehicles -->
                   <tr
                     *ngFor="let item of dashboardList | LockFilter: search_text | paginate: { itemsPerPage: pageSize, currentPage:  currentPage}">
@@ -226,7 +231,10 @@
                         [hidden]="toHide_verify_button">VERIFY</button></td>
                   </tr>
                 </tbody>
-
+                <ng-template #noRecordTemp>
+                <tbody>
+                  <tr><td></td><td></td><td></td><td> <span class="noRecords">No Records Found</span></td></tr></tbody>  
+                </ng-template>
               </table>
 
             </div>

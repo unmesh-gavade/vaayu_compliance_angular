@@ -14117,3 +14117,10 @@ input[type=number]::-webkit-outer-spin-button {
 .textCenter{
   text-align: center
 }
+.noRecords{
+  text-align: center;
+  font-size: small;
+}
+.tit_verDocName{
+  padding-left: 16px;
+}
