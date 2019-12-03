@@ -46,6 +46,8 @@ export class VehicleDocumentComponent implements OnInit {
   serverDateFormat = AppConst.SERVER_DATE_FORMAT;
   nevigateToDash = false;
   is_back= false;
+  timeStart = {hour: 13, minute: 30};
+  timeEnd = {hour: 13, minute: 30};
 
   constructor(private formBuilder: FormBuilder, public service: VehicleService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -80,6 +82,8 @@ export class VehicleDocumentComponent implements OnInit {
       site_id: ['', Validators.required],
       induction_status: [''],
       comment: ['', ''],
+      shift_start_time:['',Validators.required],
+      shift_end_time:['',Validators.required],
     });
     this.fetchVehicleData();
     this.getBAListing();
@@ -101,10 +105,16 @@ export class VehicleDocumentComponent implements OnInit {
         this.vehicleDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null);
-console.log(this.pdfs);
+        console.log(this.pdfs);
         let road_tax_validity_date = this.vehicleDetails[0]['road_tax_validity_date'];
         let last_service_date = this.vehicleDetails[0]['last_service_date'];
         let registration_date = this.vehicleDetails[0]['registration_date'];
+        let shift_start_time= this.vehicleDetails[0]['shift_start_time']  ;
+        let shift_end_time = this.vehicleDetails[0]['shift_end_time'];
+        console.log(shift_start_time);
+        console.log(shift_end_time);
+        let splitStartTime= shift_start_time == null ? null: shift_start_time.split(':').map(parseFloat);
+        let splitEndTime= shift_end_time== null ? null : shift_end_time.split(':').map(parseFloat);
 
         console.log(road_tax_validity_date);
         console.log(last_service_date);
@@ -124,7 +134,9 @@ console.log(this.pdfs);
           gps_provider_id: this.vehicleDetails[0]['gps_provider_id'],
           site_id: this.vehicleDetails[0]['site_id'],
           induction_status: this.vehicleDetails[0]['induction_status'],
-          comment: this.vehicleDetails[0]['comment']
+          comment: this.vehicleDetails[0]['comment'],
+          shift_start_time: shift_start_time == null ? this.timeStart : { hour:splitStartTime[0] , minute : splitStartTime[1] } ,
+          shift_end_time: shift_end_time == null ? this.timeEnd : { hour:splitEndTime[0] , minute : splitEndTime[1] } , 
         });
       }
       else {
@@ -296,6 +308,11 @@ console.log(this.pdfs);
     //   gps_provider_id: values.gps_provider_id,
     //   site_id: values.site_id
     // });
+    let shift_start_time = this.editVehicleDocumentForm.controls.shift_start_time.value ;
+    let shift_end_time = this.editVehicleDocumentForm.controls.shift_end_time.value;
+    
+    this.editVehicleDocumentForm.controls.shift_start_time.setValue((moment(shift_start_time).format('HH:mm')) == 'Invalid date' ? '00:00': (moment(shift_start_time).format('HH:mm')) );
+    this.editVehicleDocumentForm.controls.shift_end_time.setValue((moment(shift_end_time).format('HH:mm'))== 'Invalid date' ? '00:00': (moment(shift_end_time).format('HH:mm')) );
     var user = {
       "session_id": 3403,
       "resource_id": +this.resource_id,
@@ -335,6 +352,7 @@ console.log(this.pdfs);
         else
         {
           this.toastr.success('Success', 'Vehicle details submitted successfully');
+          this.fetchVehicleData();
         }
       }
       else {

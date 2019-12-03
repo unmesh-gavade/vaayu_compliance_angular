@@ -81,8 +81,8 @@ export class DriverBusinessComponent implements OnInit {
       ifsc_code: ['', Validators.required],
       induction_status: ['', ''],
       site_id: ['', Validators.required],
-      shift_start_time:['',''],
-      shift_end_time:['','']
+      shift_start_time:['',Validators.required],
+      shift_end_time:['',Validators.required],
     });
     this.getSiteList();
     var user = {
