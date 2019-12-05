@@ -107,10 +107,9 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="lbllast_service_date" class="col-sm-5 col-form-label">Last Service Date</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="last_service_date" id="last_service_date" placeholder="Last Service Date" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="last_service_date"
@@ -131,7 +130,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="form-group row">
               <label for="lbllast_service_km" class="col-sm-5 col-form-label">Last Service KM</label>
               <div class="col-sm-6">
@@ -220,22 +219,25 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblgps_provider_id" class="col-sm-5 col-form-label">GPS Provider *</label>
+              <label for="lblgps_provider_id" class="col-sm-5 col-form-label">GPS Maker *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="gps_provider_id" id="gps_provider_id"
                   placeholder="GPS Provider *" [attr.disabled]="isEditModeOn ? null : '' "> -->
                   <select name="gps_provider_id" class="form-control dropdown dropdown_custom indrop"
                   formControlName="gps_provider_id" id="gps_provider_id" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option value="1">ARYA OMNITALK </option>
-                  <option value="2">AUTOCOP</option>
-                  <option value="3">FALCON AVL SYSTEM</option>
-                  <option value="4">MAP MY INDIA</option>' ''
-                  <option value="5">MOVE IN SYNC</option>
-                  <option value="6">NIVAATA</option>
+                  <option value="1">MMI</option>
+                  <option value="2">Fleet Radar</option>
+                  <option value="3">Rooster</option>
+                  <option value="4">Generic</option>' ''
+                  <option value="5">AOT/Fleet Vigil</option>
+                  <option value="6">Wheelseye</option>
+                  <option value="6">T4U</option>
+                  <option value="6">Axestrack</option>
+                  <option value="6">Ekfon</option>
 
                 </select>
                 <div *ngIf="submitted && f.gps_provider_id.errors">
-                  <div *ngIf="f.gps_provider_id.errors.required" class="error_class">GPS Provider is required</div>
+                  <div *ngIf="f.gps_provider_id.errors.required" class="error_class">GPS Maker is required</div>
                 </div>
               </div>
             </div>
@@ -401,7 +403,6 @@
               <option value="Blur Document">Blur Document</option>
               <option value="Wrong Document">Wrong Document</option>
               <option value="Incorrect Data">Incorrect Data</option>
-              <option value="Separated link">Separated link</option>
             </select>
             <!-- <div class="btn-group " dropdown [dropup]="isDropup">
               <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle  "

@@ -29,7 +29,7 @@
           </h5>
           <div malihu-scrollbar class="light light-scroll">
             <div class="form-group row">
-              <label for="lblverified_by_police" class="col-sm-5 col-form-label">Verified By Police</label>
+              <label for="lblverified_by_police" class="col-sm-5 col-form-label">Verified By Police *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="txtPoliceVerification" id="txtPoliceVerification" placeholder="Police Verification" [attr.disabled]="isEditModeOn ? null : '' " /> -->
                 <select name="verified_by_police" class="form-control dropdown dropdown_custom indrop"
@@ -38,21 +38,21 @@
                   <option value='1'>YES </option>
                   <option value='0'>NO</option>
                 </select>
-                <!-- <div *ngIf="submitted && f.verified_by_police.errors">
+                <div *ngIf="submitted && f.verified_by_police.errors">
                   <div *ngIf="f.verified_by_police.errors.required" class="error_class">Verified By Police is required</div>
-                </div> -->
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="lblpolice_verification_vailidty" class="col-sm-5 col-form-label">Police Verification
-                Validity</label>
+                Validity *</label>
               <div class="col-sm-6">
 
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control"
                       formControlName="police_verification_vailidty" id="police_verification_vailidty"
-                      placeholder="Police Verification Validity " name="police_verification_vailidty" ngbDatepicker
+                      placeholder="Police Verification Validity *" name="police_verification_vailidty" ngbDatepicker
                       #test="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="police_verification_vailidty_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(police_verification_vailidty_model)|date: serverDateFormat}}">
@@ -63,14 +63,14 @@
                   </div>
                 </div>
 
-                <!-- <div *ngIf="submitted && f.police_verification_vailidty.errors">
+                <div *ngIf="submitted && f.police_verification_vailidty.errors">
                   <div *ngIf="f.police_verification_vailidty.errors.required" class="error_class">Police Verification is
                     required</div>
-                </div> -->
+                </div>
               </div>
             </div>
             <div class="form-group row">
-              <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification
+              <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification *
                 </label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -79,7 +79,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly readonly class="form-control date_form_control"
                       formControlName="date_of_police_verification" id="date_of_police_verification"
-                      placeholder="Date Of Police Verification " name="dp" ngbDatepicker
+                      placeholder="Date Of Police Verification *" name="dp" ngbDatepicker
                       #date_of_police_verification="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="date_of_police_verification_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(date_of_police_verification_model)|date: serverDateFormat}}">
@@ -90,10 +90,10 @@
                   </div>
                 </div>
 
-                <!-- <div *ngIf="submitted && f.date_of_police_verification.errors">
+                <div *ngIf="submitted && f.date_of_police_verification.errors">
                   <div *ngIf="f.date_of_police_verification.errors.required" class="error_class">Date Of Police
                     Verification is required</div>
-                </div> -->
+                </div>
               </div>
             </div>
             <div class="form-group row">
@@ -141,7 +141,7 @@
                   placeholder="BGC Agency" [attr.disabled]="isEditModeOn ? null : '' "> -->
                   <select name="bgc_agency_id" class="form-control dropdown dropdown_custom indrop"
                   formControlName="bgc_agency_id" id="bgc_agency_id" [attr.disabled]="isEditModeOn ? null : '' ">
-                  <option value='1'>MLL</option>
+                  <option value='1'>Ongrid</option>
                 </select>
 
 
@@ -297,7 +297,6 @@
               <option value="Blur Document">Blur Document</option>
               <option value="Wrong Document">Wrong Document</option>
               <option value="Incorrect Data">Incorrect Data</option>
-              <option value="Separated link">Separated link</option>
             </select>
             <!-- <div class="btn-group " dropdown [dropup]="isDropup">
                 <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle  "
