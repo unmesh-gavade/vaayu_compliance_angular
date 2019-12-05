@@ -117,17 +117,16 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lbldate_of_registration" class="col-sm-5 col-form-label">Date Of Induction *</label>
+              <label for="lbldate_of_training" class="col-sm-5 col-form-label">Date Of Training</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
-                    <input type="text" readonly class="form-control date_form_control" formControlName="date_of_registration"
-                      placeholder="Date Of Induction *" name="dp" ngbDatepicker #date_of_registration="ngbDatepicker"
-                      id="date_of_registration" [disabled]="isEditModeOn?false:true" [(ngModel)]="induction_date_model" [placement]="'bottom-left'"
-                      value="{{getFormattedDate(induction_date_model)|date: serverDateFormat}}">
+                    <input type="text" readonly class="form-control date_form_control" formControlName="training_date"
+                      placeholder="Date Of Training *" name="dp" ngbDatepicker #training_date="ngbDatepicker"
+                      id="training_date" [disabled]="isEditModeOn?false:true" [(ngModel)]="training_date_model" [placement]="'bottom-left'"
+                      value="{{getFormattedDate(training_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="date_of_registration.toggle()"
+                      <button class="btn btn-outline-secondary calendar" (click)="training_date.toggle()"
                       [attr.disabled]="isEditModeOn ? null : '' "  type="button"></button>
                     </div>
                   </div>

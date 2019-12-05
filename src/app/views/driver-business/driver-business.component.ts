@@ -40,6 +40,7 @@ export class DriverBusinessComponent implements OnInit {
   induction_date_model: Date
   badge_issue_date_model: Date
   badge_expiry_date_model: Date
+  training_date_model: Date
   is_renewal = 0;
   is_next = false;
   siteList = [];
@@ -107,6 +108,7 @@ export class DriverBusinessComponent implements OnInit {
         let shift_start_time= this.driverDetails[0]['shift_start_time']  ;
         let shift_end_time = this.driverDetails[0]['shift_end_time'];
         let training_date =  this.driverDetails[0]['training_date'];
+        console.log(training_date);
         let splitStartTime= shift_start_time == null ? null: shift_start_time.split(':').map(parseFloat);
         let splitEndTime= shift_end_time== null ? null : shift_end_time.split(':').map(parseFloat);
 
@@ -118,7 +120,7 @@ export class DriverBusinessComponent implements OnInit {
           badge_number: this.driverDetails[0]['badge_number'],
           badge_issue_date:  badge_issue_date == null ? null :  new Date(badge_issue_date),
           badge_expire_date:  badge_expire_date == null ? null :  new Date(badge_expire_date),
-          training_date : training_date == null? null : new Date(training_date),
+          training_date:  training_date == null ? null :  new Date(training_date),
           bank_name: this.driverDetails[0]['bank_name'],
           bank_no: this.driverDetails[0]['bank_no'],
           ifsc_code: this.driverDetails[0]['ifsc_code'],
@@ -233,6 +235,7 @@ export class DriverBusinessComponent implements OnInit {
       return null;
     }
     return date;
+   
   }
   getSiteList() {
     this.driverService.getSiteList().subscribe(res => {

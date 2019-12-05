@@ -14057,7 +14057,7 @@ select.form-control.fill_drop option {
   display: none; }
 
 .pdf_view > .ng2-pdf-viewer-container {
-  overflow-x: scroll;
+  overflow: hidden;
   height: 456px;
   width: 100%;
   display: -webkit-inline-box; }
