@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblbusiness_associate_id" class="col-sm-5 col-form-label">Business Associate Name</label>
+              <label for="lblbusiness_associate_id" class="col-sm-5 col-form-label">Business Associate Name *</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="business_associate_id"
                   id="business_associate_id" placeholder="Business Associate Name"
@@ -62,8 +62,6 @@
                 <select name="account" formControlName="business_associate_id" id="permit_type"
                   class="form-control dropdown dropdown_custom indrop" [attr.disabled]="isEditModeOn ? null : '' ">
                   <option *ngFor="let ba of baList; let i = index" value="{{ba.id}}">{{ba.legal_name}}</option>
-
-
                 </select>
                 <div *ngIf="submitted && f.business_associate_id.errors">
                   <div *ngIf="f.business_associate_id.errors.required" class="error_class">Business Associate Name is
@@ -168,7 +166,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lblregistration_date" class="col-sm-5 col-form-label">Date of Registration</label>
+              <label for="lblregistration_date" class="col-sm-5 col-form-label">Date of Registration *</label>
               <div class="col-sm-6 mb-0">
 
                 <div class="form-group form-group-custom">
@@ -180,7 +178,6 @@
                       ngbDatepicker [(ngModel)]="registration_date_model"
                       value="{{getFormattedDate(registration_date_model)|date: serverDateFormat}}"
                       >
-
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary calendar" (click)="registration_date.toggle()"
                       [attr.disabled]="isEditModeOn ? null : '' "  type="button"></button>

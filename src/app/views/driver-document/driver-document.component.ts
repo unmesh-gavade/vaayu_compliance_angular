@@ -61,9 +61,9 @@ export class DriverDocumentComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      verified_by_police: ['', ''],
-      police_verification_vailidty: ['', ''],
-      date_of_police_verification: ['', ''],
+      verified_by_police: ['',Validators.required],
+      police_verification_vailidty: ['', Validators.required],
+      date_of_police_verification: ['', Validators.required],
       criminal_offence: ['', ''],
       bgc_date: ['', ''],
       bgc_agency_id: ['',''],
@@ -201,7 +201,6 @@ export class DriverDocumentComponent implements OnInit {
         induction_status: 'Rejected'
       });
       if (this.form.controls.comment.value == 'null') {
-        alert(this.form.controls.comment.value);
         this.toastr.error('Error', 'Select Rejection Reason');
         return false;
       }

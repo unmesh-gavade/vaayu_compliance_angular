@@ -73,16 +73,17 @@ export class DriverBusinessComponent implements OnInit {
       licence_type: ['', Validators.required],
       licence_validity: ['', Validators.required],
       date_of_registration: ['', Validators.required],
-      badge_number: ['', Validators.required],
-      badge_issue_date: ['', Validators.required],
-      badge_expire_date: ['', Validators.required],
-      bank_name: ['', Validators.required],
-      bank_no: ['', Validators.required],
-      ifsc_code: ['', Validators.required],
+      badge_number: ['', ''],
+      badge_issue_date: ['',''],
+      badge_expire_date: ['', ''],
+      bank_name: ['', ''],
+      bank_no: ['',''],
+      ifsc_code: ['',''],
       induction_status: ['', ''],
       site_id: ['', Validators.required],
       shift_start_time:['',Validators.required],
       shift_end_time:['',Validators.required],
+      training_date:['',''],
     });
     this.getSiteList();
     var user = {
@@ -105,6 +106,7 @@ export class DriverBusinessComponent implements OnInit {
         let badge_expire_date = this.driverDetails[0]['badge_expire_date'];
         let shift_start_time= this.driverDetails[0]['shift_start_time']  ;
         let shift_end_time = this.driverDetails[0]['shift_end_time'];
+        let training_date =  this.driverDetails[0]['training_date'];
         let splitStartTime= shift_start_time == null ? null: shift_start_time.split(':').map(parseFloat);
         let splitEndTime= shift_end_time== null ? null : shift_end_time.split(':').map(parseFloat);
 
@@ -116,6 +118,7 @@ export class DriverBusinessComponent implements OnInit {
           badge_number: this.driverDetails[0]['badge_number'],
           badge_issue_date:  badge_issue_date == null ? null :  new Date(badge_issue_date),
           badge_expire_date:  badge_expire_date == null ? null :  new Date(badge_expire_date),
+          training_date : training_date == null? null : new Date(training_date),
           bank_name: this.driverDetails[0]['bank_name'],
           bank_no: this.driverDetails[0]['bank_no'],
           ifsc_code: this.driverDetails[0]['ifsc_code'],

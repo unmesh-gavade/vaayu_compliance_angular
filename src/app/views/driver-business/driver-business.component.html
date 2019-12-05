@@ -53,10 +53,10 @@
                   formControlName="licence_type" id="licence_type" [attr.disabled]="isEditModeOn ? null : '' ">
                   <option value="LMV">LMV </option>
                   <option value="HMV">HMV</option>
-                  <option value="MGV">MGV</option>
+                  <!-- <option value="MGV">MGV</option>
                   <option value="HPMV/HTV">HPMV/HTV</option>' ''
                   <option value="HPMV">HPMV</option>
-                  <option value="Trailer">Trailer</option>
+                  <option value="Trailer">Trailer</option> -->
 
                 </select>
                 <div *ngIf="submitted && f.licence_type.errors">
@@ -117,6 +117,24 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="lbldate_of_registration" class="col-sm-5 col-form-label">Date Of Induction *</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
+                <div class="form-group form-group-custom mb-0">
+                  <div class="input-group input-group-custom">
+                    <input type="text" readonly class="form-control date_form_control" formControlName="date_of_registration"
+                      placeholder="Date Of Induction *" name="dp" ngbDatepicker #date_of_registration="ngbDatepicker"
+                      id="date_of_registration" [disabled]="isEditModeOn?false:true" [(ngModel)]="induction_date_model" [placement]="'bottom-left'"
+                      value="{{getFormattedDate(induction_date_model)|date: serverDateFormat}}">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="date_of_registration.toggle()"
+                      [attr.disabled]="isEditModeOn ? null : '' "  type="button"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group row">
               <label for="lblbadge_number" class="col-sm-5 col-form-label">Badge Number *</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="badge_number" id="badge_number"
@@ -126,11 +144,10 @@
                 </div>
               </div>
 
-            </div>
-            <div class="form-group row">
+            </div> -->
+            <!-- <div class="form-group row">
               <label for="lblbadge_issue_date" class="col-sm-5 col-form-label">Badge Issue Date *</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="badge_issue_date"
@@ -148,11 +165,10 @@
                   <div *ngIf="f.badge_issue_date.errors.required" class="error_class">Badge Issue Date is required</div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
+            </div> -->
+            <!-- <div class="form-group row">
               <label for="lblbadge_expire_date" class="col-sm-5 col-form-label">Badge Expiry Date *</label>
               <div class="col-sm-6">
-                <!-- <input type="text" class="form-control" formControlName="business_city" id="business_city" placeholder="Business City" [attr.disabled]="isEditModeOn ? null : '' "> -->
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text"  readonly class="form-control date_form_control" formControlName="badge_expire_date"
@@ -170,9 +186,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblbank_name" class="col-sm-5 col-form-label">Bank Name *</label>
+            </div> -->
+            <!-- <div class="form-group row">
+              <label for="lblbank_name" class="col-sm-5 col-form-label">Bank Name</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="bank_name" id="bank_name"
                   placeholder="Bank Name" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -180,9 +196,9 @@
                   <div *ngIf="f.bank_name.errors.required" class="error_class">Bank Name is required</div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblbank_no" class="col-sm-5 col-form-label">Bank Account No *</label>
+            </div> -->
+            <!-- <div class="form-group row">
+              <label for="lblbank_no" class="col-sm-5 col-form-label">Bank Account No</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="bank_no" id="bank_no" placeholder="Bank Account No"
                   [attr.disabled]="isEditModeOn ? null : '' ">
@@ -190,9 +206,9 @@
                   <div *ngIf="f.bank_no.errors.required" class="error_class">Bank Account No is required</div>
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="lblifsc_code" class="col-sm-5 col-form-label">IFSC Code *</label>
+            </div> -->
+            <!-- <div class="form-group row">
+              <label for="lblifsc_code" class="col-sm-5 col-form-label">IFSC Code</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" formControlName="ifsc_code" id="ifsc_code"
                   placeholder="IFSC Code" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -200,7 +216,7 @@
                   <div *ngIf="f.ifsc_code.errors.required" class="error_class">IFSC Code is required</div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="form-group row">
             <label for="lblDriverAcc" class="col-sm-5 col-form-label">Driver Account</label>
             <div class="col-sm-6">

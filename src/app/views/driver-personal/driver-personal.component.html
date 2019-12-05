@@ -119,7 +119,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="lblblood_group" class="col-sm-5 col-form-label">Aadhaar Number *</label>
               <div class="col-sm-6">
                 <input type="number" onKeyPress="if(this.value.length==12) return false;" class="form-control" formControlName="aadhar_number" id="aadhar_number"
@@ -128,7 +128,7 @@
                   <div *ngIf="f.aadhar_number.errors.required" class="error_class">Aadhaar Number is required</div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="form-group row">
               <label for="lblblood_group" class="col-sm-5 col-form-label">Blood Group *</label>
               <div class="col-sm-6">
@@ -209,6 +209,8 @@
                   <option value="10th">10th </option>
                   <option value="12th">12th </option>
                   <option value="Graduate">Graduate </option>
+                  <option value="Other">Other </option>
+
                 </select>
 
                 <div *ngIf="submitted && f.qualification.errors">

@@ -71,7 +71,7 @@ export class VehicleDocumentComponent implements OnInit {
       business_associate_id: ['', Validators.required],
       business_area_id: ['', Validators.required],
       road_tax_validity_date: ['', Validators.required],
-      last_service_date: ['', Validators.required],
+      last_service_date: ['', ''],
       last_service_km: [''],
       km_at_induction: [''],
       permit_type: [''],
@@ -226,10 +226,7 @@ export class VehicleDocumentComponent implements OnInit {
       console.log(this.isDataENtry);
       let rejected = this.pdfs.filter(i => i.status === 'Rejected')
       if(rejected.length > 0){
-        alert(rejected.length);
-        alert(this.editVehicleDocumentForm.controls.comment.value);
         if (this.editVehicleDocumentForm.controls.comment.value == 'null') {
-          alert('in reason selection');
           this.toastr.error('Error', 'Select Rejection Reason');
           return;
         }
