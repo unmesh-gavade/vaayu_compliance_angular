@@ -29,7 +29,7 @@
           </h5>
           <div malihu-scrollbar class="light light-scroll">
             <div class="form-group row">
-              <label for="lblverified_by_police" class="col-sm-5 col-form-label">Verified By Police *</label>
+              <label for="lblverified_by_police" class="col-sm-5 col-form-label">Verified By Police*</label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="txtPoliceVerification" id="txtPoliceVerification" placeholder="Police Verification" [attr.disabled]="isEditModeOn ? null : '' " /> -->
                 <select name="verified_by_police" class="form-control dropdown dropdown_custom indrop"
@@ -45,14 +45,14 @@
             </div>
             <div class="form-group row">
               <label for="lblpolice_verification_vailidty" class="col-sm-5 col-form-label">Police Verification
-                Validity *</label>
+                Validity*</label>
               <div class="col-sm-6">
 
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control"
                       formControlName="police_verification_vailidty" id="police_verification_vailidty"
-                      placeholder="Police Verification Validity *" name="police_verification_vailidty" ngbDatepicker
+                      placeholder="Police Verification Validity*" name="police_verification_vailidty" ngbDatepicker
                       #test="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="police_verification_vailidty_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(police_verification_vailidty_model)|date: serverDateFormat}}">
@@ -70,7 +70,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification *
+              <label for="lbldate_of_police_verification" class="col-sm-5 col-form-label">Date Of Police Verification*
                 </label>
               <div class="col-sm-6">
                 <!-- <input type="text" class="form-control" formControlName="date_of_police_verification" id="date_of_police_verification" placeholder="Date Of Police Verification" [attr.disabled]="isEditModeOn ? null : '' ">
@@ -79,7 +79,7 @@
                   <div class="input-group input-group-custom">
                     <input type="text" readonly readonly class="form-control date_form_control"
                       formControlName="date_of_police_verification" id="date_of_police_verification"
-                      placeholder="Date Of Police Verification *" name="dp" ngbDatepicker
+                      placeholder="Date Of Police Verification*" name="dp" ngbDatepicker
                       #date_of_police_verification="ngbDatepicker" [disabled]="isEditModeOn?false:true"
                       [(ngModel)]="date_of_police_verification_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(date_of_police_verification_model)|date: serverDateFormat}}">

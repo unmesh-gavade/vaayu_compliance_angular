@@ -149,6 +149,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboardRenewalList (isRenewalBlock) {
+    this.dashboardService.toHide_verify_button = false;
     this.resource_type = this.dashboardService.resource_type;
     this.tat_type = this.dashboardService.tat_type;
     this.tat_type = 'renewal_document'
