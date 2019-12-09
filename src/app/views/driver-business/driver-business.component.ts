@@ -103,11 +103,11 @@ export class DriverBusinessComponent implements OnInit {
   
         let date_of_registration = this.driverDetails[0]['date_of_registration'];
         let licence_validity = this.driverDetails[0]['licence_validity'];
-        let badge_issue_date = this.driverDetails[0]['badge_issue_date'];
-        let badge_expire_date = this.driverDetails[0]['badge_expire_date'];
+        let badge_issue_date = this.driverDetails[0]['badge_issue_date']== null ? '0000-00-00':this.driverDetails[0]['badge_issue_date'];
+        let badge_expire_date = this.driverDetails[0]['badge_expire_date']== null ? '0000-00-00':this.driverDetails[0]['badge_expire_date'];
         let shift_start_time= this.driverDetails[0]['shift_start_time']  ;
         let shift_end_time = this.driverDetails[0]['shift_end_time'];
-        let training_date =  this.driverDetails[0]['training_date'];
+        let training_date =  this.driverDetails[0]['training_date']== null ? '0000-00-00':this.driverDetails[0]['training_date'];
         console.log(training_date);
         let splitStartTime= shift_start_time == null ? null: shift_start_time.split(':').map(parseFloat);
         let splitEndTime= shift_end_time== null ? null : shift_end_time.split(':').map(parseFloat);
@@ -118,9 +118,9 @@ export class DriverBusinessComponent implements OnInit {
           licence_validity:  licence_validity == null ? null :  new Date(licence_validity),
           date_of_registration:  date_of_registration == null ? null :  new Date(date_of_registration),
           badge_number: this.driverDetails[0]['badge_number'],
-          badge_issue_date:  badge_issue_date == null ? null :  new Date(badge_issue_date),
-          badge_expire_date:  badge_expire_date == null ? null :  new Date(badge_expire_date),
-          training_date:  training_date == null ? null :  new Date(training_date),
+          badge_issue_date:  badge_issue_date == '0000-00-00' ? null :  new Date(badge_issue_date),
+          badge_expire_date:  badge_expire_date == '0000-00-00' ? null :  new Date(badge_expire_date),
+          training_date:  training_date == '0000-00-00' ? null :  new Date(training_date),
           bank_name: this.driverDetails[0]['bank_name'],
           bank_no: this.driverDetails[0]['bank_no'],
           ifsc_code: this.driverDetails[0]['ifsc_code'],
@@ -231,7 +231,7 @@ export class DriverBusinessComponent implements OnInit {
 
   getFormattedDate(date) {
     //if (Object.prototype.toString.call(date) === "[object Date]") {
-      if (date === null || date === 0 || date === '0000-00-00') {
+      if (date === null || date === 0 || date === '0000-00-00'   || date === 'Invalid Date') {
       return null;
     }
     return date;
@@ -285,6 +285,8 @@ export class DriverBusinessComponent implements OnInit {
         else
         {
           this.toastr.success('Success', 'Driver business details updated successfully');
+          this.router.navigate(['/driver-document', { 'resource_id': this.resource_id, 'resource_type': 'drivers',
+         'is_renewal': this.is_renewal }]); 
         }
         // if(!this.is_next){
         // this.toastr.success('Success', 'Driver Business Details updated successfully');

@@ -122,7 +122,7 @@
                 <div class="form-group form-group-custom mb-0">
                   <div class="input-group input-group-custom">
                     <input type="text" readonly class="form-control date_form_control" formControlName="training_date"
-                      placeholder="Date Of Training *" name="dp" ngbDatepicker #training_date="ngbDatepicker"
+                      placeholder="Date Of Training " name="dp" ngbDatepicker #training_date="ngbDatepicker"
                       id="training_date" [disabled]="isEditModeOn?false:true" [(ngModel)]="training_date_model" [placement]="'bottom-left'"
                       value="{{getFormattedDate(training_date_model)|date: serverDateFormat}}">
                     <div class="input-group-append">

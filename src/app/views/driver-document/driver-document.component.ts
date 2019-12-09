@@ -61,7 +61,7 @@ export class DriverDocumentComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      verified_by_police: ['',Validators.required],
+      verified_by_police: ['', Validators.required],
       police_verification_vailidty: ['', Validators.required],
       date_of_police_verification: ['', Validators.required],
       criminal_offence: ['', ''],
@@ -87,26 +87,25 @@ export class DriverDocumentComponent implements OnInit {
         this.driverDetails = details['data']['user_detail'];
         let pdfsDocs = details['data']['doc_list'];
         this.pdfs = pdfsDocs.filter(item => item.doc_url != null);
-        console.log(this.pdfs);
 
-        let police_verification_vailidty = this.driverDetails[0]['police_verification_vailidty'];
-        let date_of_police_verification = this.driverDetails[0]['date_of_police_verification'];
-        let bgc_date = this.driverDetails[0]['bgc_date'];
-        let medically_certified_date = this.driverDetails[0]['medically_certified_date'];
-
+        let police_verification_vailidty = this.driverDetails[0]['police_verification_vailidty'] == null ? '0000-00-00' : this.driverDetails[0]['police_verification_vailidty'];
+        let date_of_police_verification = this.driverDetails[0]['date_of_police_verification'] == null ? '0000-00-00' : this.driverDetails[0]['date_of_police_verification'];
+        let bgc_date = this.driverDetails[0]['bgc_date'] == null ? '0000-00-00':this.driverDetails[0]['bgc_date'];
+        let medically_certified_date = this.driverDetails[0]['medically_certified_date'] == null ? '0000-00-00':this.driverDetails[0]['medically_certified_date'];
         this.form.patchValue({
           verified_by_police: this.driverDetails[0]['verified_by_police'],
-          police_verification_vailidty:police_verification_vailidty == null ? null :  new Date(police_verification_vailidty),
-          date_of_police_verification: date_of_police_verification == null ? null :  new Date(date_of_police_verification),
+          police_verification_vailidty:police_verification_vailidty == '0000-00-00' ? null :  new Date(police_verification_vailidty),
+          date_of_police_verification: date_of_police_verification == '0000-00-00' ? null :  new Date(date_of_police_verification),
           criminal_offence: this.driverDetails[0]['criminal_offence'],
-          bgc_date: bgc_date == null ? null :  new Date(bgc_date),
+          bgc_date: bgc_date == '0000-00-00' ? null :  new Date(bgc_date),
           bgc_agency_id: this.driverDetails[0]['bgc_agency_id'],
-          medically_certified_date:medically_certified_date == null ? null :  new Date(medically_certified_date),
+          medically_certified_date: medically_certified_date == '0000-00-00' ? null :  new Date(medically_certified_date),
           sexual_policy: this.driverDetails[0]['sexual_policy'],
           induction_status: this.driverDetails[0]['induction_status'],
           comment: this.driverDetails[0]['comment'],
           
         });
+        console.log(this.form.controls.medically_certified_date.value);
       }
       else {
         this.toastr.error('Error', AppConst.SOMETHING_WENT_WRONG);
@@ -201,6 +200,7 @@ export class DriverDocumentComponent implements OnInit {
         induction_status: 'Rejected'
       });
       if (this.form.controls.comment.value == 'null') {
+        alert(this.form.controls.comment.value);
         this.toastr.error('Error', 'Select Rejection Reason');
         return false;
       }
@@ -215,7 +215,7 @@ export class DriverDocumentComponent implements OnInit {
   }
   getFormattedDate(date) {
     //if (Object.prototype.toString.call(date) === "[object Date]") {
-      if (date === null || date === 0 || date === '0000-00-00') {
+      if (date === null || date === 0 || date === '0000-00-00' || date === 'Invalid Date') {
       return null;
     }
     return date;
