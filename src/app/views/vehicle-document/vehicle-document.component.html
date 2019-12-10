@@ -311,7 +311,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body position-relative" style="height:490px;overflow: auto;"  *ngIf="pdfs.length > 0">
+        <div class="card-body position-relative"  *ngIf="pdfs.length > 0">
           <p class="tit_verDocName">{{pdfs[selectedPage].doc_display_name}}</p>
           <div class="pdf_zoom">
             <button ion-button (click)="incrementZoom(-0.1)">
