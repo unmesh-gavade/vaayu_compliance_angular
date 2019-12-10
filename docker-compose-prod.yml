@@ -1,0 +1,9 @@
+version: '3'
+services:
+    vaayu_compliance_angular:
+        build:
+            context: "."
+            dockerfile: "Dockerfile_prod"
+        ports:
+            - '80:80'
+        restart: on-failure
