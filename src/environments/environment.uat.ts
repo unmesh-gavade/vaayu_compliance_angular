@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   environmentName: 'uat',
-   name: "uat",
-  apiUrl:"ajay.uat.com"
+  serverUrl: "http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com/induction/",
+  loginUrl: "http://ec2-13-233-214-215.ap-south-1.compute.amazonaws.com"
 };

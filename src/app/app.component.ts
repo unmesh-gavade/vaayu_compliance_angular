@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from './services/common.service';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import { environment } from './../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -17,9 +17,6 @@ export class AppComponent implements OnInit {
   title = 'blogger';
 
   constructor(public commonService:CommonService,  private calendar: NgbCalendar) {
-
-    console.log("environmentName ====",environment.environmentName);
-  
   }
 
   
